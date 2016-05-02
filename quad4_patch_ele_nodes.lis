@@ -1,0 +1,10 @@
+
+ LIST ALL SELECTED ELEMENTS.  (LIST NODES)
+ 
+    ELEM MAT TYP REL ESY SEC        NODES
+ 
+       1   1   1   1   0   1      1     2     5     4
+       2   1   1   1   0   1      2     3     6     5
+       3   1   1   1   0   1      4     5     8     7
+       4   1   1   1   0   1      5     6     9     8
+
