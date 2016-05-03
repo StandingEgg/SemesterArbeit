@@ -138,11 +138,7 @@ Due to the higher flexibility of triangles and tetrahedra for meshing complex ge
 
 \section{Non- linear Element Formulation}
 \subsection{Discretization of the Displacement Field}
-After meshing of the geometry, displacement field $u$ can be discretized by inserting shape function $N$. Firstly, we introduce the nodal displacement $d^e$ to save displacements at each node of the considered element for each spatial direction.
-\begin{equation}
-
-\end{equation}
-In elastic materials, through the elastic constitutive equations can be derived that stresses $\sigma$ are directly related to strains $\varepsilon$ at each point:
+After meshing of the geometry, displacement field $u$ can be discretized by inserting shape function $N$. Firstly, we introduce the nodal displacement $d^e$ to save displacements at each node of the considered element for each spatial direction. In elastic materials, through the elastic constitutive equations can be derived that stresses $\sigma$ are directly related to strains $\varepsilon$ at each point:
 \begin{equation}
 \sigma = E\varepsilon
 \end{equation}
@@ -166,7 +162,7 @@ In the applications it is of interest to evaluate and report these stresses at t
 It is important to realize that the stresses computed at the same nodal point from adjacent elements will not generally be the same, since stresses are not required to be continuous in displacement- assumed finite elements. This suggests some form of stress averaging can be used to improve the stress accuracy, and indeed this is part of the stress recovery technique further. The results from this averaging procedure are called nodal point stresses.
 
 
-\section{Gauss integration}
+\section{Gauss Integration}
 \paragraph{}
 Numerical integration plays a role in finite element. Gauss integration, as a very efficient approach compared to other numerical integration, integrate a function $f(\xi)$ on the spatial domain $\Omega$ is replaced by a summation of certain function values at the so-called Gauss points $\tilde{\xi}$ which are each multiplied by a scalar (weight) $\omega$. In total $numgp_1$ $\times$ $numggp_2$ $\times$ $numgp_3$ Gauss points are used:
 
@@ -287,7 +283,7 @@ N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
 \end{equation}
 
 
-\subsection{Quadrangle with quadratic shape function and  eight nodes: Quad8}
+\subsection{Quad8}
 
 The Nine-Node biquadratic quadrilateral has three types of shape functions, which are associated with corner nodes, midside nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
 The lines whose product is used to construct three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The technique has been sufficiently illustrated in previous examples. Here the summary of calculation for nodes 1, 5 and 9, which are taken as representatives of the three types: The three types of shape function are represented in Figure \ref{fig: Quad8_2}.
@@ -366,7 +362,7 @@ N_9 = \left(1 + \xi \right) \left( 1 - \xi \right)  \left( 1 + \eta \right) \lef
 	\end{center} 
 \end{figure}
 
-\subsection{Triangle with three nodes: Tri3}
+\subsection{Tri3}
 The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane \\
 
 The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: \\
@@ -414,7 +410,7 @@ N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
 	\end{center} 
 \end{figure}
 
-\subsection{Second order triangle with six nodes: Tri6}
+\subsection{Tri6}
 The geometry of the six-node quadratic is shown in Figure XXX. Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures XXX for corner node 1 and midside node 4, respectively. \\
 For corner node 1, inspection of Figure \ref{fig: Tri6_2} at top left side suggests trying
 \begin{equation}
@@ -467,7 +463,7 @@ The rest shape function can be calculated by using same approach.
 \end{figure}
 
 
-\subsection{Tetraeder element with four nodes: Tet4}
+\subsection{Tet4}
 
 \begin{figure}[h]
 	\begin{center}
@@ -500,7 +496,7 @@ The rest shape function can be calculated by using same approach.
 
 
 
-\section{Coordinate Transformations}
+\section{Transformations of Triangular Coordinate}
 Quantities that are closely linked with the element geometry are best expressed in triangular co- ordinates. On the other hand, quantities such as displacements, strains and stresses are usually expressed in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other.
 Cartesian and triangular coordinates are linked by the relation.
 
@@ -553,6 +549,8 @@ y \\
 
 \end{bmatrix}
 \end{equation}
+
+\section{Output of Strain and Stress}
 \cite[p. 18]{bibid}
 
 
