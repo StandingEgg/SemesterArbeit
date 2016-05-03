@@ -1,0 +1,26 @@
+
+ PRINT EPTO NODAL SOLUTION PER NODE
+ 
+  ***** POST1 NODAL TOTAL STRAIN LISTING *****                                 
+  PowerGraphics Is Currently Enabled                                           
+ 
+  LOAD STEP=     1  SUBSTEP=     1                                             
+   TIME=    1.0000      LOAD CASE=   0                                         
+  NODAL RESULTS ARE FOR MATERIAL   1                                           
+ 
+  THE FOLLOWING X,Y,Z VALUES ARE IN GLOBAL COORDINATES                         
+ 
+    NODE    EPTOX       EPTOY       EPTOZ       EPTOXY      EPTOYZ      EPTOXZ  
+       1  0.20000E-02 0.50000E-03  0.0000    -0.10000E-02  0.0000      0.0000    
+       2  0.20000E-02-0.50000E-03  0.0000    -0.10000E-02  0.0000      0.0000    
+       4  0.20000E-02-0.50000E-03  0.0000     0.10000E-02  0.0000      0.0000    
+       6  0.20000E-02 0.50000E-03  0.0000     0.10000E-02  0.0000      0.0000    
+
+ MINIMUM VALUES
+ NODE          1           2           1           1           1           1
+ VALUE   0.20000E-02-0.50000E-03  0.0000    -0.10000E-02  0.0000      0.0000    
+
+ MAXIMUM VALUES
+ NODE          1           1           1           4           1           1
+ VALUE   0.20000E-02 0.50000E-03  0.0000     0.10000E-02  0.0000      0.0000    
+
