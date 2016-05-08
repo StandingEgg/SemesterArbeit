@@ -1,0 +1,28 @@
+\BOOKMARK [0][-]{chapter.5}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.6}{Motivation}{chapter.5}% 2
+\BOOKMARK [1][-]{section.8}{Structure of Study}{chapter.5}% 3
+\BOOKMARK [0][-]{chapter.11}{Calculation of Element Strains and Stresses}{}% 4
+\BOOKMARK [1][-]{section.12}{Pre-Processing}{chapter.11}% 5
+\BOOKMARK [1][-]{section.16}{Shape Function}{chapter.11}% 6
+\BOOKMARK [2][-]{subsection.17}{Quadrilateral Elements}{section.16}% 7
+\BOOKMARK [2][-]{subsection.19}{Triangular and Tetrahedral Elements}{section.16}% 8
+\BOOKMARK [1][-]{section.21}{Non- linear Element Formulation}{chapter.11}% 9
+\BOOKMARK [2][-]{subsection.22}{Discretization of the Displacement Field}{section.21}% 10
+\BOOKMARK [1][-]{section.27}{Gauss integration}{chapter.11}% 11
+\BOOKMARK [1][-]{section.31}{Extrapolation from Gauss Points}{chapter.11}% 12
+\BOOKMARK [2][-]{subsection.32}{Quad4}{section.31}% 13
+\BOOKMARK [2][-]{subsection.45}{Quadrangle with quadratic shape function and eight nodes: Quad8}{section.31}% 14
+\BOOKMARK [2][-]{subsection.60}{Triangle with three nodes: Tri3}{section.31}% 15
+\BOOKMARK [2][-]{subsection.66}{Second order triangle with six nodes: Tri6}{section.31}% 16
+\BOOKMARK [2][-]{subsection.75}{Tetraeder element with four nodes: Tet4}{section.31}% 17
+\BOOKMARK [1][-]{section.78}{Coordinate Transformations}{chapter.11}% 18
+\BOOKMARK [1][-]{section.81}{Formulation of strain and stress}{chapter.11}% 19
+\BOOKMARK [0][-]{chapter.101}{Calculation of Element Strains and Stresses}{}% 20
+\BOOKMARK [1][-]{section.102}{Shape Function}{chapter.101}% 21
+\BOOKMARK [2][-]{subsection.103}{Quadrilateral Elements}{section.102}% 22
+\BOOKMARK [2][-]{subsection.104}{Triangular and Tetrahedral Elements}{section.102}% 23
+\BOOKMARK [0][-]{chapter.105}{Bestimmung des optimalen Tunings k}{}% 24
+\BOOKMARK [0][-]{chapter.106}{Zusammenfassung und Ausblick}{}% 25
+\BOOKMARK [0][-]{chapter*.107}{Averaging-Methode}{}% 26
+\BOOKMARK [0][-]{chapter*.112}{Rotationspendel}{}% 27
+\BOOKMARK [0][-]{chapter*.112}{References}{}% 28
