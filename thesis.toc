@@ -4,29 +4,30 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.5}
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.6}
 \contentsline {section}{\numberline {1.2}Structure of Study}{2}{section.8}
-\contentsline {chapter}{\numberline {2}Calculation of Element Strains and Stresses}{5}{chapter.11}
-\contentsline {section}{\numberline {2.1}Pre-Processing}{5}{section.12}
-\contentsline {section}{\numberline {2.2}Shape Function}{7}{section.16}
-\contentsline {subsection}{\numberline {2.2.1}Quadrilateral Elements}{7}{subsection.17}
-\contentsline {subsection}{\numberline {2.2.2}Triangular and Tetrahedral Elements}{8}{subsection.19}
-\contentsline {section}{\numberline {2.3}Non- linear Element Formulation}{8}{section.21}
-\contentsline {subsection}{\numberline {2.3.1}Discretization of the Displacement Field}{8}{subsection.22}
-\contentsline {section}{\numberline {2.4}Gauss integration}{9}{section.27}
-\contentsline {paragraph}{}{9}{paragraph*.28}
-\contentsline {section}{\numberline {2.5}Extrapolation from Gauss Points}{10}{section.31}
-\contentsline {subsection}{\numberline {2.5.1}Quad4}{10}{subsection.32}
-\contentsline {subsection}{\numberline {2.5.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{12}{subsection.45}
-\contentsline {subsection}{\numberline {2.5.3}Triangle with three nodes: Tri3}{13}{subsection.60}
-\contentsline {subsection}{\numberline {2.5.4}Second order triangle with six nodes: Tri6}{14}{subsection.66}
-\contentsline {subsection}{\numberline {2.5.5}Tetraeder element with four nodes: Tet4}{16}{subsection.75}
-\contentsline {section}{\numberline {2.6}Coordinate Transformations}{16}{section.78}
-\contentsline {section}{\numberline {2.7}Formulation of strain and stress}{16}{section.81}
-\contentsline {chapter}{\numberline {3}Calculation of Element Strains and Stresses}{23}{chapter.101}
-\contentsline {section}{\numberline {3.1}Shape Function}{23}{section.102}
-\contentsline {subsection}{\numberline {3.1.1}Quadrilateral Elements}{23}{subsection.103}
-\contentsline {subsection}{\numberline {3.1.2}Triangular and Tetrahedral Elements}{23}{subsection.104}
-\contentsline {chapter}{\numberline {4}Bestimmung des optimalen Tunings $k$}{25}{chapter.105}
-\contentsline {chapter}{\numberline {5}Zusammenfassung und Ausblick}{27}{chapter.106}
-\contentsline {chapter}{Averaging-Methode}{29}{chapter*.107}
-\contentsline {chapter}{Rotationspendel}{31}{chapter*.112}
-\contentsline {chapter}{References}{32}{chapter*.112}
+\contentsline {chapter}{\numberline {2}Numerical Aspect for Finite Element Formulation}{5}{chapter.11}
+\contentsline {section}{\numberline {2.1}Shape Function}{5}{section.12}
+\contentsline {subsection}{\numberline {2.1.1}Quadrilateral Elements}{5}{subsection.13}
+\contentsline {subsection}{\numberline {2.1.2}Triangular and Tetrahedral Elements}{6}{subsection.15}
+\contentsline {section}{\numberline {2.2}Non- linear Element Formulation}{6}{section.17}
+\contentsline {subsection}{\numberline {2.2.1}Discretization of the Displacement Field}{7}{subsection.18}
+\contentsline {section}{\numberline {2.3}Gauss integration}{8}{section.23}
+\contentsline {paragraph}{}{8}{paragraph*.24}
+\contentsline {section}{\numberline {2.4}Extrapolation from Gauss Points}{8}{section.27}
+\contentsline {subsection}{\numberline {2.4.1}Quad4}{8}{subsection.28}
+\contentsline {subsection}{\numberline {2.4.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{11}{subsection.41}
+\contentsline {subsection}{\numberline {2.4.3}Triangle with three nodes: Tri3}{12}{subsection.56}
+\contentsline {subsection}{\numberline {2.4.4}Second order triangle with six nodes: Tri6}{13}{subsection.62}
+\contentsline {subsection}{\numberline {2.4.5}Tetraeder element with four nodes: Tet4}{14}{subsection.71}
+\contentsline {section}{\numberline {2.5}Coordinate Transformations}{15}{section.74}
+\contentsline {section}{\numberline {2.6}Non-linear Formulation of Strain and Stress}{15}{section.77}
+\contentsline {subsection}{\numberline {2.6.1}Gauss Integration}{21}{subsection.104}
+\contentsline {chapter}{\numberline {3}Programming Implementation}{23}{chapter.107}
+\contentsline {section}{\numberline {3.1}Pre-Processing}{23}{section.108}
+\contentsline {chapter}{\numberline {4}Calculation of Element Strains and Stresses}{27}{chapter.112}
+\contentsline {section}{\numberline {4.1}Shape Function}{27}{section.113}
+\contentsline {subsection}{\numberline {4.1.1}Quadrilateral Elements}{27}{subsection.114}
+\contentsline {subsection}{\numberline {4.1.2}Triangular and Tetrahedral Elements}{27}{subsection.115}
+\contentsline {chapter}{\numberline {5}Bestimmung des optimalen Tunings $k$}{29}{chapter.116}
+\contentsline {chapter}{\numberline {6}Zusammenfassung und Ausblick}{31}{chapter.117}
+\contentsline {chapter}{Averaging-Methode}{33}{chapter*.118}
+\contentsline {chapter}{Rotationspendel}{35}{chapter*.123}
