@@ -3,14 +3,13 @@
 \select@language {english}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Gauss-Legendre points and weights\relax }}{9}{table.caption.26}
-\contentsline {table}{\numberline {2.2}{\ignorespaces Natural Coordinate of Quad4\relax }}{9}{table.caption.32}
-\contentsline {table}{\numberline {2.3}{\ignorespaces Natural Coordinate of Tri3\relax }}{15}{table.caption.60}
-\contentsline {table}{\numberline {2.4}{\ignorespaces Tetrahedral Coordinate of Tet4\relax }}{20}{table.caption.73}
-\contentsline {table}{\numberline {2.5}{\ignorespaces Gauss-Legendre points and weights\relax }}{22}{table.caption.106}
+\contentsline {table}{\numberline {2.1}{\ignorespaces Gauss-Legendre points and weights\relax }}{13}{table.caption.52}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Natural Coordinate of Quad4\relax }}{13}{table.caption.58}
+\contentsline {table}{\numberline {2.3}{\ignorespaces Natural Coordinate of Tri3\relax }}{20}{table.caption.90}
+\contentsline {table}{\numberline {2.4}{\ignorespaces Tetrahedral Coordinate of Tet4\relax }}{23}{table.caption.103}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Node list exported from ANSYS\relax }}{24}{table.caption.110}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Element list exported from ANSYS\relax }}{24}{table.caption.111}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Node list exported from ANSYS\relax }}{26}{table.caption.110}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Element list exported from ANSYS\relax }}{26}{table.caption.111}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

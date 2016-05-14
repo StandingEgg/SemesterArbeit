@@ -108,395 +108,6 @@ where $B$ is the strain-displacement matrix assembled with the x and y derivativ
 In the applications it is of interest to evaluate and report these stresses at the element nodal points located on the corners and possibly midpoints of the element. These are called element nodal point stresses.
 It is important to realize that the stresses computed at the same nodal point from adjacent elements will not generally be the same, since stresses are not required to be continuous in displacement- assumed finite elements. This suggests some form of stress averaging can be used to improve the stress accuracy, and indeed this is part of the stress recovery technique further. The results from this averaging procedure are called nodal point stresses.
 
-
-\section{Gauss integration}
-\paragraph{}
-Numerical integration plays a role in finite element. Gauss integration, as a very efficient approach compared to other numerical integration, integrate a function $f(\xi)$ on the spatial domain $\Omega$ is replaced by a summation of certain function values at the so-called Gauss points $\tilde{\xi}$ which are each multiplied by a scalar (weight) $\omega$. In total $numgp_1$ $\times$ $numggp_2$ $\times$ $numgp_3$ Gauss points are used:
-
-\begin{equation}
-\iiint \limits_E f\left(\xi\right) \mathrm{d\xi_1}\mathrm{d\xi_2}\mathrm{d\xi_3} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\xi_1^i}\tilde{\xi_2^j}\tilde{\xi_3^k}\right)\cdot w_1^i w_2^j w_3^k 
-\end{equation}
-In which we used corresponding weights for each of the three spatial directions. This allows to use Gauss points coordinates and weights tabulated for the one-dimensional case.
-
-The location and weights of these points can be given analytically in Table \ref{tab: Gauss table}.
-
-\begin{table}
-	\begin{center}
-		\caption{Gauss-Legendre points and weights}\label{tab: Gauss table}
-		\begin{tabular}{cccc}
-			$numgp$         & i & $\tilde{\xi^i}$ & $\omega^i$  \\ \hline
-			1                           &1& 0 & 2   \\ \hline
-			\multirow{2}{*}{2} &1& $-1/\sqrt{3}$ & 1   \\
-			&2& $+1/\sqrt{3}$ & 1   \\ \hline
-			\multirow{3}{*}{3} &1& $-\sqrt{3/5}$ &5/9 \\
-			&2& 0                &8/9 \\
-			&3& $+\sqrt{3/5}$ &5/9 \\ \hline
-			\multirow{4}{*}{4}&1& $-\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right/36)$ \\
-			&2& $-\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right/36)$ \\
-			&3& $+\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right/36)$ \\
-			&4& $+\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right/36)$ \\ \hline
-			\multirow{5}{*}{5}&1& $-1/3\sqrt{5+2\sqrt{10/7}}$ & $\left(332-13\sqrt{70}\right)/900$ \\
-			&2& $-1/3\sqrt{5-2\sqrt{10/7}}$ & $\left(332+13\sqrt{70}\right)/900$ \\
-			&3& 0 & 128/255 \\
-			&4& $+1/3\sqrt{5-2\sqrt{10/7}}$ & $\left(332+13\sqrt{70}\right)/900$ \\
-			&5& $+1/3\sqrt{5+2\sqrt{10/7}}$ & $\left(332-13\sqrt{70}\right)/900$ \\ \hline
-		\end{tabular}
-	\end{center}
-	
-\end{table}
-
-\section{Extrapolation from Gauss Points}
-\subsection{Quad4}
-This will be explained for the four-node bilinear quadrilateral. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as illustrated in Figure \ref{fig: Quad4_1}. The stresses are calculated at the Gauss points, which are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$ so it is seen that Gauss point numbering essentially follows element node numbering in the counterclockwise sense. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The stresses are evaluated at these Gauss points by passing these natural coordinates to the shape function subroutine. Then each stress component is “carried” to the corner nodes $k_1^E$ through $k_4^E$ through a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly it is convenient to consider the region bounded by the Gauss points as an “internal element” or “Gauss element”. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. Its quadrilateral (natural) coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  These are linked to $\xi^{\prime}$ and $\eta^{\prime}$ by the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
-\begin{equation}
-k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
-k_i^E= k_i^G\sqrt{3}
-\end{equation}
-
-
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Quad4_1.pdf}			
-		\caption{Quad4 in element coordinate and Gauss element coordinate.}	\label{fig: Quad4_1}
-	\end{center} 
-\end{figure}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Quad4_2.pdf}			
-		\caption{Equation of side opposite corner 1 for Quad4.} \label{fig: Quad4_2}
-	\end{center} 
-\end{figure}
-
-\begin{table}
-	\centering
-	\caption{Natural Coordinate of Quad4}
-	\label{tab: Quad4}
-	\begin{tabular}{p{1cm}ccccp{1cm}cccc}			
-		\hline
-		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
-		\hline
-		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& 1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
-		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& -1 \\
-		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& +1\\
-		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$\sqrt{3}$& 1/$\sqrt{3}$& -1& +1\\
-		\hline
-	\end{tabular}
-\end{table}		
-
-
-The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_1}. Only one type of node (corner)  and associated shape function is present. Consider node 1 as typical. Inspection of Figure \ref{fig: Quad4_2} suggests trying
-
-\begin{equation} \label{eq: Quad4_1}
-N_1^e = c_1L_{2-3}L_{3-4}
-\end{equation}
-This plainly vanishes over nodes 2, 3 and 4, and can be normalized to unity at node 1 by adjusting $c_1$. By construction it vanishes over the sides 2-3 and 3-4 that do not belong to 1. The equation of side 2-3 is $\xi = 1$, or $\xi - 1 = 0$. The equation of side 3-4 is $\eta = 1$, or $\eta - 1 = 0$. Replacing in Equation (\ref{eq: Quad4_1}) yields
-
-\begin{equation}
-N_1^e\left(\xi, \eta\right) = c_1 \left( \xi -1 \right) \left( \eta - 1\right) = c_1 \left(1 - \xi\right) \left( 1 - \eta \right)
-\end{equation}
-To find $c_1$, evaluate at node 1, the natural coordinates of which are $\xi = \eta = -1$:
-
-\begin{equation}
-N_1^e \left(-1, -1 \right) = c_1 \times 2 \times 2 = 4c_1 = 1
-\end{equation}
-
-Hence $c_1 = \frac{1}{4}$ and the shape functions is
-
-\begin{equation}
-N_1^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 - \eta\right)
-\end{equation}
-
-For the other three nodes the procedure is the same, traversing the element cyclically. It can be verified that the general expression of the shape functions for this element is 
-
-\begin{equation}
-N_i^e = \frac{1}{4} \left( 1 + \xi_i \xi\right) \left(1 + \left(\eta_i \eta\right)\right)
-\end{equation}
-
-Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as
-
-\begin{equation}
-N_2^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 - \eta\right)
-\end{equation}
-
-\begin{equation}
-N_3^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 + \eta\right)
-\end{equation}
-
-\begin{equation}
-N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
-\end{equation}
-
-
-\subsection{Quadrangle with quadratic shape function and  eight nodes: Quad8}
-
-The Nine-Node biquadratic quadrilateral has three types of shape functions, which are associated with corner nodes, midside nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
-The lines whose product is used to construct three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The technique has been sufficiently illustrated in previous examples. Here the summary of calculation for nodes 1, 5 and 9, which are taken as representatives of the three types: The three types of shape function are represented in Figure \ref{fig: Quad8_2}.
-
-\begin{equation} \label{eq: Quad8_1}
-N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
-\end{equation}
-
-\begin{equation} \label{eq: Quad8_2}
-N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi +1\right) \eta \left( \eta -1\right) = c_5 \left(1-\xi^2\right) \eta \left(1 - \eta\right)
-\end{equation}
-
-\begin{equation} \label{eq: Quad8_3}
-N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
-\end{equation}
-
-Imposing the normalization conditions the results are 
-
-\begin{center}
-	$c_1 = \frac{1}{4}$, \quad $c_5 = -\frac{1}{2}$, $c_9 = 1$
-\end{center}
-
-By following this approach all the shape functions can be calculated
-
-\begin{equation}
-N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_2 = \frac{1}{4} \left(\xi + 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_3 = \frac{1}{4} \left(\xi + 1\right) \left( \eta + 1 \right) \cdot\xi \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_4 = \frac{1}{4} \left(\xi - 1\right) \left( \eta + 1 \right) \cdot\xi \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_5 = \frac{1}{2} \left(1 + \xi \right) \left( 1 + \xi \right)  \left( \eta - 1\right) \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_6 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi + 1\right) \cdot\xi
-\end{equation}
-
-\begin{equation}
-N_7 = \frac{1}{2} \left(1 + \xi \right) \left( 1 + \xi \right)  \left( \eta + 1\right) \cdot\eta
-\end{equation}
-
-\begin{equation}
-N_8 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi - 1\right) \cdot\xi
-\end{equation}
-
-\begin{equation}
-N_9 = \left(1 + \xi \right) \left( 1 - \xi \right)  \left( 1 + \eta \right) \left(1 - \eta \right)
-\end{equation}
-
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=10cm,clip]{Quad8_1.pdf}			
-		\caption{Quad8 in element coordinate and Gauss element coordinate.} \label{fig: Quad8_1}
-	\end{center} 
-\end{figure}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=6cm,clip]{Quad8_2.pdf} 
-		\includegraphics[width=6cm,clip]{Quad8_3.pdf}	
-		\includegraphics[width=6cm,clip]{Quad8_4.pdf}
-		\caption{Equation of side opposite corner 1 for Quad8.} \label{fig: Quad8_2}	
-	\end{center} 
-\end{figure}
-
-\subsection{Triangle with three nodes: Tri3}
-The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane \\
-
-The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: \\
-
-The equation of the triangle side opposite to node $i$ is $L_{j-k} = \xi_i = 0$, where $j$ and $k$ are the cyclic permutations of $i$. Here symbol $L_{j-k}$ denotes the left hand side of the homogeneous equation of the natural coordinate line that passes through node points $j$ and $k$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious suppose is:
-\begin{equation}
-N_i^e = c_iL_i
-\end{equation}
-To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The triangular coordinates of this node are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. so $c_1 = 1$ and analogically $c_2 = 1$, $c_3 = 1$
-
-\begin{equation}
-N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
-\end{equation}
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Tri3_1.pdf}			
-		\caption{Tri3 in element coordinate and Gauss element coordinate.} \label{fig: Tri3_1}
-	\end{center} 
-\end{figure}
-
-\begin{table}
-	\centering
-	\caption{Natural Coordinate of Tri3} \label{tab: Tri3}
-	\begin{tabular}{p{1cm}ccccp{1cm}cccc}	
-		
-		\hline
-		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
-		\hline
-		1\centering& -1& -1& -5/3& -5/3& 1'\centering& -2/3& -2/3& -1& -1 \\
-		2\centering& +1& -1& +7/3& -5/3& 2'\centering&+1/3 & -2/3& +1& -1 \\
-		3\centering& -1& +1& -5/3& +7/3& 3'\centering& -2/3& +1/3& -1& +1\\
-		\hline
-		
-	\end{tabular}
-\end{table}			
-
-
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=6cm,clip]{Tri3_2.pdf}			
-		\caption{Equation of side opposite corner 1 for Tri3.} \label{fig: Tri3_2}
-	\end{center} 
-\end{figure}
-
-\subsection{Second order triangle with six nodes: Tri6}
-The geometry of the six-node quadratic is shown in Figure XXX. Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures XXX for corner node 1 and midside node 4, respectively. \\
-For corner node 1, inspection of Figure \ref{fig: Tri6_2} at top left side suggests trying
-\begin{equation}
-N_1^e = c_1L_{2-3}L_{4-6}
-\end{equation}
-$N_1^e$ will vanish over 2-5-3 and 4-6. This makes the function zero at node 2,3,4,5,6, as is obvious upon inspection of Figure XXX, while being nonzero at 1. The value can be adjusted to be unity if $c_1$ is appropriately chosen. The equations of the lines that appear (XXX equation upper) are
-\begin{equation}
-L_{2-3}: \xi_1 = 0, \quad L_{4-6}: \xi_1 - \frac{1}{2} = 0
-\end{equation}
-Replacing into (eq upper upper)
-
-\begin{equation}
-N_1^e = c_1\xi_1 \left(\xi_1 - \frac{1}{2}\right)
-\end{equation}
-Same as triangle with three nodes, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then $c_1 = 2$ can be calculated and finally 
-
-\begin{equation}
-N_1^e = 2\xi_1\left(\xi_1 - \frac{1}{2}\right) = \xi_1 \left(2 \xi_1 -1 \right)
-\end{equation} 
-
-For midside node 4, inspection of Figure XXX suggests trying
-
-\begin{equation}
-N_4^e = c_4L_{2-3}L_{1-3}
-\end{equation}
-The equation of sides $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. To find $c_4$, evaluate this function at node 4, the triangular coordinates of which are $\xi_1 = \xi_2 = \frac{1}{2}$,$\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$, which the shape function gives
-
-\begin{equation}
-N_4^e = 4\xi_1\xi_2
-\end{equation}
-The rest shape function can be calculated by using same approach. 
-\begin{center}
-	
-\end{center}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Tri6_1.pdf} 		
-		\caption{Tri6 in element coordinate and Gauss element coordinate.} \label{fig: Tri6_1}	
-	\end{center} 
-\end{figure}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=6cm,clip]{Tri6_2.pdf}		
-		\includegraphics[width=6cm,clip]{Tri6_3.pdf}		
-		\caption{Equation of side opposite corner 1 for Tri6.} \label{fig: Tri6_2}
-		
-	\end{center} 
-\end{figure}
-
-
-\subsection{Tetraeder element with four nodes: Tet4}
-
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Tet4_1.pdf}			
-		\caption{Tri4 in element coordinate and Gauss element coordinate.}
-	\end{center} 
-\end{figure}
-
-\begin{table}
-	\centering
-	\caption{Tetrahedral Coordinate of Tet4}
-	\begin{tabular}{ccccccccc}			
-		\hline
-		Corner node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4'\\ \hline
-		1\centering& 1& 0& 0& 0& $\alpha$& $\beta$& $\beta$& $\beta$\\
-		2\centering& 0& 1& 0& 0& $\beta$& $\alpha$& $\beta$& $\beta$\\
-		3\centering& 0& 0& 1& 0& $\beta$& $\beta$& $\alpha$& $\beta$\\
-		4\centering& 0& 0& 0& 1& $\beta$& $\beta$& $\beta$& $\alpha$\\
-		\hline
-		Gauss node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4' \\ \hline
-		1'\centering& $\alpha$& $\beta$& $\beta$& $\beta$& 1& 0& 0& 0  \\
-		2'\centering&$\beta$ & $\alpha$& $\beta$& $\beta$& 0& 1& 0& 0 \\
-		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 0& 1\\
-		4'\centering& $\beta$& $\beta$& $\beta$& $\alpha$& 0& 0& 0& 1\\
-		\hline
-		$\alpha$ = 0.58541020; $\beta$ = 0.13819660&&&&&&&&\\
-		\hline 		    
-	\end{tabular}	
-\end{table}		
-
-
-
-\section{Coordinate Transformations}
-Quantities that are closely linked with the element geometry are best expressed in triangular co- ordinates. On the other hand, quantities such as displacements, strains and stresses are usually expressed in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other.
-Cartesian and triangular coordinates are linked by the relation.
-
-\begin{equation}
-\begin{bmatrix}
-1 \\
-x \\
-y \\
-\end{bmatrix}
-= 
-\begin{bmatrix}
-1&1&1 \\
-x_1&x_2&x_2 \\
-y_1&y_2&y_2 \\
-\end{bmatrix}
-\begin{bmatrix}
-\xi_1 \\
-\xi_2 \\
-\xi_3 \\
-\end{bmatrix}
-\end{equation}
-
-\begin{equation}
-\begin{bmatrix}
-\xi_1 \\
-\xi_2 \\
-\xi_3 \\
-\end{bmatrix}
-= 
-\frac{1}{2A}\begin{bmatrix}
-x_2y_3-x_3y_2&y_2-y_3&x_3-x_2 \\
-x_3y_1-x_1y_3&y_3-y_1&x_1-x_3 \\
-x_1y_2-x_2y_1&y_1-y_2&x_2-x_1 \\
-\end{bmatrix}
-\begin{bmatrix}
-1\\
-x \\
-y \\
-\end{bmatrix}
-= 
-\frac{1}{2A}\begin{bmatrix}
-2A_{23}&y_{23}&x_{32} \\
-2A_{31}&y_{31}&x_{13} \\
-2A_{12}&y_{12}&x_{21} \\
-\end{bmatrix}
-\begin{bmatrix}
-1 \\
-x \\
-y \\
-
-\end{bmatrix}
-\end{equation}
-
 \section{Non-linear Formulation of Strain and Stress}
 This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. According to Rutzmoser \cite{Johannes} ,in the first part of this introduction, we will pick a fictional 3D element with five nodes as object of study. The coordinate system is based on three coordinate:$\xi_1$, $\xi_2$ and $\xi_3$. Therefore the shape function of this element can be ordered in Voigt notation as follows:
 \begin{equation}
@@ -645,24 +256,25 @@ The tangential stiffness matrix is defined by changing the force vector, which i
 \end{equation}
 The fist term conresponds to material stiffness, becasue the time derivative of second Piola-Kirchhoff-Stress tensor is related with time-dependent part. And the second term conresponds to geometrical stiffness as shown in equation \ref{K}. Becase the time derivative $\dot {\textbf{\textit{F}}}$ equals $\dot{\textbf{\textit{u}}^e}^T \tilde{\textbf{\textit{B}}_0}$, equation\ref{eq: f_int} can be transformed as:
 \begin{equation}
-\dot{\textbf{\textit{f}}_{int,geo}} = \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{S}} \tilde{\textbf{\textit{B}}_0} \mathrm{\Omega_0} \dot{\textbf{\textit{u}}^e}
+\dot{\textbf{\textit{f}}}_{int,geo} = \int \tilde{\textbf{\textit{B}}}_0 \textbf{\textit{S}} \tilde{\textbf{\textit{B}}}_0 \mathrm{\Omega_0} \dot{\textbf{\textit{u}}}^e
 \end{equation}
 The geometrical stiffness matrix is given, because the temporal variation of non-linear force is coupled with the displacements over the tangential stiffness matrix.
 \begin{equation}
-\dot{\textbf{\textit{f}}_{int,geo}} = \textbf{\textit{K}}_{geo} \dot{\textbf{\textit{u}}^e} =\int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{S}} \tilde{\textbf{\textit{B}}_0} \mathrm{\Omega_0} \dot{\textbf{\textit{u}}^e}
+\dot{\textbf{\textit{f}}}_{int,geo} = \textbf{\textit{K}}_{geo} \dot{\textbf{\textit{u}}}^e =\int \tilde{\textbf{\textit{B}}}_0 \textbf{\textit{S}} \tilde{\textbf{\textit{B}}}_0 \mathrm{\Omega_0} \dot{\textbf{\textit{u}}}^e
 \end{equation}
 The last step to determine the non-linear force and the tangential stiffness matrix is to integrate on domain $d\Omega_0$. There are two concept for this integration to mention: the first one is transformation from domain $d\Omega_0$ to reference coordinate system:
 \begin{equation}
-\int {\textbf{\textit{f}}}\left(x\right) \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \boldsymbol{\xi}}{\partial \boldsymbol{\xi}} \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \Omega}{\partial \xi} \mathrm{d}\xi = \int f\left(x\right) det\left(\frac{\partial X}{\partial \xi}\right) \mathrm{d}\xi
+\int {\textbf{\textit{f}}}\left(x\right) \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \boldsymbol{\xi}}{\partial \boldsymbol{\xi}} \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \Omega}{\partial \boldsymbol{\xi}} \mathrm{d}\boldsymbol{\xi} = \int {\textbf{\textit{f}}}\left(x\right) det \left(\frac{\partial X}{\partial \boldsymbol{\xi}}\right) \mathrm{d}\boldsymbol{\xi}
 \end{equation}
 For the transformation of integration, it is necessary to adapt the bound of integration. It is in FEM a pleasant benefit, its advantage is the new bound of integration is the standard bound of reference element. So it is easier to determine the bound of integration. And the Jocobi-matrix is ready to use, because we have once the inverse of Jocobi-matrix calculated.
+
 \subsection{Gauss Integration}
-Numerical integration plays a important role in finite element. Gauss integration, as an efficient approach compared to other numerical integration, integrate a function $f(\xi)$ on the spatial domain $\Omega$ is replaced by a summation of certain function values at the so-called Gauss points $\tilde{\xi}$ which are each multiplied by a scalar (weight) $\omega$. In total $numgp_1$ $\times$ $numggp_2$ $\times$ $numgp_3$ Gauss points are used:
+Numerical integration plays a important role in finite element. Gauss integration, as an efficient approach compared to other numerical integration, integrate a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ is replaced by a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ which are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  In total $numgp_1$ $\times$ $numggp_2$ $\times$ $numgp_3$ Gauss points are used:
 \begin{equation}
-\int \limits_E f\left(\xi\right) \mathrm{d\xi_1}\mathrm{d\xi_2}\mathrm{d\xi_3} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\xi_1^i}\tilde{\xi_2^j}\tilde{\xi_3^k}\right)\cdot w_1^i w_2^j w_3^k 
+\int \limits_E {\textbf{\textit{f}}} \left(\boldsymbol{\xi}\right) \mathrm{d\boldsymbol{\xi_1}}\mathrm{d\boldsymbol{\xi_2}}\mathrm{d\boldsymbol{\xi_3}} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\boldsymbol{\xi_1^i}}\tilde{\boldsymbol{\xi_2^j}}\tilde{\boldsymbol{\xi_3^k}}\right)\cdot w_1^i w_2^j w_3^k
 \end{equation}
 In which we used corresponding weights for each of the three spatial directions. This allows to use Gauss points coordinates and weights tabulated for the one-dimensional case. The location and weights of these points can be given analytically in Table \ref{tab: Gauss table}.
-
+	
 \begin{table}
 	\begin{center}
 		\caption{Gauss-Legendre points and weights}\label{tab: Gauss table}
@@ -674,10 +286,10 @@ In which we used corresponding weights for each of the three spatial directions.
 			\multirow{3}{*}{3} &1& $-\sqrt{3/5}$ &5/9 \\
 			&2& 0                &8/9 \\
 			&3& $+\sqrt{3/5}$ &5/9 \\ \hline
-			\multirow{4}{*}{4}&1& $-\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right/36)$ \\
-			&2& $-\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right/36)$ \\
-			&3& $+\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right/36)$ \\
-			&4& $+\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right/36)$ \\ \hline
+			\multirow{4}{*}{4}&1& $-\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right)/36$ \\
+			&2& $-\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right)/36$ \\
+			&3& $+\sqrt{\left(15-\sqrt{120}\right)/35}$ & $\left(18+\sqrt{30}\right)/36$ \\
+			&4& $+\sqrt{\left(15+\sqrt{120}\right)/35}$ & $\left(18-\sqrt{30}\right)/36$ \\ \hline
 			\multirow{5}{*}{5}&1& $-1/3\sqrt{5+2\sqrt{10/7}}$ & $\left(332-13\sqrt{70}\right)/900$ \\
 			&2& $-1/3\sqrt{5-2\sqrt{10/7}}$ & $\left(332+13\sqrt{70}\right)/900$ \\
 			&3& 0 & 128/255 \\
@@ -686,6 +298,440 @@ In which we used corresponding weights for each of the three spatial directions.
 		\end{tabular}
 	\end{center}	
 \end{table}
+
+\section{Extrapolation from Gauss Points}
+\subsection{Quad4}
+This will be explained for the four-node bilinear quadrilateral. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as illustrated in Figure \ref{fig: Quad4_1}. The stresses are calculated at the Gauss points, which are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$ so it is seen that Gauss point numbering essentially follows element node numbering in the counterclockwise sense. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The stresses are evaluated at these Gauss points by passing these natural coordinates to the shape function subroutine. Then each stress component is “carried” to the corner nodes $k_1^E$ through $k_4^E$ through a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly it is convenient to consider the region bounded by the Gauss points as an “internal element” or “Gauss element”. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. Its quadrilateral (natural) coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  These are linked to $\xi^{\prime}$ and $\eta^{\prime}$ by the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
+\begin{equation}
+k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
+k_i^E= k_i^G\sqrt{3}
+\end{equation}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Quad4_1.pdf}			
+		\caption{Quad4 in element coordinate and Gauss element coordinate.}	\label{fig: Quad4_1}
+	\end{center} 
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Quad4_2.pdf}			
+		\caption{Equation of side opposite corner 1 for Quad4.} \label{fig: Quad4_2}
+	\end{center} 
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Natural Coordinate of Quad4}
+	\label{tab: Quad4}
+	\begin{tabular}{p{1cm}ccccp{1cm}cccc}			
+		\hline
+		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
+		\hline
+		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& 1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
+		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& -1 \\
+		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& +1\\
+		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$\sqrt{3}$& 1/$\sqrt{3}$& -1& +1\\
+		\hline
+	\end{tabular}
+\end{table}		
+
+The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_1}. Only one type of node (corner)  and associated shape function is present. Consider node 1 as typical. Inspection of Figure \ref{fig: Quad4_2} suggests trying
+
+\begin{equation} \label{eq: Quad4_1}
+N_1^e = c_1L_{2-3}L_{3-4}
+\end{equation}
+This plainly vanishes over nodes 2, 3 and 4, and can be normalized to unity at node 1 by adjusting $c_1$. By construction it vanishes over the sides 2-3 and 3-4 that do not belong to 1. The equation of side 2-3 is $\xi = 1$, or $\xi - 1 = 0$. The equation of side 3-4 is $\eta = 1$, or $\eta - 1 = 0$. Replacing in Equation (\ref{eq: Quad4_1}) yields
+
+\begin{equation}
+N_1^e\left(\xi, \eta\right) = c_1 \left( \xi -1 \right) \left( \eta - 1\right) = c_1 \left(1 - \xi\right) \left( 1 - \eta \right)
+\end{equation}
+To find $c_1$, evaluate at node 1, the natural coordinates of which are $\xi = \eta = -1$:
+
+\begin{equation}
+N_1^e \left(-1, -1 \right) = c_1 \times 2 \times 2 = 4c_1 = 1
+\end{equation}
+
+Hence $c_1 = \frac{1}{4}$ and the shape functions is
+
+\begin{equation}
+N_1^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 - \eta\right)
+\end{equation}
+
+For the other three nodes the procedure is the same, traversing the element cyclically. It can be verified that the general expression of the shape functions for this element is 
+
+\begin{equation}
+N_i^e = \frac{1}{4} \left( 1 + \xi_i \xi\right) \left(1 + \left(\eta_i \eta\right)\right)
+\end{equation}
+
+Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as
+
+\begin{equation}
+N_2^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 - \eta\right)
+\end{equation}
+
+\begin{equation}
+N_3^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 + \eta\right)
+\end{equation}
+
+\begin{equation}
+N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
+\end{equation}
+
+When we have all the shape function for Gauss element, it is able to extrapolate the component(stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to \ref{tab: Quad4} and \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the corner nodes in Gauss coordinate into the shape function of each Gauss points. Then we obtain:
+\begin{equation}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+w_4 \\
+\end{pmatrix} = \begin{pmatrix}
+1 + \frac{1}{2} \sqrt{3} & -\frac{1}{2} &  1 - \frac{1}{2} \sqrt{3} &  -\frac{1}{2}       \\[0.3em]
+-\frac{1}{2} & 1 + \frac{1}{2} \sqrt{3} & -\frac{1}{2} &  1 - \frac{1}{2} \sqrt{3}            \\[0.3em]
+1 - \frac{1}{2} \sqrt{3} & -\frac{1}{2}  & 1 + \frac{1}{2} \sqrt{3} &  -\frac{1}{2}         \\[0.3em]
+-\frac{1}{2} &  1 - \frac{1}{2} \sqrt{3} & -\frac{1}{2} &   1 + \frac{1}{2} \sqrt{3}                             
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+\end{pmatrix}
+\end{equation}	
+Here $w'$ means strains and stresses for our case. So the $w'$ part can be written as:
+\begin{equation}
+\begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+\end{pmatrix} = \begin{pmatrix}
+\epsilon_{1xx} & \epsilon_{1yy} & \epsilon_{1zz} & 2\epsilon_{1yz} & 2\epsilon_{1xz} & 2\epsilon_{1xy}   \\
+\epsilon_{2xx} & \epsilon_{2yy} & \epsilon_{2zz} & 2\epsilon_{2yz} & 2\epsilon_{2xz} & 2\epsilon_{2xy}   \\
+\epsilon_{3xx} & \epsilon_{3yy} & \epsilon_{3zz} & 2\epsilon_{3yz} & 2\epsilon_{3xz} & 2\epsilon_{3xy}   \\
+\epsilon_{4xx} & \epsilon_{4yy} & \epsilon_{4zz} & 2\epsilon_{4yz} & 2\epsilon_{4xz} & 2\epsilon_{4xy}   \\
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+\begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+\end{pmatrix} = \begin{pmatrix}
+\sigma_{1xx} & \sigma_{1yy} & \sigma_{1zz} & \sigma_{1yz} & \sigma_{1xz} & \sigma_{1xy}   \\
+\sigma_{2xx} & \sigma_{2yy} & \sigma_{2zz} & \sigma_{2yz} & \sigma_{2xz} & \sigma_{2xy} \\
+\sigma_{3xx} & \sigma_{3yy} & \sigma_{3zz} & \sigma_{3yz} & \sigma_{3xz} & \sigma_{3xy} \\
+\sigma_{4xx} & \sigma_{4yy} & \sigma_{4zz} & \sigma_{4yz} & \sigma_{4xz} & \sigma_{4xy}  \\
+\end{pmatrix}
+\end{equation}
+
+\subsection{Quadrangle with quadratic shape function and eight nodes: Quad8}
+For Quad8(Quadrangle with quadratic shape function and eight nodes) we have various choice for the type of Gauss element.  We usually use four, eight and nine nodes for three quadrilateral elements. Here we introduce the Gauss element with nine nodes. The nine-nodes quadrilateral has three types of shape functions, which are associated with corner, midside nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
+The lines whose product is used to construct three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The technique has been sufficiently illustrated in previous examples. Here the summary of calculation for nodes 1, 5 and 9, which are taken as representatives of the three types: The three types of shape function are represented in Figure \ref{fig: Quad8_2}.
+
+\begin{equation} \label{eq: Quad8_1}
+N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
+\end{equation}
+
+\begin{equation} \label{eq: Quad8_2}
+N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi +1\right) \eta \left( \eta -1\right) = c_5 \left(1-\xi^2\right) \eta \left(1 - \eta\right)
+\end{equation}
+
+\begin{equation} \label{eq: Quad8_3}
+N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
+\end{equation}
+
+Imposing the normalization conditions result in:
+
+\begin{center}
+	$c_1 = \frac{1}{4}$, \quad $c_5 = -\frac{1}{2}$, $c_9 = 1$
+\end{center}
+
+By following this approach all the shape functions can be calculated
+
+\begin{equation}
+N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_2 = \frac{1}{4} \left(\xi + 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_3 = \frac{1}{4} \left(\xi + 1\right) \left( \eta + 1 \right) \cdot\xi \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_4 = \frac{1}{4} \left(\xi - 1\right) \left( \eta + 1 \right) \cdot\xi \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_5 = \frac{1}{2} \left(1 + \xi \right) \left( 1 + \xi \right)  \left( \eta - 1\right) \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_6 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi + 1\right) \cdot\xi
+\end{equation}
+
+\begin{equation}
+N_7 = \frac{1}{2} \left(1 + \xi \right) \left( 1 + \xi \right)  \left( \eta + 1\right) \cdot\eta
+\end{equation}
+
+\begin{equation}
+N_8 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi - 1\right) \cdot\xi
+\end{equation}
+
+\begin{equation}
+N_9 = \left(1 + \xi \right) \left( 1 - \xi \right)  \left( 1 + \eta \right) \left(1 - \eta \right)
+\end{equation}
+
+Same as Quad4, the extrapolation function can be expressed by replacing corner nodes in Gauss coordinate into the shape function of Gauss points:
+\begin{equation}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+w_4 \\
+w_5 \\
+w_6 \\
+w_7 \\
+w_8 \\
+\end{pmatrix} = \begin{pmatrix}
+a_1 & a_2 &  a_3 &  a_2 & a_4 & a_5 & a_5 & a_4 & a_6       \\[0.3em]
+a_2 & a_1 &  a_2 &  a_3 & a_4 & a_4 & a_5 & a_5 & a_6       \\[0.3em]
+a_3 & a_2 &  a_1 &  a_2 & a_5 & a_4 & a_4 & a_5 & a_6       \\[0.3em]
+a_2 & a_3 &  a_2 &  a_1 & a_5 & a_5 & a_4 & a_4 & a_6       \\[0.3em]
+0     & 0    &  0     &  0     & a_7 & 0     & a_8 & 0    & a_9       \\[0.3em]
+0     & 0    &  0     &  0     & 0    & a_7 & 0      & a_8 & a_9       \\[0.3em]
+0     & 0    &  0     &  0     & a_8 & 0    & a_7 & 0      & a_9       \\[0.3em]
+0     & 0    &  0     &  0     & 0     & a_8 & 0 & a_7     & a_9       \\[0.3em]                    
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+{w_5}' \\
+{w_6}' \\
+{w_7}' \\
+{w_8}' \\
+{w_9}'
+\end{pmatrix}
+\end{equation}	
+\begin{align*}
+a_1 = +2.1869398 \\
+a_2 = +0.2777778 \\
+a_3 = +0.0352824 \\
+a_4 = -0.9858870 \\
+a_5 = -0.1252241 \\
+a_6 = +0.4444444 \\
+a_7 = +1.4788331 \\
+a_8 = +0.1878361 \\
+a_9 = -0.6666666
+\end{align*}
+
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=10cm,clip]{Quad8_1.pdf}			
+		\caption{Quad8 in element coordinate and Gauss element coordinate.} \label{fig: Quad8_1}
+	\end{center} 
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=6cm,clip]{Quad8_2.pdf} 
+		\includegraphics[width=6cm,clip]{Quad8_3.pdf}	
+		\includegraphics[width=6cm,clip]{Quad8_4.pdf}
+		\caption{Equation of side opposite corner 1 for Quad8.} \label{fig: Quad8_2}	
+	\end{center} 
+\end{figure}
+
+\subsection{Triangle with three nodes: Tri3}
+The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: The equation of triangle side opposite to node $i$ is $L_{j-k} = \xi_i = 0$, where $j$ and $k$ are the cyclic permutations of $i$. Here symbol $L_{j-k}$ denotes the left hand side of the homogeneous equation of the natural coordinate line that passes through node points $j$ and $k$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious suppose is:
+\begin{equation}
+N_i^e = c_iL_i
+\end{equation}
+To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The triangular coordinates of this node are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. so $c_1 = 1$ and analogically $c_2 = 1$, $c_3 = 1$
+
+\begin{equation}
+N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
+\end{equation}
+
+Quantities that are closely linked with the element geometry are best expressed in triangular co- ordinates. On the other hand, quantities such as displacements, strains and stresses are usually expressed in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other.
+Cartesian and triangular coordinates are linked by the relation.
+
+\begin{equation}
+\begin{bmatrix}
+1 \\
+x \\
+y \\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1&1&1 \\
+x_1&x_2&x_2 \\
+y_1&y_2&y_2 \\
+\end{bmatrix}
+\begin{bmatrix}
+\xi_1 \\
+\xi_2 \\
+\xi_3 \\
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\begin{bmatrix}
+\xi_1 \\
+\xi_2 \\
+\xi_3 \\
+\end{bmatrix}
+= 
+\frac{1}{2A}\begin{bmatrix}
+x_2y_3-x_3y_2&y_2-y_3&x_3-x_2 \\
+x_3y_1-x_1y_3&y_3-y_1&x_1-x_3 \\
+x_1y_2-x_2y_1&y_1-y_2&x_2-x_1 \\
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+x \\
+y \\
+\end{bmatrix}
+= 
+\frac{1}{2A}\begin{bmatrix}
+2A_{23}&y_{23}&x_{32} \\
+2A_{31}&y_{31}&x_{13} \\
+2A_{12}&y_{12}&x_{21} \\
+\end{bmatrix}
+\begin{bmatrix}
+1 \\
+x \\
+y \\
+
+\end{bmatrix}
+\end{equation}
+
+
+By using the same approach as quadrilateral elements, the extrapolation of Tri3 can be expressed as:
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Tri3_1.pdf}			
+		\caption{Tri3 in element coordinate and Gauss element coordinate.} \label{fig: Tri3_1}
+	\end{center} 
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Natural Coordinate of Tri3} \label{tab: Tri3}
+	\begin{tabular}{p{1cm}ccccp{1cm}cccc}	
+		
+		\hline
+		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
+		\hline
+		1\centering& -1& -1& -5/3& -5/3& 1'\centering& -2/3& -2/3& -1& -1 \\
+		2\centering& +1& -1& +7/3& -5/3& 2'\centering&+1/3 & -2/3& +1& -1 \\
+		3\centering& -1& +1& -5/3& +7/3& 3'\centering& -2/3& +1/3& -1& +1\\
+		\hline
+		
+	\end{tabular}
+\end{table}			
+
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=6cm,clip]{Tri3_2.pdf}			
+		\caption{Equation of side opposite corner 1 for Tri3.} \label{fig: Tri3_2}
+	\end{center} 
+\end{figure}
+
+\subsection{Second order triangle with six nodes: Tri6}
+The geometry of the six-node quadratic is shown in Figure XXX. Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures XXX for corner node 1 and midside node 4, respectively. \\
+For corner node 1, inspection of Figure \ref{fig: Tri6_2} at top left side suggests trying
+\begin{equation}
+N_1^e = c_1L_{2-3}L_{4-6}
+\end{equation}
+$N_1^e$ will vanish over 2-5-3 and 4-6. This makes the function zero at node 2,3,4,5,6, as is obvious upon inspection of Figure XXX, while being nonzero at 1. The value can be adjusted to be unity if $c_1$ is appropriately chosen. The equations of the lines that appear (XXX equation upper) are
+\begin{equation}
+L_{2-3}: \xi_1 = 0, \quad L_{4-6}: \xi_1 - \frac{1}{2} = 0
+\end{equation}
+Replacing into (eq upper upper)
+
+\begin{equation}
+N_1^e = c_1\xi_1 \left(\xi_1 - \frac{1}{2}\right)
+\end{equation}
+Same as triangle with three nodes, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then $c_1 = 2$ can be calculated and finally 
+
+\begin{equation}
+N_1^e = 2\xi_1\left(\xi_1 - \frac{1}{2}\right) = \xi_1 \left(2 \xi_1 -1 \right)
+\end{equation} 
+
+For midside node 4, inspection of Figure XXX suggests trying
+
+\begin{equation}
+N_4^e = c_4L_{2-3}L_{1-3}
+\end{equation}
+The equation of sides $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. To find $c_4$, evaluate this function at node 4, the triangular coordinates of which are $\xi_1 = \xi_2 = \frac{1}{2}$,$\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$, which the shape function gives
+
+\begin{equation}
+N_4^e = 4\xi_1\xi_2
+\end{equation}
+The rest shape function can be calculated by using same approach. 
+\begin{center}
+	
+\end{center}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Tri6_1.pdf} 		
+		\caption{Tri6 in element coordinate and Gauss element coordinate.} \label{fig: Tri6_1}	
+	\end{center} 
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=6cm,clip]{Tri6_2.pdf}		
+		\includegraphics[width=6cm,clip]{Tri6_3.pdf}		
+		\caption{Equation of side opposite corner 1 for Tri6.} \label{fig: Tri6_2}
+		
+	\end{center} 
+\end{figure}
+
+
+\subsection{Tetraeder element with four nodes: Tet4}
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Tet4_1.pdf}			
+		\caption{Tri4 in element coordinate and Gauss element coordinate.}
+	\end{center} 
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Tetrahedral Coordinate of Tet4}
+	\begin{tabular}{ccccccccc}			
+		\hline
+		Corner node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4'\\ \hline
+		1\centering& 1& 0& 0& 0& $\alpha$& $\beta$& $\beta$& $\beta$\\
+		2\centering& 0& 1& 0& 0& $\beta$& $\alpha$& $\beta$& $\beta$\\
+		3\centering& 0& 0& 1& 0& $\beta$& $\beta$& $\alpha$& $\beta$\\
+		4\centering& 0& 0& 0& 1& $\beta$& $\beta$& $\beta$& $\alpha$\\
+		\hline
+		Gauss node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4' \\ \hline
+		1'\centering& $\alpha$& $\beta$& $\beta$& $\beta$& 1& 0& 0& 0  \\
+		2'\centering&$\beta$ & $\alpha$& $\beta$& $\beta$& 0& 1& 0& 0 \\
+		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 0& 1\\
+		4'\centering& $\beta$& $\beta$& $\beta$& $\alpha$& 0& 0& 0& 1\\
+		\hline
+		$\alpha$ = 0.58541020; $\beta$ = 0.13819660&&&&&&&&\\
+		\hline 		    
+	\end{tabular}	
+\end{table}		
 
 \chapter{Programming Implementation}
 \section{Pre-Processing}
@@ -738,5 +784,5 @@ After building the model, numerical data can be exported as node list and elemen
 	\end{center}	
 \end{table}
 \cite[p. 18]{bibid}
-
+Interelement Averaging can be as future research ..
 \cite[p. 1-10]{Johannes}
