@@ -16,14 +16,8 @@
 \BOOKMARK [2][-]{subsection.95}{Second order triangle with six nodes: Tri6}{section.53}% 16
 \BOOKMARK [2][-]{subsection.109}{Tetrahedron element with four nodes: Tet4}{section.53}% 17
 \BOOKMARK [2][-]{subsection.117}{Tetrahedron element with ten nodes: Tet10}{section.53}% 18
-\BOOKMARK [0][-]{chapter.125}{Programming Implementation}{}% 19
-\BOOKMARK [1][-]{section.126}{Pre-Processing}{chapter.125}% 20
-\BOOKMARK [0][-]{chapter.130}{Calculation of Element Strains and Stresses}{}% 21
-\BOOKMARK [1][-]{section.131}{Shape Function}{chapter.130}% 22
-\BOOKMARK [2][-]{subsection.132}{Quadrilateral Elements}{section.131}% 23
-\BOOKMARK [2][-]{subsection.133}{Triangular and Tetrahedral Elements}{section.131}% 24
-\BOOKMARK [0][-]{chapter.134}{Bestimmung des optimalen Tunings k}{}% 25
-\BOOKMARK [0][-]{chapter.135}{Zusammenfassung und Ausblick}{}% 26
-\BOOKMARK [0][-]{chapter*.136}{Averaging-Methode}{}% 27
-\BOOKMARK [0][-]{chapter*.141}{Rotationspendel}{}% 28
-\BOOKMARK [0][-]{chapter*.141}{References}{}% 29
+\BOOKMARK [1][-]{section.125}{Assembly}{chapter.11}% 19
+\BOOKMARK [0][-]{chapter.133}{Programming Implementation}{}% 20
+\BOOKMARK [1][-]{section.134}{Pre-Processing}{chapter.133}% 21
+\BOOKMARK [0][-]{chapter.138}{The Patch Test}{}% 22
+\BOOKMARK [0][-]{chapter.138}{References}{}% 23

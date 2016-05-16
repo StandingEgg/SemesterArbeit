@@ -3,17 +3,12 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: Danksagung.aux
 A level-1 auxiliary file: Einleitung.aux
-A level-1 auxiliary file: Theorie.aux
-A level-1 auxiliary file: Optimierung.aux
-A level-1 auxiliary file: Schluss.aux
-A level-1 auxiliary file: ./Anhaenge/Averaging.aux
-A level-1 auxiliary file: ./Anhaenge/BeispielRotationspendel.aux
 I found no \citation commands---while reading file thesis.aux
 I found no \bibdata command---while reading file thesis.aux
 I found no \bibstyle command---while reading file thesis.aux
 You've used 0 entries,
             0 wiz_defined-function locations,
-            90 strings with 613 characters,
+            85 strings with 514 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0

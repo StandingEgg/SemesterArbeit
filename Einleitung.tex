@@ -445,9 +445,9 @@ N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \et
 
 Applying the normalization conditions results in:
 
-\begin{align*}
-	$c_1 = \frac{1}{4}$, \quad $c_5 = -\frac{1}{2}$, $c_9 = 1$
-\end{align*}
+\begin{equation*}
+c_1 = \frac{1}{4}, \quad c_5 = -\frac{1}{2}, c_9 = 1
+\end{equation*}
 
 By following this approach all the shape functions can be calculated:
 
@@ -864,7 +864,7 @@ w_6 \\
 w_7 \\
 w_8 \\
 w_9 \\
-w_10 \\
+w_{10} \\
 \end{pmatrix} = \begin{pmatrix}
 a_1 & a_2 &  a_2 &  a_2      \\[0.3em]
 a_2 & a_1 &  a_2 &  a_2      \\[0.3em]
@@ -927,17 +927,187 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In previous section, we have solved stain and stress in one element. The next step is to assembly strain and stress at each nodes. At the same time, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, which two neighboring element share one or more nodes. Now we take a simple 2-D a object as example, which are meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been done before. The stiffness matrix of elements is given as:
+In previous section, we have solved stain and stress in one element. The next step is to assembly strain and stress at each node. At the same time, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, which two neighboring element share one or more nodes. Now we take a simple 2-D an object as example, which are meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been done before. The stiffness matrix of elements is given as:
+\begin{equation}
+k^{\left(1\right)} = \begin{pmatrix}
+k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
+k_{21}^{\left(1\right)} & k_{22}^{\left(1\right)} &  k_{23}^{\left(1\right)} &  k_{24}^{\left(1\right)} & k_{25}^{\left(1\right)}  & k_{26}^{\left(1\right)}   \\[0.3em]
+k_{31}^{\left(1\right)} & k_{32}^{\left(1\right)} &  k_{33}^{\left(1\right)} &  k_{34}^{\left(1\right)} & k_{35}^{\left(1\right)}  & k_{36}^{\left(1\right)}   \\[0.3em]
+k_{41}^{\left(1\right)} & k_{42}^{\left(1\right)} &  k_{43}^{\left(1\right)} &  k_{44}^{\left(1\right)} & k_{45}^{\left(1\right)}  & k_{46}^{\left(1\right)}   \\[0.3em]
+k_{51}^{\left(1\right)} & k_{52}^{\left(1\right)} &  k_{53}^{\left(1\right)} &  k_{54}^{\left(1\right)} & k_{55}^{\left(1\right)}  & k_{56}^{\left(1\right)}   \\[0.3em]
+k_{61}^{\left(1\right)} & k_{62}^{\left(1\right)} &  k_{63}^{\left(1\right)} &  k_{64}^{\left(1\right)} & k_{65}^{\left(1\right)}  & k_{66}^{\left(1\right)}   \\[0.3em]
+\end{pmatrix} 
+\end{equation}	
 
+\begin{equation}
+k^{\left(2\right)} = \begin{pmatrix}
+k_{11}^{\left(2\right)} & k_{12}^{\left(2\right)} &  k_{13}^{\left(2\right)} &  k_{14}^{\left(2\right)} & k_{15}^{\left(2\right)}  & k_{16}^{\left(2\right)}   \\[0.3em]
+k_{21}^{\left(2\right)} & k_{22}^{\left(2\right)} &  k_{23}^{\left(2\right)} &  k_{24}^{\left(2\right)} & k_{25}^{\left(2\right)}  & k_{26}^{\left(2\right)}   \\[0.3em]
+k_{31}^{\left(2\right)} & k_{32}^{\left(2\right)} &  k_{33}^{\left(2\right)} &  k_{34}^{\left(2\right)} & k_{35}^{\left(2\right)}  & k_{36}^{\left(2\right)}   \\[0.3em]
+k_{41}^{\left(2\right)} & k_{42}^{\left(2\right)} &  k_{43}^{\left(2\right)} &  k_{44}^{\left(2\right)} & k_{45}^{\left(2\right)}  & k_{46}^{\left(2\right)}   \\[0.3em]
+k_{51}^{\left(2\right)} & k_{52}^{\left(2\right)} &  k_{53}^{\left(2\right)} &  k_{54}^{\left(2\right)} & k_{55}^{\left(2\right)}  & k_{56}^{\left(2\right)}   \\[0.3em]
+k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  k_{64}^{\left(2\right)} & k_{65}^{\left(2\right)}  & k_{66}^{\left(2\right)}   \\[0.3em]
+\end{pmatrix} 
+\end{equation}	
+
+Now we can combine the stiffness matrix contribution at the same degree of freedom.  The procedure of assembly is represented as follows:
+\begin{equation*}
+K = \begin{pmatrix}
+k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{15}^{\left(1\right)} &  k_{16}^{\left(1\right)} & k_{13}^{\left(1\right)}  & k_{14}^{\left(1\right)} & 0 & 0   \\[0.3em]
+k_{21}^{\left(1\right)} & k_{22}^{\left(1\right)} &  k_{25}^{\left(1\right)} &  k_{26}^{\left(1\right)} & k_{23}^{\left(1\right)}  & k_{24}^{\left(1\right)} & 0 & 0   \\[0.3em]
+k_{51}^{\left(1\right)} & k_{52}^{\left(1\right)} &  k_{55}^{\left(1\right)} &  k_{56}^{\left(1\right)} & k_{53}^{\left(1\right)}  & k_{54}^{\left(1\right)} & 0 & 0   \\[0.3em]
+k_{61}^{\left(1\right)} & k_{62}^{\left(1\right)} &  k_{65}^{\left(1\right)} &  k_{66}^{\left(1\right)} & k_{63}^{\left(1\right)}  & k_{64}^{\left(1\right)}  & 0 & 0  \\[0.3em]
+k_{31}^{\left(1\right)} & k_{32}^{\left(1\right)} &  k_{35}^{\left(1\right)} &  k_{36}^{\left(1\right)} & k_{33}^{\left(1\right)}  & k_{34}^{\left(1\right)}  & 0 & 0  \\[0.3em]
+k_{41}^{\left(1\right)} & k_{42}^{\left(1\right)} &  k_{45}^{\left(1\right)} &  k_{46}^{\left(1\right)} & k_{43}^{\left(1\right)}  & k_{44}^{\left(1\right)}  & 0 & 0  \\[0.3em]
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\[0.3em]
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\[0.3em]
+\end{pmatrix} + \begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\[0.3em]
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\[0.3em]
+0 & 0 &k_{11}^{\left(2\right)} & k_{12}^{\left(2\right)} &  k_{13}^{\left(2\right)} &  k_{14}^{\left(2\right)} & k_{15}^{\left(2\right)}  & k_{16}^{\left(2\right)}   \\[0.3em]
+0 & 0 & k_{21}^{\left(2\right)} & k_{22}^{\left(2\right)} &  k_{23}^{\left(2\right)} &  k_{24}^{\left(2\right)} & k_{25}^{\left(2\right)}  & k_{26}^{\left(2\right)}   \\[0.3em]
+0 & 0 & k_{31}^{\left(2\right)} & k_{32}^{\left(2\right)} &  k_{33}^{\left(2\right)} &  k_{34}^{\left(2\right)} & k_{35}^{\left(2\right)}  & k_{36}^{\left(2\right)}    \\[0.3em]
+0 & 0 & k_{41}^{\left(2\right)} & k_{42}^{\left(2\right)} &  k_{43}^{\left(2\right)} &  k_{44}^{\left(2\right)} & k_{45}^{\left(2\right)}  & k_{46}^{\left(2\right)}    \\[0.3em]
+0 & 0 & k_{51}^{\left(2\right)} & k_{52}^{\left(2\right)} &  k_{53}^{\left(2\right)} &  k_{54}^{\left(2\right)} & k_{55}^{\left(2\right)}  & k_{56}^{\left(2\right)}   \\[0.3em]
+0 & 0 & k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  k_{64}^{\left(2\right)} & k_{65}^{\left(2\right)}  & k_{66}^{\left(2\right)}    \\[0.3em]
+\end{pmatrix} \\
+\end{equation*}
+\begin{equation}
+= \begin{pmatrix}
+k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{15}^{\left(1\right)} &  k_{16}^{\left(1\right)} & k_{13}^{\left(1\right)}  & k_{14}^{\left(1\right)} & 0 & 0   \\[0.3em]
+k_{21}^{\left(1\right)} & k_{22}^{\left(1\right)} &  k_{25}^{\left(1\right)} &  k_{26}^{\left(1\right)} & k_{23}^{\left(1\right)}  & k_{24}^{\left(1\right)} & 0 & 0   \\[0.3em]
+k_{51}^{\left(1\right)} & k_{52}^{\left(1\right)}  &k_{55}^{\left(1\right)}+k_{11}^{\left(2\right)} & k_{56}^{\left(1\right)}+k_{12}^{\left(2\right)} &  k_{53}^{\left(1\right)}+k_{13}^{\left(2\right)} &  k_{54}^{\left(1\right)}+k_{14}^{\left(2\right)} & k_{15}^{\left(2\right)}  & k_{16}^{\left(2\right)}   \\[0.3em]
+k_{61}^{\left(1\right)} & k_{62}^{\left(1\right)} & k_{65}^{\left(1\right)}+k_{21}^{\left(2\right)} & k_{66}^{\left(1\right)}+k_{22}^{\left(2\right)} & k_{63}^{\left(1\right)}+ k_{23}^{\left(2\right)} &  k_{64}^{\left(1\right)}+k_{24}^{\left(2\right)} & k_{25}^{\left(2\right)}  & k_{26}^{\left(2\right)}   \\[0.3em]
+k_{31}^{\left(1\right)} & k_{32}^{\left(1\right)} &k_{35}^{\left(1\right)}+ k_{31}^{\left(2\right)} & k_{36}^{\left(1\right)} + k_{32}^{\left(2\right)} & k_{33}^{\left(1\right)}+ k_{33}^{\left(2\right)} &  k_{34}^{\left(1\right)}+k_{34}^{\left(2\right)} & k_{35}^{\left(2\right)}  & k_{36}^{\left(2\right)}    \\[0.3em]
+k_{41}^{\left(1\right)} & k_{42}^{\left(1\right)}&k_{45}^{\left(1\right)}+ k_{41}^{\left(2\right)} & k_{46}^{\left(1\right)}+k_{42}^{\left(2\right)} & k_{43}^{\left(1\right)}+ k_{43}^{\left(2\right)} &  k_{44}^{\left(1\right)}+k_{44}^{\left(2\right)} & k_{45}^{\left(2\right)}  & k_{46}^{\left(2\right)}    \\[0.3em]
+0 & 0 & k_{51}^{\left(2\right)} & k_{52}^{\left(2\right)} &  k_{53}^{\left(2\right)} &  k_{54}^{\left(2\right)} & k_{55}^{\left(2\right)}  & k_{56}^{\left(2\right)}   \\[0.3em]
+0 & 0 & k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  k_{64}^{\left(2\right)} & k_{65}^{\left(2\right)}  & k_{66}^{\left(2\right)}    \\[0.3em]
+\end{pmatrix}
+\end{equation}
 
 \begin{figure}[h]
 	\begin{center}
-		\includegraphics[width=8cm,clip]{assembly.pdf}			
+		\includegraphics[width=12cm,clip]{assembly.pdf}			
 		\caption{Two Tri6 elements in global and local perspective.} \label{fig: assembly}
 	\end{center} 
 \end{figure}
 
+The same approach are also applied for force vector, because it also share the contribution at degree of freedom. The procedure of assembly are expressed as:
+\begin{equation}
+F =  \begin{pmatrix}
+f_1^{\left(1\right)} \\
+f_2^{\left(1\right)} \\
+f_5^{\left(1\right)} \\ 
+f_6^{\left(1\right)} \\ 
+f_3^{\left(1\right)} \\
+f_4^{\left(1\right)} \\
+0 \\ 
+0 \\ 
+\end{pmatrix} +  \begin{pmatrix}
+0 \\ 
+0 \\ 
+f_1^{\left(2\right)} \\
+f_2^{\left(2\right)} \\
+f_3^{\left(2\right)} \\ 
+f_4^{\left(2\right)} \\ 
+f_5^{\left(2\right)} \\
+f_6^{\left(2\right)} \\
+\end{pmatrix} = \begin{pmatrix}
+f_1^{\left(1\right)} \\
+f_2^{\left(1\right)} \\
+f_5^{\left(1\right)}+ f_1^{\left(2\right)} \\ 
+f_6^{\left(1\right)}+ f_2^{\left(2\right)} \\ 
+f_3^{\left(1\right)}+ f_3^{\left(2\right)}\\
+f_4^{\left(1\right)}+ f_4^{\left(2\right)} \\
+f_5^{\left(2\right)} \\ 
+f_6^{\left(2\right)}  \\ 
+\end{pmatrix} 
+\end{equation}
+For assembly of strain and stress, we need to combine the contribution at each node. The procedure is:
 
+
+\begin{equation*}
+\epsilon =  \begin{pmatrix}
+\epsilon_{1xx}^{\left(1\right)}&\epsilon_{1yy}^{\left(1\right)}&\epsilon_{1zz}^{\left(1\right)}&2\epsilon_{1yz}^{\left(1\right)}&2\epsilon_{1xz}^{\left(1\right)}&2\epsilon_{1xy}^{\left(1\right)} \\
+\epsilon_{2xx}^{\left(1\right)}&\epsilon_{2yy}^{\left(1\right)}&\epsilon_{2zz}^{\left(1\right)}&2\epsilon_{2yz}^{\left(1\right)}&2\epsilon_{2xz}^{\left(1\right)}&2\epsilon_{2xy}^{\left(1\right)} \\
+\epsilon_{5xx}^{\left(1\right)}&\epsilon_{5yy}^{\left(1\right)}&\epsilon_{5zz}^{\left(1\right)}&2\epsilon_{5yz}^{\left(1\right)}&2\epsilon_{5xz}^{\left(1\right)}&2\epsilon_{5xy}^{\left(1\right)} \\
+\epsilon_{6xx}^{\left(1\right)}&\epsilon_{6yy}^{\left(1\right)}&\epsilon_{6zz}^{\left(1\right)}&2\epsilon_{6yz}^{\left(1\right)}&2\epsilon_{6xz}^{\left(1\right)}&2\epsilon_{6xy}^{\left(1\right)} \\
+\epsilon_{3xx}^{\left(1\right)}&\epsilon_{3yy}^{\left(1\right)}&\epsilon_{3zz}^{\left(1\right)}&2\epsilon_{3yz}^{\left(1\right)}&2\epsilon_{3xz}^{\left(1\right)}&2\epsilon_{3xy}^{\left(1\right)} \\
+\epsilon_{4xx}^{\left(1\right)}&\epsilon_{4yy}^{\left(1\right)}&\epsilon_{4zz}^{\left(1\right)}&2\epsilon_{4yz}^{\left(1\right)}&2\epsilon_{4xz}^{\left(1\right)}&2\epsilon_{4xy}^{\left(1\right)} \\
+0 \\ 
+0 \\ 
+\end{pmatrix} +  \begin{pmatrix}
+0 \\ 
+0 \\ 
+\epsilon_{1xx}^{\left(2\right)}&\epsilon_{1yy}^{\left(2\right)}&\epsilon_{1zz}^{\left(2\right)}&2\epsilon_{1yz}^{\left(2\right)}&2\epsilon_{1xz}^{\left(2\right)}&2\epsilon_{1xy}^{\left(2\right)} \\
+\epsilon_{2xx}^{\left(2\right)}&\epsilon_{2yy}^{\left(2\right)}&\epsilon_{2zz}^{\left(2\right)}&2\epsilon_{2yz}^{\left(2\right)}&2\epsilon_{2xz}^{\left(2\right)}&2\epsilon_{2xy}^{\left(2\right)} \\
+\epsilon_{3xx}^{\left(2\right)}&\epsilon_{3yy}^{\left(2\right)}&\epsilon_{3zz}^{\left(2\right)}&2\epsilon_{3yz}^{\left(2\right)}&2\epsilon_{3xz}^{\left(2\right)}&2\epsilon_{3xy}^{\left(2\right)} \\
+\epsilon_{4xx}^{\left(2\right)}&\epsilon_{4yy}^{\left(2\right)}&\epsilon_{4zz}^{\left(2\right)}&2\epsilon_{4yz}^{\left(2\right)}&2\epsilon_{4xz}^{\left(2\right)}&2\epsilon_{4xy}^{\left(2\right)} \\
+\epsilon_{5xx}^{\left(2\right)}&\epsilon_{5yy}^{\left(2\right)}&\epsilon_{5zz}^{\left(2\right)}&2\epsilon_{5yz}^{\left(2\right)}&2\epsilon_{5xz}^{\left(2\right)}&2\epsilon_{5xy}^{\left(2\right)} \\
+\epsilon_{6xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(2\right)} \\
+\end{pmatrix} 
+\end{equation*}
+
+\begin{equation}
+\epsilon = \begin{pmatrix}
+\epsilon_{1xx}^{\left(1\right)}&\epsilon_{1yy}^{\left(1\right)}&\epsilon_{1zz}^{\left(1\right)}&2\epsilon_{1yz}^{\left(1\right)}&2\epsilon_{1xz}^{\left(1\right)}&2\epsilon_{1xy}^{\left(1\right)} \\
+
+\epsilon_{2xx}^{\left(1\right)}&\epsilon_{2yy}^{\left(1\right)}&\epsilon_{2zz}^{\left(1\right)}&2\epsilon_{2yz}^{\left(1\right)}&2\epsilon_{2xz}^{\left(1\right)}&2\epsilon_{2xy}^{\left(1\right)} \\
+
+\epsilon_{5xx}^{\left(1\right)}+\epsilon_{1xx}^{\left(2\right)}&\epsilon_{5yy}^{\left(1\right)}+\epsilon_{1yy}^{\left(2\right)}&\epsilon_{5zz}^{\left(1\right)}+\epsilon_{1zz}^{\left(2\right)}&2\epsilon_{5yz}^{\left(1\right)}+2\epsilon_{1yz}^{\left(2\right)}&2\epsilon_{5xz}^{\left(1\right)}+2\epsilon_{1xz}^{\left(2\right)}&2\epsilon_{5xy}^{\left(1\right)}+2\epsilon_{1xy}^{\left(2\right)}  \\
+
+\epsilon_{6xx}^{\left(1\right)}+\epsilon_{2xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(1\right)}+\epsilon_{2yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(1\right)}+\epsilon_{2zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(1\right)}+2\epsilon_{2yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(1\right)}+2\epsilon_{2xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(1\right)}+2\epsilon_{2xy}^{\left(2\right)} \\
+
+\epsilon_{3xx}^{\left(1\right)}+\epsilon_{3xx}^{\left(2\right)}&\epsilon_{3yy}^{\left(1\right)}+\epsilon_{3yy}^{\left(2\right)}&\epsilon_{3zz}^{\left(1\right)}+\epsilon_{3zz}^{\left(2\right)}&2\epsilon_{3yz}^{\left(1\right)}+2\epsilon_{3yz}^{\left(2\right)}&2\epsilon_{3xz}^{\left(1\right)}+2\epsilon_{3xz}^{\left(2\right)}&2\epsilon_{3xy}^{\left(1\right)}+2\epsilon_{3xy}^{\left(2\right)} \\
+
+\epsilon_{4xx}^{\left(1\right)}+\epsilon_{4xx}^{\left(2\right)}&\epsilon_{4yy}^{\left(1\right)}+\epsilon_{4yy}^{\left(2\right)}&\epsilon_{4zz}^{\left(1\right)}+\epsilon_{4zz}^{\left(2\right)}&2\epsilon_{4yz}^{\left(1\right)}+2\epsilon_{4yz}^{\left(2\right)}&2\epsilon_{4xz}^{\left(1\right)}+2\epsilon_{4xz}^{\left(2\right)}&2\epsilon_{4xy}^{\left(1\right)}+2\epsilon_{4xy}^{\left(2\right)} \\
+
+\epsilon_{5xx}^{\left(2\right)}&\epsilon_{5yy}^{\left(2\right)}&\epsilon_{5zz}^{\left(2\right)}&2\epsilon_{5yz}^{\left(2\right)}&2\epsilon_{5xz}^{\left(2\right)}&2\epsilon_{5xy}^{\left(2\right)} \\
+\epsilon_{6xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(2\right)} \\
+\end{pmatrix} 
+\end{equation}
+
+
+\begin{equation*}
+\sigma =  \begin{pmatrix}
+\sigma_{1xx}^{\left(1\right)}&\sigma_{1yy}^{\left(1\right)}&\sigma_{1zz}^{\left(1\right)}&\sigma_{1yz}^{\left(1\right)}&\sigma_{1xz}^{\left(1\right)}&\sigma_{1xy}^{\left(1\right)} \\
+\sigma_{2xx}^{\left(1\right)}&\sigma_{2yy}^{\left(1\right)}&\sigma_{2zz}^{\left(1\right)}&\sigma_{2yz}^{\left(1\right)}&\sigma_{2xz}^{\left(1\right)}&f_{2xy}^{\left(1\right)} \\
+\sigma_{5xx}^{\left(1\right)}&\sigma_{5yy}^{\left(1\right)}&\sigma_{5zz}^{\left(1\right)}&\sigma_{5yz}^{\left(1\right)}&\sigma_{5xz}^{\left(1\right)}&\sigma_{5xy}^{\left(1\right)} \\
+\sigma_{6xx}^{\left(1\right)}&\sigma_{6yy}^{\left(1\right)}&\sigma_{6zz}^{\left(1\right)}&\sigma_{6yz}^{\left(1\right)}&\sigma_{6xz}^{\left(1\right)}&\sigma_{6xy}^{\left(1\right)} \\
+\sigma_{3xx}^{\left(1\right)}&\sigma_{3yy}^{\left(1\right)}&\sigma_{3zz}^{\left(1\right)}&\sigma_{3yz}^{\left(1\right)}&\sigma_{3xz}^{\left(1\right)}&\sigma_{3xy}^{\left(1\right)} \\
+\sigma_{4xx}^{\left(1\right)}&\sigma_{4yy}^{\left(1\right)}&\sigma_{4zz}^{\left(1\right)}&\sigma_{4yz}^{\left(1\right)}&\sigma_{4xz}^{\left(1\right)}&\sigma_{4xy}^{\left(1\right)} \\
+0 & 0 & 0 & 0 & 0 & 0 & \\ 
+0 & 0 & 0 & 0 & 0 & 0 &  \\ 
+\end{pmatrix} +  \begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 &  \\ 
+0 & 0 & 0 & 0 & 0 & 0 &  \\ 
+\sigma_{1xx}^{\left(2\right)}&\sigma_{1yy}^{\left(2\right)}&\sigma_{1zz}^{\left(2\right)}&\sigma_{1yz}^{\left(2\right)}&\sigma_{1xz}^{\left(2\right)}&\sigma_{1xy}^{\left(2\right)} \\
+\sigma_{2xx}^{\left(2\right)}&\sigma_{2yy}^{\left(2\right)}&\sigma_{2zz}^{\left(2\right)}&\sigma_{2yz}^{\left(2\right)}&\sigma_{2xz}^{\left(2\right)}&\sigma_{2xy}^{\left(2\right)} \\
+\sigma_{3xx}^{\left(2\right)}&\sigma_{3yy}^{\left(2\right)}&\sigma_{3zz}^{\left(2\right)}&\sigma_{3yz}^{\left(2\right)}&\sigma_{3xz}^{\left(2\right)}&\sigma_{3xy}^{\left(2\right)} \\
+\sigma_{4xx}^{\left(2\right)}&\sigma_{4yy}^{\left(2\right)}&\sigma_{4zz}^{\left(2\right)}&\sigma_{4yz}^{\left(2\right)}&\sigma_{4xz}^{\left(2\right)}&\sigma_{4xy}^{\left(2\right)} \\
+\sigma_{5xx}^{\left(2\right)}&\sigma_{5yy}^{\left(2\right)}&\sigma_{5zz}^{\left(2\right)}&\sigma_{5yz}^{\left(2\right)}&\sigma_{5xz}^{\left(2\right)}&\sigma_{5xy}^{\left(2\right)} \\
+\sigma_{6xx}^{\left(2\right)}&\sigma_{6yy}^{\left(2\right)}&\sigma_{6zz}^{\left(2\right)}&\sigma_{6yz}^{\left(2\right)}&\sigma_{6xz}^{\left(2\right)}&\sigma_{6xy}^{\left(2\right)} \\
+\end{pmatrix} 
+\end{equation*}
+
+\begin{equation}
+\sigma= \begin{pmatrix}
+\sigma_{1xx}^{\left(1\right)}&\sigma_{1yy}^{\left(1\right)}&\sigma_{1zz}^{\left(1\right)}&\sigma_{1yz}^{\left(1\right)}&\sigma_{1xz}^{\left(1\right)}&\sigma_{1xy}^{\left(1\right)} \\
+
+\sigma_{2xx}^{\left(1\right)}&\sigma_{2yy}^{\left(1\right)}&\sigma_{2zz}^{\left(1\right)}&\sigma_{2yz}^{\left(1\right)}&\sigma_{2xz}^{\left(1\right)}&f_{2xy}^{\left(1\right)} \\
+
+\sigma_{5xx}^{\left(1\right)}+\sigma_{1xx}^{\left(2\right)}&\sigma_{5yy}^{\left(1\right)}+\sigma_{1yy}^{\left(2\right)}&\sigma_{5zz}^{\left(1\right)}+\sigma_{1zz}^{\left(2\right)}&\sigma_{5yz}^{\left(1\right)}+\sigma_{1yz}^{\left(2\right)}&\sigma_{5xz}^{\left(1\right)}+\sigma_{1xz}^{\left(2\right)}&\sigma_{5xy}^{\left(1\right)}+\sigma_{1xy}^{\left(2\right)}  \\
+
+\sigma_{6xx}^{\left(1\right)}+\sigma_{2xx}^{\left(2\right)}&\sigma_{6yy}^{\left(1\right)}+\sigma_{2yy}^{\left(2\right)}&\sigma_{6zz}^{\left(1\right)}+\sigma_{2zz}^{\left(2\right)}&\sigma_{6yz}^{\left(1\right)}+\sigma_{2yz}^{\left(2\right)}&\sigma_{6xz}^{\left(1\right)}+\sigma_{2xz}^{\left(2\right)}&\sigma_{6xy}^{\left(1\right)}+\sigma_{2xy}^{\left(2\right)} \\
+
+\sigma_{3xx}^{\left(1\right)}+\sigma_{3xx}^{\left(2\right)}&\sigma_{3yy}^{\left(1\right)}+\sigma_{3yy}^{\left(2\right)}&\sigma_{3zz}^{\left(1\right)}+\sigma_{3zz}^{\left(2\right)}&\sigma_{3yz}^{\left(1\right)}+\sigma_{3yz}^{\left(2\right)}&\sigma_{3xz}^{\left(1\right)}+\sigma_{3xz}^{\left(2\right)}&\sigma_{3xy}^{\left(1\right)}+\sigma_{3xy}^{\left(2\right)} \\
+
+\sigma_{4xx}^{\left(1\right)}+\sigma_{4xx}^{\left(2\right)}&\sigma_{4yy}^{\left(1\right)}+\sigma_{4yy}^{\left(2\right)}&\sigma_{4zz}^{\left(1\right)}+\sigma_{4zz}^{\left(2\right)}&\sigma_{4yz}^{\left(1\right)}+\sigma_{4yz}^{\left(2\right)}&\sigma_{4xz}^{\left(1\right)}+\sigma_{4xz}^{\left(2\right)}&\sigma_{4xy}^{\left(1\right)}+\sigma_{4xy}^{\left(2\right)} \\
+
+\sigma_{5xx}^{\left(2\right)}&\sigma_{5yy}^{\left(2\right)}&\sigma_{5zz}^{\left(2\right)}&\sigma_{5yz}^{\left(2\right)}&\sigma_{5xz}^{\left(2\right)}&\sigma_{5xy}^{\left(2\right)} \\
+\sigma_{6xx}^{\left(2\right)}&\sigma_{6yy}^{\left(2\right)}&\sigma_{6zz}^{\left(2\right)}&\sigma_{6yz}^{\left(2\right)}&\sigma_{6xz}^{\left(2\right)}&\sigma_{6xy}^{\left(2\right)} \\
+\end{pmatrix} 
+\end{equation}
 
 \chapter{Programming Implementation}
 \section{Pre-Processing}

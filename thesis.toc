@@ -17,16 +17,10 @@
 \contentsline {subsection}{\numberline {2.4.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{17}{subsection.70}
 \contentsline {subsection}{\numberline {2.4.3}Triangle with three nodes: Tri3}{19}{subsection.86}
 \contentsline {subsection}{\numberline {2.4.4}Second order triangle with six nodes: Tri6}{21}{subsection.95}
-\contentsline {subsection}{\numberline {2.4.5}Tetrahedron element with four nodes: Tet4}{25}{subsection.109}
-\contentsline {subsection}{\numberline {2.4.6}Tetrahedron element with ten nodes: Tet10}{26}{subsection.117}
-\contentsline {chapter}{\numberline {3}Programming Implementation}{31}{chapter.125}
-\contentsline {section}{\numberline {3.1}Pre-Processing}{31}{section.126}
-\contentsline {chapter}{\numberline {4}Calculation of Element Strains and Stresses}{35}{chapter.130}
-\contentsline {section}{\numberline {4.1}Shape Function}{35}{section.131}
-\contentsline {subsection}{\numberline {4.1.1}Quadrilateral Elements}{35}{subsection.132}
-\contentsline {subsection}{\numberline {4.1.2}Triangular and Tetrahedral Elements}{35}{subsection.133}
-\contentsline {chapter}{\numberline {5}Bestimmung des optimalen Tunings $k$}{37}{chapter.134}
-\contentsline {chapter}{\numberline {6}Zusammenfassung und Ausblick}{39}{chapter.135}
-\contentsline {chapter}{Averaging-Methode}{41}{chapter*.136}
-\contentsline {chapter}{Rotationspendel}{43}{chapter*.141}
-\contentsline {chapter}{References}{44}{chapter*.141}
+\contentsline {subsection}{\numberline {2.4.5}Tetrahedron element with four nodes: Tet4}{24}{subsection.109}
+\contentsline {subsection}{\numberline {2.4.6}Tetrahedron element with ten nodes: Tet10}{25}{subsection.117}
+\contentsline {section}{\numberline {2.5}Assembly}{27}{section.125}
+\contentsline {chapter}{\numberline {3}Programming Implementation}{35}{chapter.133}
+\contentsline {section}{\numberline {3.1}Pre-Processing}{35}{section.134}
+\contentsline {chapter}{\numberline {4}The Patch Test}{39}{chapter.138}
+\contentsline {chapter}{References}{41}{chapter.138}

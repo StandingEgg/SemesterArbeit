@@ -2236,14 +2236,6 @@
     <bcf:citekey order="1">Johannes</bcf:citekey>
     <bcf:citekey order="2">bibid</bcf:citekey>
     <bcf:citekey order="3">Johannes</bcf:citekey>
-    <bcf:citekey order="4">Mitropolsky:Averaging</bcf:citekey>
-    <bcf:citekey order="5">Hagedorn:NichtlinSchwingungen1978</bcf:citekey>
-    <bcf:citekey order="6">Hagedorn:NichtlinSchwingungen1978</bcf:citekey>
-    <bcf:citekey order="7">Hagedorn:NichtlinSchwingungen1978</bcf:citekey>
-    <bcf:citekey order="8">Sanders:AveragingMethods2007</bcf:citekey>
-    <bcf:citekey order="9">Sanders:AveragingMethods2007</bcf:citekey>
-    <bcf:citekey order="10">Sanders:AveragingMethods2007</bcf:citekey>
-    <bcf:citekey order="11">Sanders:AveragingMethods2007</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="ynt" type="entry" sortscheme="ynt">
   <bcf:sorting>
