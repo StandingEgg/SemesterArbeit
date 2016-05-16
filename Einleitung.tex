@@ -300,8 +300,8 @@ In which we used corresponding weights for each of the three spatial directions.
 \end{table}
 
 \section{Extrapolation from Gauss Points}
-\subsection{Quad4}
-This will be explained for the four-node bilinear quadrilateral. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as illustrated in Figure \ref{fig: Quad4_1}. The stresses are calculated at the Gauss points, which are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$ so it is seen that Gauss point numbering essentially follows element node numbering in the counterclockwise sense. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The stresses are evaluated at these Gauss points by passing these natural coordinates to the shape function subroutine. Then each stress component is “carried” to the corner nodes $k_1^E$ through $k_4^E$ through a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly it is convenient to consider the region bounded by the Gauss points as an “internal element” or “Gauss element”. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. Its quadrilateral (natural) coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  These are linked to $\xi^{\prime}$ and $\eta^{\prime}$ by the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
+\subsection{Quad4} \label{Quad4}
+Quad4 is used for 2-D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points, which are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$ so it is seen that Gauss point numbering essentially follows element node numbering in the counterclockwise sense. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points by passing these natural coordinates to the shape function subroutine. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly it is convenient to consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. Its quadrilateral (natural) coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  These are linked to $\xi^{\prime}$ and $\eta^{\prime}$ by the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
 \begin{equation}
 k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
 k_i^E= k_i^G\sqrt{3}
@@ -321,6 +321,13 @@ k_i^E= k_i^G\sqrt{3}
 	\end{center} 
 \end{figure}
 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Quad4_basic.pdf}			
+		\caption{Equation of side opposite corner 1 for Quad4.} \label{fig: Quad4_basic}
+	\end{center} 
+\end{figure}
+
 \begin{table}
 	\centering
 	\caption{Natural Coordinate of Quad4}
@@ -329,43 +336,36 @@ k_i^E= k_i^G\sqrt{3}
 		\hline
 		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
 		\hline
-		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& 1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
-		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& -1 \\
-		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& 1/$\sqrt{3}$& 1/$\sqrt{3}$& +1& +1\\
-		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$\sqrt{3}$& 1/$\sqrt{3}$& -1& +1\\
+		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& 1/$+\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
+		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& 1/$+\sqrt{3}$& +1/$\sqrt{3}$& +1& -1 \\
+		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& 1/$+\sqrt{3}$& +1/$\sqrt{3}$& +1& +1\\
+		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$+\sqrt{3}$& +1/$\sqrt{3}$& -1& +1\\
 		\hline
 	\end{tabular}
 \end{table}		
 
-The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_1}. Only one type of node (corner)  and associated shape function is present. Consider node 1 as typical. Inspection of Figure \ref{fig: Quad4_2} suggests trying
-
+The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 as typical node. From Figure \ref{fig: Quad4_2} we can suggest:
 \begin{equation} \label{eq: Quad4_1}
 N_1^e = c_1L_{2-3}L_{3-4}
 \end{equation}
-This plainly vanishes over nodes 2, 3 and 4, and can be normalized to unity at node 1 by adjusting $c_1$. By construction it vanishes over the sides 2-3 and 3-4 that do not belong to 1. The equation of side 2-3 is $\xi = 1$, or $\xi - 1 = 0$. The equation of side 3-4 is $\eta = 1$, or $\eta - 1 = 0$. Replacing in Equation (\ref{eq: Quad4_1}) yields
+The equation of side 2-3 is $\xi - 1 = 0$. The equation of side 3-4 is $\eta - 1 = 0$. Replacing in Equation (\ref{eq: Quad4_1}):
 
 \begin{equation}
 N_1^e\left(\xi, \eta\right) = c_1 \left( \xi -1 \right) \left( \eta - 1\right) = c_1 \left(1 - \xi\right) \left( 1 - \eta \right)
 \end{equation}
-To find $c_1$, evaluate at node 1, the natural coordinates of which are $\xi = \eta = -1$:
+We evaluate the point at node 1 to find $c_1$, the natural coordinates can be expressed as $\xi = \eta = -1$:
 
 \begin{equation}
 N_1^e \left(-1, -1 \right) = c_1 \times 2 \times 2 = 4c_1 = 1
 \end{equation}
 
-Hence $c_1 = \frac{1}{4}$ and the shape functions is
+So, $c_1 = \frac{1}{4}$ and the shape functions is
 
 \begin{equation}
 N_1^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 - \eta\right)
 \end{equation}
 
-For the other three nodes the procedure is the same, traversing the element cyclically. It can be verified that the general expression of the shape functions for this element is 
-
-\begin{equation}
-N_i^e = \frac{1}{4} \left( 1 + \xi_i \xi\right) \left(1 + \left(\eta_i \eta\right)\right)
-\end{equation}
-
-Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as
+We can use the same approach to calculate the other three nodes. Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as
 
 \begin{equation}
 N_2^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 - \eta\right)
@@ -428,8 +428,8 @@ Here $w'$ means strains and stresses for our case. So the $w'$ part can be writt
 \end{equation}
 
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad8}
-For Quad8(Quadrangle with quadratic shape function and eight nodes) we have various choice for the type of Gauss element.  We usually use four, eight and nine nodes for three quadrilateral elements. Here we introduce the Gauss element with nine nodes. The nine-nodes quadrilateral has three types of shape functions, which are associated with corner, midside nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
-The lines whose product is used to construct three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The technique has been sufficiently illustrated in previous examples. Here the summary of calculation for nodes 1, 5 and 9, which are taken as representatives of the three types: The three types of shape function are represented in Figure \ref{fig: Quad8_2}.
+Quad8 is a higher order 2-D, 8 node element. This element is defined by 8 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8 we have various choice for the type of Gauss element.  We usually use four, eight and nine nodes Gauss element for three quadrilateral elements. Here we introduce the Gauss element with nine nodes. The nine-nodes quadrilateral has three types of shape functions, which are associated with corner, midpoint nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
+The three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here the summary of calculation for nodes 1, 5 and 9, which are taken as three typical types: The three types of shape function are illustrated in Figure \ref{fig: Quad8_2}.
 
 \begin{equation} \label{eq: Quad8_1}
 N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
@@ -443,13 +443,13 @@ N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi
 N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
 \end{equation}
 
-Imposing the normalization conditions result in:
+Applying the normalization conditions results in:
 
-\begin{center}
+\begin{align*}
 	$c_1 = \frac{1}{4}$, \quad $c_5 = -\frac{1}{2}$, $c_9 = 1$
-\end{center}
+\end{align*}
 
-By following this approach all the shape functions can be calculated
+By following this approach all the shape functions can be calculated:
 
 \begin{equation}
 N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
@@ -550,7 +550,7 @@ a_9 = -0.6666666
 \end{figure}
 
 \subsection{Triangle with three nodes: Tri3}
-The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: The equation of triangle side opposite to node $i$ is $L_{j-k} = \xi_i = 0$, where $j$ and $k$ are the cyclic permutations of $i$. Here symbol $L_{j-k}$ denotes the left hand side of the homogeneous equation of the natural coordinate line that passes through node points $j$ and $k$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious suppose is:
+Tri3 is used for 2-D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: The equation of triangle side opposite to node $i$ is $L_{j-k} = \xi_i = 0$, where $j$ and $k$ are the cyclic permutations of $i$. Here symbol $L_{j-k}$ denotes the left hand side of the homogeneous equation of the natural coordinate line that passes through node points $j$ and $k$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious suppose is:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
@@ -560,61 +560,74 @@ To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The t
 N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
 \end{equation}
 
-Quantities that are closely linked with the element geometry are best expressed in triangular co- ordinates. On the other hand, quantities such as displacements, strains and stresses are usually expressed in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other.
-Cartesian and triangular coordinates are linked by the relation.
+Combining the shape function and corner coordinate in Gauss element from Table \ref{tab: Tri3}, the extrapolation of Tri3 can be written as:
 
 \begin{equation}
-\begin{bmatrix}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+\end{pmatrix} = \begin{pmatrix}
+5/3 & -1/3 & -1/3 &    \\
+-1/3 & 5/3 & -1/3 &    \\
+-1/3 & -1/3 & 5/3 &    \\
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+\end{pmatrix}
+\end{equation}
+
+Quantities that are closely related with the element geometry are best represented in triangular coordinates. On the other hand, quantities such as displacements, strains and stresses are often calculated in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other. Cartesian and triangular coordinates are linked by the relation.
+\begin{equation}
+\begin{pmatrix}
 1 \\
 x \\
 y \\
-\end{bmatrix}
+\end{pmatrix}
 = 
-\begin{bmatrix}
+\begin{pmatrix}
 1&1&1 \\
 x_1&x_2&x_2 \\
 y_1&y_2&y_2 \\
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 \xi_1 \\
 \xi_2 \\
 \xi_3 \\
-\end{bmatrix}
+\end{pmatrix}
 \end{equation}
 
 \begin{equation}
-\begin{bmatrix}
+\begin{pmatrix}
 \xi_1 \\
 \xi_2 \\
 \xi_3 \\
-\end{bmatrix}
+\end{pmatrix}
 = 
-\frac{1}{2A}\begin{bmatrix}
+\frac{1}{2A}\begin{pmatrix}
 x_2y_3-x_3y_2&y_2-y_3&x_3-x_2 \\
 x_3y_1-x_1y_3&y_3-y_1&x_1-x_3 \\
 x_1y_2-x_2y_1&y_1-y_2&x_2-x_1 \\
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 1\\
 x \\
 y \\
-\end{bmatrix}
+\end{pmatrix}
 = 
-\frac{1}{2A}\begin{bmatrix}
+\frac{1}{2A}\begin{pmatrix}
 2A_{23}&y_{23}&x_{32} \\
 2A_{31}&y_{31}&x_{13} \\
 2A_{12}&y_{12}&x_{21} \\
-\end{bmatrix}
-\begin{bmatrix}
+\end{pmatrix}
+\begin{pmatrix}
 1 \\
 x \\
 y \\
 
-\end{bmatrix}
+\end{pmatrix}
 \end{equation}
-
-
-By using the same approach as quadrilateral elements, the extrapolation of Tri3 can be expressed as:
 
 
 \begin{figure}[h]
@@ -650,16 +663,16 @@ By using the same approach as quadrilateral elements, the extrapolation of Tri3 
 \end{figure}
 
 \subsection{Second order triangle with six nodes: Tri6}
-The geometry of the six-node quadratic is shown in Figure XXX. Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures XXX for corner node 1 and midside node 4, respectively. \\
+Tri6 is a higher order 2-D, 8 node element. This element is defined by 6 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of six-node quadratic is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case: triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
 For corner node 1, inspection of Figure \ref{fig: Tri6_2} at top left side suggests trying
-\begin{equation}
+\begin{equation} \label{eq: Tri6_N1}
 N_1^e = c_1L_{2-3}L_{4-6}
 \end{equation}
-$N_1^e$ will vanish over 2-5-3 and 4-6. This makes the function zero at node 2,3,4,5,6, as is obvious upon inspection of Figure XXX, while being nonzero at 1. The value can be adjusted to be unity if $c_1$ is appropriately chosen. The equations of the lines that appear (XXX equation upper) are
+$N_1^e$ will vanish over 2-5-3 and 4-6. This makes the function zero at node 2,3,4,5,6, as is obvious upon inspection of Figure \ref{fig: Tri6_2}, while being nonzero at 1. The value can be adjusted to be unity if $c_1$ is appropriately chosen. The equations of the lines that appear  in Equation \ref{eq: Tri6_N1} are
 \begin{equation}
 L_{2-3}: \xi_1 = 0, \quad L_{4-6}: \xi_1 - \frac{1}{2} = 0
 \end{equation}
-Replacing into (eq upper upper)
+Replacing into Equation \ref{eq: Tri6_N1}
 
 \begin{equation}
 N_1^e = c_1\xi_1 \left(\xi_1 - \frac{1}{2}\right)
@@ -670,7 +683,7 @@ Same as triangle with three nodes, $N_1^e\left(1,0,0\right) = c_1 \times 1 \time
 N_1^e = 2\xi_1\left(\xi_1 - \frac{1}{2}\right) = \xi_1 \left(2 \xi_1 -1 \right)
 \end{equation} 
 
-For midside node 4, inspection of Figure XXX suggests trying
+For midside node 4, inspection of Figure \ref{fig: Tri6_2} suggests trying
 
 \begin{equation}
 N_4^e = c_4L_{2-3}L_{1-3}
@@ -680,10 +693,59 @@ The equation of sides $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, r
 \begin{equation}
 N_4^e = 4\xi_1\xi_2
 \end{equation}
-The rest shape function can be calculated by using same approach. 
-\begin{center}
-	
-\end{center}
+The rest shape function can be calculated by following same approach. The rest shape functions of Tri6 can be expressed as:
+\begin{equation}
+N_2^e = \xi_2\left(2\xi_2-1\right)
+\end{equation}
+
+\begin{equation}
+N_3^e = \xi_3\left(2\xi_3-1\right)
+\end{equation}
+
+\begin{equation}
+N_5^e = 4\xi_2 \xi_3
+\end{equation}
+
+\begin{equation}
+N_6^e = 4\xi_1 \xi_3
+\end{equation}
+
+Then the extrapolation function of Tri6 can be written as:
+\begin{equation}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+w_4 \\
+w_5 \\
+w_6 \\
+\end{pmatrix} = \begin{pmatrix}
+a_1 & a_1 &  a_2 &  a_3 & a_4 & a_4     \\[0.3em]
+a_1 & a_2 &  a_1 &  a_4 & a_4 & a_3     \\[0.3em]
+a_2 & a_1 &  a_1 &  a_4 & a_3 & a_4     \\[0.3em]
+a_1 & a_7 &  a_7 &  a_5 & a_6 & a_5     \\[0.3em]
+a_7 & a_7 &  a_1 &  a_6 & a_5 & a_5     \\[0.3em]
+a_7 & a_1 &  a_7 &  a_5 & a_5 & a_6     \\[0.3em]            
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+{w_5}' \\
+{w_6}' \\
+\end{pmatrix}
+\end{equation}	
+\begin{align*}
+a_1 = +0.55555556 \\
+a_2 = +3.88888889 \\
+a_3 = +0.44444444 \\
+a_4 = -2.22222222 \\
+a_5 = -0.88888889 \\
+a_6 = +1.77777778 \\
+a_7 = +0.22222222 \\
+\end{align*}
+
+
 
 \begin{figure}[h]
 	\begin{center}
@@ -702,18 +764,58 @@ The rest shape function can be calculated by using same approach.
 \end{figure}
 
 
-\subsection{Tetraeder element with four nodes: Tet4}
+\subsection{Tetrahedron element with four nodes: Tet4}
+Tet4 is a higher order 3-D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry of Tet4 are shown in Figure \ref{fig: Tet4_1}. For tetrahedron element it is beneficial to use its own coordinate. The shape function of Tet4 are:
+\begin{equation}
+N_1 = L_1
+\end{equation}
+
+\begin{equation}
+N_2 = L_2
+\end{equation}
+
+\begin{equation}
+N_3 = L_3
+\end{equation}
+
+\begin{equation}
+N_4 = L_4
+\end{equation}
+ We take a tetrahedron with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can find out four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. After replacing the corner points into shape function, the extrapolation of Tet4 are shown as:
+\begin{equation}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+w_4 \\
+\end{pmatrix} = \begin{pmatrix}
+a_1 & a_2 &  a_2 &  a_2      \\[0.3em]
+a_2 & a_1 &  a_2 &  a_2      \\[0.3em]
+a_2 & a_2 &  a_1 &  a_2      \\[0.3em]
+a_2 & a_2 &  a_2 &  a_1      \\[0.3em]
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+\end{pmatrix}
+\end{equation}	
+\begin{align*}
+a_1 = +1.927051 \\
+a_2 = -0.309017 \\
+\end{align*}
+
 
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=8cm,clip]{Tet4_1.pdf}			
-		\caption{Tri4 in element coordinate and Gauss element coordinate.}
+		\caption{Tet4 in element coordinate and Gauss element coordinate.} \label{fig: Tet4_1}
 	\end{center} 
 \end{figure}
 
 \begin{table}
 	\centering
-	\caption{Tetrahedral Coordinate of Tet4}
+	\caption{Tetrahedral Coordinate of Tet4} \label{tab: Tet4}
 	\begin{tabular}{ccccccccc}			
 		\hline
 		Corner node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4'\\ \hline
@@ -732,6 +834,110 @@ The rest shape function can be calculated by using same approach.
 		\hline 		    
 	\end{tabular}	
 \end{table}		
+
+\subsection{Tetrahedron element with ten nodes: Tet10}
+Tet10 is a higher order 3-D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry, node location and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 are same as Tet4:
+\begin{equation}
+N_1 = L_1
+\end{equation}
+
+\begin{equation}
+N_2 = L_2
+\end{equation}
+
+\begin{equation}
+N_3 = L_3
+\end{equation}
+
+\begin{equation}
+N_4 = L_4
+\end{equation}
+The relation between Gauss and nodal coordinate are basically also similar as Tet4.  The new appended six corner nodes are picked as midpoint of each edges. Table \ref{tab: Tet10} shows the details about Gauss and nodal coordinate system, respectively. Then the extrapolation of Tet10 can be formed as:
+\begin{equation}
+\begin{pmatrix}
+w_1 \\
+w_2 \\
+w_3 \\
+w_4 \\
+w_5 \\
+w_6 \\
+w_7 \\
+w_8 \\
+w_9 \\
+w_10 \\
+\end{pmatrix} = \begin{pmatrix}
+a_1 & a_2 &  a_2 &  a_2      \\[0.3em]
+a_2 & a_1 &  a_2 &  a_2      \\[0.3em]
+a_2 & a_2 &  a_1 &  a_2      \\[0.3em]
+a_2 & a_2 &  a_2 &  a_1      \\[0.3em]
+a_3 & a_3 &  a_2 &  a_2      \\[0.3em]
+a_3 & a_2 &  a_3 &  a_2      \\[0.3em]
+a_3 & a_2 &  a_2 &  a_3      \\[0.3em]
+a_2 & a_3 &  a_3 &  a_2      \\[0.3em]
+a_2 & a_3 &  a_2 &  a_3      \\[0.3em]
+a_2 & a_2 &  a_3 &  a_3      \\[0.3em]
+\end{pmatrix} \begin{pmatrix}
+{w_1}' \\
+{w_2}' \\
+{w_3}' \\
+{w_4}' \\
+\end{pmatrix}
+\end{equation}	
+\begin{align*}
+a_1 = +1.927051 \\
+a_2 = -0.309017 \\
+a_3 = +0.809017
+\end{align*}
+
+
+
+\begin{table}
+	\centering
+	\caption{Coordinate system of Tet10} \label{tab: Tet10}
+	\begin{tabular}{ccccccccc}			
+		\hline
+		Corner node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4'\\ \hline
+		1\centering& 1& 0& 0& 0& $\alpha$& $\beta$& $\beta$& $\beta$\\
+		2\centering& 0& 1& 0& 0& $\beta$& $\alpha$& $\beta$& $\beta$\\
+		3\centering& 0& 0& 1& 0& $\beta$& $\beta$& $\alpha$& $\beta$\\
+		4\centering& 0& 0& 0& 1& $\beta$& $\beta$& $\beta$& $\alpha$\\
+		5\centering& 0.5& 0.5& 0& 0& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\beta$\\
+		6\centering& 0.5& 0& 0.5& 0& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\beta$\\
+		7\centering& 0.5& 0& 1& 0.5& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\beta$& $\frac{(\alpha+\beta)}{2}$\\
+		8\centering& 0& 0.5& 0.5& 0& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$& $\beta$\\
+		9\centering& 0& 0.5& 0& 0.5& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\frac{(\alpha+\beta)}{2}$\\
+		10\centering& 0& 0& 0.5& 0.5& $\beta$& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$\\
+		\hline
+		Gauss node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4' \\ \hline
+		1'\centering& $\alpha$& $\beta$& $\beta$& $\beta$& 1& 0& 0& 0  \\
+		2'\centering&$\beta$ & $\alpha$& $\beta$& $\beta$& 0& 1& 0& 0 \\
+		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 0& 1\\
+		4'\centering& $\beta$& $\beta$& $\beta$& $\alpha$& 0& 0& 0& 1\\
+		\hline
+		$\alpha$ = 0.58541020; $\beta$ = 0.13819660&&&&&&&&\\
+		\hline 		    
+	\end{tabular}	
+\end{table}		
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{Tet10.pdf}			
+		\caption{Tet10 in element coordinate and Gauss element coordinate.} \label{fig: Tet10}
+	\end{center} 
+\end{figure}
+
+\section{Assembly}
+In previous section, we have solved stain and stress in one element. The next step is to assembly strain and stress at each nodes. At the same time, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, which two neighboring element share one or more nodes. Now we take a simple 2-D a object as example, which are meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been done before. The stiffness matrix of elements is given as:
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{assembly.pdf}			
+		\caption{Two Tri6 elements in global and local perspective.} \label{fig: assembly}
+	\end{center} 
+\end{figure}
+
+
 
 \chapter{Programming Implementation}
 \section{Pre-Processing}
@@ -783,6 +989,12 @@ After building the model, numerical data can be exported as node list and elemen
 		\end{tabular}		
 	\end{center}	
 \end{table}
+
+\chapter{The Patch Test}
+After computing strain and stress in AMfe Toolbox, We need to know if the finite element programm have the algorithmic procedure correctly. This is generally not easy to verify if the modelling is too complex. The patch test is an useful technique to check convergent performance of element type that is being tested. The basic idea of the patch test is to apply special boundary condition to keep a constant strain/stress state. It is to simplify a complex problem to a simple one, which you already know the correct numerical results. 
+
+
+
 \cite[p. 18]{bibid}
 Interelement Averaging can be as future research ..
 \cite[p. 1-10]{Johannes}
