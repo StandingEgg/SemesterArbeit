@@ -22,6 +22,8 @@
 \contentsline {section}{\numberline {2.5}Assembly}{27}{section.125}
 \contentsline {chapter}{\numberline {3}Programming Implementation}{35}{chapter.134}
 \contentsline {section}{\numberline {3.1}Pre-Processing}{35}{section.135}
-\contentsline {chapter}{\numberline {4}The Patch Test}{39}{chapter.139}
-\contentsline {chapter}{\numberline {5}Konvergent}{43}{chapter.143}
-\contentsline {chapter}{References}{45}{chapter*.144}
+\contentsline {chapter}{\numberline {4}Element Type Test}{39}{chapter.139}
+\contentsline {section}{\numberline {4.1}Unit Testing with Python}{39}{section.140}
+\contentsline {section}{\numberline {4.2}The Patch Test}{40}{section.143}
+\contentsline {chapter}{\numberline {5}Konvergent}{43}{chapter.147}
+\contentsline {chapter}{References}{45}{chapter*.148}

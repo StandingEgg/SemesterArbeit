@@ -19,26 +19,26 @@
 
 \refsection{0}
   \sortlist{ynt}{ynt}
-    \entry{Felippa}{book}{}
+    \entry{NumericalMethod}{book}{}
       \name{author}{1}{}{%
-        {{uniquename=0,hash=982eae6b1cb0e06f233cb01100d7c772}{Felippa}{F\bibinitperiod}{Carlos\bibnamedelima A.}{C\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+        {{uniquename=0,hash=df73cf632b9568fc296f6bc78e6450b0}{Dukkipati}{D\bibinitperiod}{Rao\bibnamedelima V.}{R\bibinitperiod\bibinitdelim V\bibinitperiod}{}{}{}{}}%
       }
       \list{location}{1}{%
-        {Boulder, Colorado 80309-0429, USA}%
+        {4835/24 Ansari Road, Daryaganj, New Delhi}%
       }
       \list{publisher}{1}{%
-        {University of Colorado}%
+        {New Age International Publishers}%
       }
-      \strng{namehash}{982eae6b1cb0e06f233cb01100d7c772}
-      \strng{fullhash}{982eae6b1cb0e06f233cb01100d7c772}
+      \strng{namehash}{df73cf632b9568fc296f6bc78e6450b0}
+      \strng{fullhash}{df73cf632b9568fc296f6bc78e6450b0}
       \field{sortinit}{2}
       \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
-      \field{labelyear}{2004}
+      \field{labelyear}{2010}
       \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{INTRODUCTION to Introduction to Finite Element Methods}
-      \field{year}{2004}
+      \field{title}{Numerical Methods}
+      \field{year}{2010}
     \endentry
     \entry{Johannes}{unpublished}{}
       \name{author}{1}{}{%

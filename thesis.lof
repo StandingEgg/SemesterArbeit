@@ -23,7 +23,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces A simple meshed geometry\relax }}{36}{figure.caption.136}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces The displacement patch test with Tri6 element\relax }}{40}{figure.caption.140}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Contour plot of $\epsilon _{xx}$ from ANSYS, SMN: minimal value; SMX: maximal value\relax }}{40}{figure.caption.141}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Contour plot of $\epsilon _{xx}$ calculated in AMfe, demonstrate in ParaView\relax }}{41}{figure.caption.142}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The displacement patch test with Tri6 element\relax }}{41}{figure.caption.144}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Contour plot of $\epsilon _{xx}$ from ANSYS, SMN: minimal value; SMX: maximal value\relax }}{41}{figure.caption.145}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Contour plot of $\epsilon _{xx}$ calculated in AMfe, demonstrate in ParaView\relax }}{42}{figure.caption.146}
 \addvspace {10\p@ }
