@@ -21,5 +21,9 @@
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Tet10 in element coordinate and Gauss element coordinate.\relax }}{30}{figure.caption.124}
 \contentsline {figure}{\numberline {2.14}{\ignorespaces Two Tri6 elements in global and local perspective.\relax }}{31}{figure.caption.129}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A simple meshed geometry\relax }}{36}{figure.caption.135}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A simple meshed geometry\relax }}{36}{figure.caption.136}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The displacement patch test with Tri6 element\relax }}{40}{figure.caption.140}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Contour plot of $\epsilon _{xx}$ from ANSYS, SMN: minimal value; SMX: maximal value\relax }}{40}{figure.caption.141}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Contour plot of $\epsilon _{xx}$ calculated in AMfe, demonstrate in ParaView\relax }}{41}{figure.caption.142}
 \addvspace {10\p@ }

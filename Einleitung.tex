@@ -1023,22 +1023,28 @@ f_5^{\left(2\right)} \\
 f_6^{\left(2\right)}  \\ 
 \end{pmatrix} 
 \end{equation}
-For assembly of strain and stress, we need to combine the contribution at each node. The procedure is:
+For assembly of strain and stress, we need to combine the contribution at each node. An extra procedure after combining of strain or stress is to solve the average value by dividing the number of element that share a same node. Because the strain and strain are always jump between elements. The rule for solving averaging strain and stress can be formed as:
+\begin{equation}
+\epsilon = \displaystyle\sum_{i=1}^{n} \frac{\epsilon_{i,raw}}{n}
+\\
+\sigma = \displaystyle\sum_{i=1}^{n} \frac{\sigma_{i,raw}}{n}
+\end{equation} 
+
 
 
 \begin{equation*}
-\epsilon =  \begin{pmatrix}
+\epsilon_{raw} =  \begin{pmatrix}
 \epsilon_{1xx}^{\left(1\right)}&\epsilon_{1yy}^{\left(1\right)}&\epsilon_{1zz}^{\left(1\right)}&2\epsilon_{1yz}^{\left(1\right)}&2\epsilon_{1xz}^{\left(1\right)}&2\epsilon_{1xy}^{\left(1\right)} \\
 \epsilon_{2xx}^{\left(1\right)}&\epsilon_{2yy}^{\left(1\right)}&\epsilon_{2zz}^{\left(1\right)}&2\epsilon_{2yz}^{\left(1\right)}&2\epsilon_{2xz}^{\left(1\right)}&2\epsilon_{2xy}^{\left(1\right)} \\
 \epsilon_{5xx}^{\left(1\right)}&\epsilon_{5yy}^{\left(1\right)}&\epsilon_{5zz}^{\left(1\right)}&2\epsilon_{5yz}^{\left(1\right)}&2\epsilon_{5xz}^{\left(1\right)}&2\epsilon_{5xy}^{\left(1\right)} \\
 \epsilon_{6xx}^{\left(1\right)}&\epsilon_{6yy}^{\left(1\right)}&\epsilon_{6zz}^{\left(1\right)}&2\epsilon_{6yz}^{\left(1\right)}&2\epsilon_{6xz}^{\left(1\right)}&2\epsilon_{6xy}^{\left(1\right)} \\
 \epsilon_{3xx}^{\left(1\right)}&\epsilon_{3yy}^{\left(1\right)}&\epsilon_{3zz}^{\left(1\right)}&2\epsilon_{3yz}^{\left(1\right)}&2\epsilon_{3xz}^{\left(1\right)}&2\epsilon_{3xy}^{\left(1\right)} \\
 \epsilon_{4xx}^{\left(1\right)}&\epsilon_{4yy}^{\left(1\right)}&\epsilon_{4zz}^{\left(1\right)}&2\epsilon_{4yz}^{\left(1\right)}&2\epsilon_{4xz}^{\left(1\right)}&2\epsilon_{4xy}^{\left(1\right)} \\
-0 \\ 
-0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 \\ 
 \end{pmatrix} +  \begin{pmatrix}
-0 \\ 
-0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 \\ 
+0 & 0 & 0 & 0 & 0 & 0 \\ 
 \epsilon_{1xx}^{\left(2\right)}&\epsilon_{1yy}^{\left(2\right)}&\epsilon_{1zz}^{\left(2\right)}&2\epsilon_{1yz}^{\left(2\right)}&2\epsilon_{1xz}^{\left(2\right)}&2\epsilon_{1xy}^{\left(2\right)} \\
 \epsilon_{2xx}^{\left(2\right)}&\epsilon_{2yy}^{\left(2\right)}&\epsilon_{2zz}^{\left(2\right)}&2\epsilon_{2yz}^{\left(2\right)}&2\epsilon_{2xz}^{\left(2\right)}&2\epsilon_{2xy}^{\left(2\right)} \\
 \epsilon_{3xx}^{\left(2\right)}&\epsilon_{3yy}^{\left(2\right)}&\epsilon_{3zz}^{\left(2\right)}&2\epsilon_{3yz}^{\left(2\right)}&2\epsilon_{3xz}^{\left(2\right)}&2\epsilon_{3xy}^{\left(2\right)} \\
@@ -1049,18 +1055,18 @@ For assembly of strain and stress, we need to combine the contribution at each n
 \end{equation*}
 
 \begin{equation}
-\epsilon = \begin{pmatrix}
+\epsilon  =\begin{pmatrix}
 \epsilon_{1xx}^{\left(1\right)}&\epsilon_{1yy}^{\left(1\right)}&\epsilon_{1zz}^{\left(1\right)}&2\epsilon_{1yz}^{\left(1\right)}&2\epsilon_{1xz}^{\left(1\right)}&2\epsilon_{1xy}^{\left(1\right)} \\
 
 \epsilon_{2xx}^{\left(1\right)}&\epsilon_{2yy}^{\left(1\right)}&\epsilon_{2zz}^{\left(1\right)}&2\epsilon_{2yz}^{\left(1\right)}&2\epsilon_{2xz}^{\left(1\right)}&2\epsilon_{2xy}^{\left(1\right)} \\
 
-\epsilon_{5xx}^{\left(1\right)}+\epsilon_{1xx}^{\left(2\right)}&\epsilon_{5yy}^{\left(1\right)}+\epsilon_{1yy}^{\left(2\right)}&\epsilon_{5zz}^{\left(1\right)}+\epsilon_{1zz}^{\left(2\right)}&2\epsilon_{5yz}^{\left(1\right)}+2\epsilon_{1yz}^{\left(2\right)}&2\epsilon_{5xz}^{\left(1\right)}+2\epsilon_{1xz}^{\left(2\right)}&2\epsilon_{5xy}^{\left(1\right)}+2\epsilon_{1xy}^{\left(2\right)}  \\
+\frac{\epsilon_{5xx}^{\left(1\right)}+\epsilon_{1xx}^{\left(2\right)}}{2}&\frac{\epsilon_{5yy}^{\left(1\right)}+\epsilon_{1yy}^{\left(2\right)}}{2}&\frac{\epsilon_{5zz}^{\left(1\right)}+\epsilon_{1zz}^{\left(2\right)}}{2}&\frac{2\epsilon_{5yz}^{\left(1\right)}+2\epsilon_{1yz}^{\left(2\right)}}{2}&\frac{2\epsilon_{5xz}^{\left(1\right)}+2\epsilon_{1xz}^{\left(2\right)}}{2}&\frac{2\epsilon_{5xy}^{\left(1\right)}+2\epsilon_{1xy}^{\left(2\right)}}{2}  \\
 
-\epsilon_{6xx}^{\left(1\right)}+\epsilon_{2xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(1\right)}+\epsilon_{2yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(1\right)}+\epsilon_{2zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(1\right)}+2\epsilon_{2yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(1\right)}+2\epsilon_{2xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(1\right)}+2\epsilon_{2xy}^{\left(2\right)} \\
+\frac{\epsilon_{6xx}^{\left(1\right)}+\epsilon_{2xx}^{\left(2\right)}}{2}&\frac{\epsilon_{6yy}^{\left(1\right)}+\epsilon_{2yy}^{\left(2\right)}}{2}&\frac{\epsilon_{6zz}^{\left(1\right)}+\epsilon_{2zz}^{\left(2\right)}}{2}&\frac{2\epsilon_{6yz}^{\left(1\right)}+2\epsilon_{2yz}^{\left(2\right)}}{2}&\frac{2\epsilon_{6xz}^{\left(1\right)}+2\epsilon_{2xz}^{\left(2\right)}}{2}&\frac{2\epsilon_{6xy}^{\left(1\right)}+2\epsilon_{2xy}^{\left(2\right)}}{2} \\
 
-\epsilon_{3xx}^{\left(1\right)}+\epsilon_{3xx}^{\left(2\right)}&\epsilon_{3yy}^{\left(1\right)}+\epsilon_{3yy}^{\left(2\right)}&\epsilon_{3zz}^{\left(1\right)}+\epsilon_{3zz}^{\left(2\right)}&2\epsilon_{3yz}^{\left(1\right)}+2\epsilon_{3yz}^{\left(2\right)}&2\epsilon_{3xz}^{\left(1\right)}+2\epsilon_{3xz}^{\left(2\right)}&2\epsilon_{3xy}^{\left(1\right)}+2\epsilon_{3xy}^{\left(2\right)} \\
+\frac{\epsilon_{3xx}^{\left(1\right)}+\epsilon_{3xx}^{\left(2\right)}}{2}&\frac{\epsilon_{3yy}^{\left(1\right)}+\epsilon_{3yy}^{\left(2\right)}}{2}&\frac{\epsilon_{3zz}^{\left(1\right)}+\epsilon_{3zz}^{\left(2\right)}}{2}&\frac{2\epsilon_{3yz}^{\left(1\right)}+2\epsilon_{3yz}^{\left(2\right)}}{2}&\frac{2\epsilon_{3xz}^{\left(1\right)}+2\epsilon_{3xz}^{\left(2\right)}}{2}&\frac{2\epsilon_{3xy}^{\left(1\right)}+2\epsilon_{3xy}^{\left(2\right)}}{2} \\
 
-\epsilon_{4xx}^{\left(1\right)}+\epsilon_{4xx}^{\left(2\right)}&\epsilon_{4yy}^{\left(1\right)}+\epsilon_{4yy}^{\left(2\right)}&\epsilon_{4zz}^{\left(1\right)}+\epsilon_{4zz}^{\left(2\right)}&2\epsilon_{4yz}^{\left(1\right)}+2\epsilon_{4yz}^{\left(2\right)}&2\epsilon_{4xz}^{\left(1\right)}+2\epsilon_{4xz}^{\left(2\right)}&2\epsilon_{4xy}^{\left(1\right)}+2\epsilon_{4xy}^{\left(2\right)} \\
+\frac{\epsilon_{4xx}^{\left(1\right)}+\epsilon_{4xx}^{\left(2\right)}}{2}&\frac{\epsilon_{4yy}^{\left(1\right)}+\epsilon_{4yy}^{\left(2\right)}}{2}&\frac{\epsilon_{4zz}^{\left(1\right)}+\epsilon_{4zz}^{\left(2\right)}}{2}&\frac{2\epsilon_{4yz}^{\left(1\right)}+2\epsilon_{4yz}^{\left(2\right)}}{2}&\frac{2\epsilon_{4xz}^{\left(1\right)}+2\epsilon_{4xz}^{\left(2\right)}}{2}&\frac{2\epsilon_{4xy}^{\left(1\right)}+2\epsilon_{4xy}^{\left(2\right)}}{2} \\
 
 \epsilon_{5xx}^{\left(2\right)}&\epsilon_{5yy}^{\left(2\right)}&\epsilon_{5zz}^{\left(2\right)}&2\epsilon_{5yz}^{\left(2\right)}&2\epsilon_{5xz}^{\left(2\right)}&2\epsilon_{5xy}^{\left(2\right)} \\
 \epsilon_{6xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(2\right)} \\
@@ -1069,7 +1075,7 @@ For assembly of strain and stress, we need to combine the contribution at each n
 
 
 \begin{equation*}
-\sigma =  \begin{pmatrix}
+\sigma_{raw} =  \begin{pmatrix}
 \sigma_{1xx}^{\left(1\right)}&\sigma_{1yy}^{\left(1\right)}&\sigma_{1zz}^{\left(1\right)}&\sigma_{1yz}^{\left(1\right)}&\sigma_{1xz}^{\left(1\right)}&\sigma_{1xy}^{\left(1\right)} \\
 \sigma_{2xx}^{\left(1\right)}&\sigma_{2yy}^{\left(1\right)}&\sigma_{2zz}^{\left(1\right)}&\sigma_{2yz}^{\left(1\right)}&\sigma_{2xz}^{\left(1\right)}&f_{2xy}^{\left(1\right)} \\
 \sigma_{5xx}^{\left(1\right)}&\sigma_{5yy}^{\left(1\right)}&\sigma_{5zz}^{\left(1\right)}&\sigma_{5yz}^{\left(1\right)}&\sigma_{5xz}^{\left(1\right)}&\sigma_{5xy}^{\left(1\right)} \\
@@ -1096,13 +1102,13 @@ For assembly of strain and stress, we need to combine the contribution at each n
 
 \sigma_{2xx}^{\left(1\right)}&\sigma_{2yy}^{\left(1\right)}&\sigma_{2zz}^{\left(1\right)}&\sigma_{2yz}^{\left(1\right)}&\sigma_{2xz}^{\left(1\right)}&f_{2xy}^{\left(1\right)} \\
 
-\sigma_{5xx}^{\left(1\right)}+\sigma_{1xx}^{\left(2\right)}&\sigma_{5yy}^{\left(1\right)}+\sigma_{1yy}^{\left(2\right)}&\sigma_{5zz}^{\left(1\right)}+\sigma_{1zz}^{\left(2\right)}&\sigma_{5yz}^{\left(1\right)}+\sigma_{1yz}^{\left(2\right)}&\sigma_{5xz}^{\left(1\right)}+\sigma_{1xz}^{\left(2\right)}&\sigma_{5xy}^{\left(1\right)}+\sigma_{1xy}^{\left(2\right)}  \\
+\frac{\sigma_{5xx}^{\left(1\right)}+\sigma_{1xx}^{\left(2\right)}}{2}&\frac{\sigma_{5yy}^{\left(1\right)}+\sigma_{1yy}^{\left(2\right)}}{2}&\frac{\sigma_{5zz}^{\left(1\right)}+\sigma_{1zz}^{\left(2\right)}}{2}&\frac{\sigma_{5yz}^{\left(1\right)}+\sigma_{1yz}^{\left(2\right)}}{2}&\frac{\sigma_{5xz}^{\left(1\right)}+\sigma_{1xz}^{\left(2\right)}}{2}&\frac{\sigma_{5xy}^{\left(1\right)}+\sigma_{1xy}^{\left(2\right)}}{2}  \\
 
-\sigma_{6xx}^{\left(1\right)}+\sigma_{2xx}^{\left(2\right)}&\sigma_{6yy}^{\left(1\right)}+\sigma_{2yy}^{\left(2\right)}&\sigma_{6zz}^{\left(1\right)}+\sigma_{2zz}^{\left(2\right)}&\sigma_{6yz}^{\left(1\right)}+\sigma_{2yz}^{\left(2\right)}&\sigma_{6xz}^{\left(1\right)}+\sigma_{2xz}^{\left(2\right)}&\sigma_{6xy}^{\left(1\right)}+\sigma_{2xy}^{\left(2\right)} \\
+\frac{\sigma_{6xx}^{\left(1\right)}+\sigma_{2xx}^{\left(2\right)}}{2}&\frac{\sigma_{6yy}^{\left(1\right)}+\sigma_{2yy}^{\left(2\right)}}{2}&\frac{\sigma_{6zz}^{\left(1\right)}+\sigma_{2zz}^{\left(2\right)}}{2}&\frac{\sigma_{6yz}^{\left(1\right)}+\sigma_{2yz}^{\left(2\right)}}{2}&\frac{\sigma_{6xz}^{\left(1\right)}+\sigma_{2xz}^{\left(2\right)}}{2}&\frac{\sigma_{6xy}^{\left(1\right)}+\sigma_{2xy}^{\left(2\right)}}{2} \\
 
-\sigma_{3xx}^{\left(1\right)}+\sigma_{3xx}^{\left(2\right)}&\sigma_{3yy}^{\left(1\right)}+\sigma_{3yy}^{\left(2\right)}&\sigma_{3zz}^{\left(1\right)}+\sigma_{3zz}^{\left(2\right)}&\sigma_{3yz}^{\left(1\right)}+\sigma_{3yz}^{\left(2\right)}&\sigma_{3xz}^{\left(1\right)}+\sigma_{3xz}^{\left(2\right)}&\sigma_{3xy}^{\left(1\right)}+\sigma_{3xy}^{\left(2\right)} \\
+\frac{\sigma_{3xx}^{\left(1\right)}+\sigma_{3xx}^{\left(2\right)}}{2}&\frac{\sigma_{3yy}^{\left(1\right)}+\sigma_{3yy}^{\left(2\right)}}{2}&\frac{\sigma_{3zz}^{\left(1\right)}+\sigma_{3zz}^{\left(2\right)}}{2}&\frac{\sigma_{3yz}^{\left(1\right)}+\sigma_{3yz}^{\left(2\right)}}{2}&\frac{\sigma_{3xz}^{\left(1\right)}+\sigma_{3xz}^{\left(2\right)}}{2}&\frac{\sigma_{3xy}^{\left(1\right)}+\sigma_{3xy}^{\left(2\right)}}{2} \\
 
-\sigma_{4xx}^{\left(1\right)}+\sigma_{4xx}^{\left(2\right)}&\sigma_{4yy}^{\left(1\right)}+\sigma_{4yy}^{\left(2\right)}&\sigma_{4zz}^{\left(1\right)}+\sigma_{4zz}^{\left(2\right)}&\sigma_{4yz}^{\left(1\right)}+\sigma_{4yz}^{\left(2\right)}&\sigma_{4xz}^{\left(1\right)}+\sigma_{4xz}^{\left(2\right)}&\sigma_{4xy}^{\left(1\right)}+\sigma_{4xy}^{\left(2\right)} \\
+\frac{\sigma_{4xx}^{\left(1\right)}+\sigma_{4xx}^{\left(2\right)}}{2}&\frac{\sigma_{4yy}^{\left(1\right)}+\sigma_{4yy}^{\left(2\right)}}{2}&\frac{\sigma_{4zz}^{\left(1\right)}+\sigma_{4zz}^{\left(2\right)}}{2}&\frac{\sigma_{4yz}^{\left(1\right)}+\sigma_{4yz}^{\left(2\right)}}{2}&\frac{\sigma_{4xz}^{\left(1\right)}+\sigma_{4xz}^{\left(2\right)}}{2}&\frac{\sigma_{4xy}^{\left(1\right)}+\sigma_{4xy}^{\left(2\right)}}{2} \\
 
 \sigma_{5xx}^{\left(2\right)}&\sigma_{5yy}^{\left(2\right)}&\sigma_{5zz}^{\left(2\right)}&\sigma_{5yz}^{\left(2\right)}&\sigma_{5xz}^{\left(2\right)}&\sigma_{5xy}^{\left(2\right)} \\
 \sigma_{6xx}^{\left(2\right)}&\sigma_{6yy}^{\left(2\right)}&\sigma_{6zz}^{\left(2\right)}&\sigma_{6yz}^{\left(2\right)}&\sigma_{6xz}^{\left(2\right)}&\sigma_{6xy}^{\left(2\right)} \\
@@ -1160,11 +1166,42 @@ After building the model, numerical data can be exported as node list and elemen
 	\end{center}	
 \end{table}
 
-\chapter{The Patch Test}
-After computing strain and stress in AMfe Toolbox, We need to know if the finite element programm have the algorithmic procedure correctly. This is generally not easy to verify if the modelling is too complex. The patch test is an useful technique to check convergent performance of element type that is being tested. The basic idea of the patch test is to apply special boundary condition to keep a constant strain/stress state. It is to simplify a complex problem to a simple one, which you already know the correct numerical results. 
+\chapter{Element Type Test}
+\section{Unit Testing with Python}
+Automated unit testing is the best way to determine if the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type, and try to find reason for failed test. The element type to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. Strain and stress components are of interest to test. The component from ANSYS will be compared to the results that calculated from AMfe Toolbox. 
+
+\section{The Patch Test}
+After computing strain and stress in AMfe Toolbox, We need to know if the finite element program have the algorithmic procedure correctly. This is generally not easy to verify if the modelling is too complex. The patch test is an useful technique to check the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary condition to keep a constant strain/stress state. It is to simplify a complex problem to a simple one, which you already know the correct numerical results. \\
+The procedure of displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes, the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is displacements are related to the background continuum. The last step is to verify if the patch has a constant strain state. Now we take Tri3 as an example to implement the displacement patch test. We create a simple rectangle geometry that consist of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain state can be viewed in Figure \ref{fig: PatchTest} in ANSYS. As expected, $\epsilon_{xx} = 0$. So we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has a same constant strain state. We export the node, element and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in AMfe, the contour plot of strain that shown in ParaView as Figure \ref{fig: PatchParaView}. The plot from AMfe Toolbox illustrate the same result $\epsilon_ {xx} = 0$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no a state which like pass the patch test 90 percent. Another element type like Tri3, Quad4, Quad8, Tet4 and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, the details are no longer listed here. 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=10cm,clip]{PatchMuster.pdf} 			
+		\caption{The displacement patch test with Tri6 element} \label{fig: PatchMuster}
+	\end{center}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=10cm,clip]{PatchTest.png} 			
+		\caption{Contour plot of $\epsilon_{xx}$ from ANSYS, SMN: minimal value; SMX: maximal value} \label{fig: PatchTest}
+	\end{center}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=10cm,clip]{PatchParaView.pdf} 			
+		\caption{Contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: PatchParaView}
+	\end{center}
+\end{figure}
 
 
+% Testing with all element type and formulate a table
+% my_material  = KirchhoffMaterial()
+% 不同单元之间也可以进行比较
+\chapter{Konvergent}
 
 \cite[p. 18]{bibid}
 Interelement Averaging can be as future research ..
+And I can talk about why i choose extrapolation, why not direct evaluation!
 \cite[p. 1-10]{Johannes}

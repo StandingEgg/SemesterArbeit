@@ -1,0 +1,65 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{ynt}{ynt}
+    \entry{Felippa}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=982eae6b1cb0e06f233cb01100d7c772}{Felippa}{F\bibinitperiod}{Carlos\bibnamedelima A.}{C\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Boulder, Colorado 80309-0429, USA}%
+      }
+      \list{publisher}{1}{%
+        {University of Colorado}%
+      }
+      \strng{namehash}{982eae6b1cb0e06f233cb01100d7c772}
+      \strng{fullhash}{982eae6b1cb0e06f233cb01100d7c772}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2004}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{INTRODUCTION to Introduction to Finite Element Methods}
+      \field{year}{2004}
+    \endentry
+    \entry{Johannes}{unpublished}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=6b1a727d57929721a4588ebad040df02}{Rutzmoser}{R\bibinitperiod}{Johannes}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Lehrstuhl für Angewandte Mechanik, Fakultät für Maschinenwesen, Technische Universität München}%
+      }
+      \strng{namehash}{6b1a727d57929721a4588ebad040df02}
+      \strng{fullhash}{6b1a727d57929721a4588ebad040df02}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2016}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{MEMO: Nichtlineare Finite Elemente}
+      \field{year}{2016}
+    \endentry
+  \endsortlist
+  \missing{bibid}
+\endrefsection
+\endinput
+
