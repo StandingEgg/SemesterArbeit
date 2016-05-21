@@ -4,9 +4,9 @@
 
 \section{Motivation} \label{sec:Einl:Motivation}
 The finite element method (FEM) is a numerical technique for finding approximate solutions to boundary value problems for partial differential equations. FEM contains linear FEM and non-linear FEM. 
-Linear analysis follows the equation $K\cdot D = F$, which $K$ stands for stiffness matrix, D stands for  displacement and F stands for force. It means that the correlation of force and displacement is linear. This relation between force and displacement is only valid for material that has elastic linear property. But in real situation, elastic material such as steel has also non- linear region. (see the Figure \ref{fig: nonlinear}). The property is elastic linear,  until at yield point, the steel is yielding and become non-linear. Non-linear cases include geometry non- linear and material non- linear. The example in Figure \ref{fig: nonlinear} just describes a non-linear case and it is also the main topic in this thesis. This thesis will only focus on nonlinear FEM. In engineering and science in general, FEM helps tremendously in producing strength visualization and it is also possible to lead engineer for minimizing weight, materials and costs. The accuracy of solution are only limited by the quality of model and by the available computational power.  Since the computational power has been improved enormously, FEM software offers a wide range of simulation of complex model designs and analysis of a system.  \newline
-AMfe is a nonlinear finite element code for structural application at chair of applied mechanics in Technical University of Munich. AMfe Toolbox is developed in Python and Fortran. Python is a high-level, interpreted and dynamically-typed programming language.  There are many numerical packages built on Python, such as Numpy, Scipy, Pandas. These packages provide high-performance, easy to use data structures, which just match for a FEM developing work. And because Python is a high-level programming language, it makes less time to develop the code, but on the other hand, it is slow for repeated execution of low-level task. Each Python operation comes with a small type-checking overhead, and with many repeated small operation, this overhead becomes significant. For that reason, the part of code are rewritten in Fortran. Fortran is a general-purpose, imperative programming language that is especially suited to numeric computation and scientific computing. So this combination obtain the advantage from both of them- easy to develop in Python and fast numeric computation in Fortran. The aim of AMfe Toolbox is to solve and analyse FEM problems, especially structural mechanical problems.
-It contains several modules with different functions to solve problems step by step. A simple structure of AMfe are depicted in Figure \ref{fig: Overview2}. Displacement, stress and strain are three important factors for structural mechanical engineering. The function for calculation of nodal displacements is completed in AMfe Toolbox. Stress and strain calculation are still empty. Stress and strain calculations are of interest because in structural mechanical analysis and design for geometry the stresses are often very important to the engineer. For that reason, functions for solving of stress and strain will be added in AMfe Toolbox. When stress is able to export, a research to increase the accuracy of results is worthy of consideration. To improve the accuracy of the results, stress recovery is a approach to extrapolate the element solution to nodal solution. The goal is to get as much accuracy from the computed displacements while keeping the computational effort reasonable. When the most important functions are done and works well, it is time to check if AMfe Toolbox export the reasonable results. The results of stress and strain from AMfe Toolbox will be compared with a commercial FEM software - ANSYS. The compare of each element type will be recorded. 
+Linear analysis follows the equation $K\cdot D = F$, in which $K$ stands for stiffness matrix, $D$ stands for  displacement, and $F$ stands for force. It means that the correlation of force and displacement is linear. This relation between force and displacement is only valid for materials that have elastic linear property. But in real situation, elastic materials such as steel has also non- linear region. (see the Figure \ref{fig: nonlinear}). The property of steel is elastic linear up until yield point. Then the steel is yielding and becomes non-linear. Non-linear states include geometry non-linear and material non-linear. The example in Figure \ref{fig: nonlinear} describes a non-linear case and it also the main topic of this thesis. In the fields of engineering and science, FEM is a powerful tool in producing strength visualization and can help engineers to minimize weight, materials and costs. The accuracy of solution are only limited by the quality of model and by the available computational power.  Ever since the computational power has been improved enormously, the FEM software has offered a wide range of simulations of complex model designs and system analyses.  \newline
+AMfe is a nonlinear finite element code for structural application at the chair of applied mechanics in Technical University of Munich. AMfe Toolbox is developed in Python and Fortran. Python is a high-level, interpreted, and dynamically-typed programming language.  There are many numerical packages built on Python, such as Numpy, Scipy, Pandas. These packages provide high-performance and easy to use data structures, both of which match the FEM developing work. The fact that Python is a high-level programming language makes it less time-consuming to develop the code. However, Python is slow for repeated execution of low-level task. Each Python operation comes with a small type-checking overhead, and when many repeated small operations add up, the overhead becomes significant. For this reason, A part of the AMfe code is rewritten in Fortran. Fortran is a general-purpose and imperative programming language that is specially tailored for numeric computation and scientific computing. Therefore, the combination of Python and Fortran retains the advantages of both - the easy-to-develop nature of Python and the fast numeric computation in Fortran. The aim of the AMfe Toolbox is to solve and analyse FEM problems, especially structural mechanical problems.
+The toolbox contains several modules with different functions to solve problems step by step. A simple structure of AMfe is depicted in Figure \ref{fig: Overview2}. Displacement, stress, and strain are three important factors in structural mechanical engineering. The function for calculating nodal displacements is completed in AMfe Toolbox, but functions for calculating stress and strain remain blank. Strain and stress calculations are important in structural mechanical analysis and geometric design. For this reason, functions for solving of stress and strain will be added to AMfe Toolbox. When strain and stress calculations are completed, the aim of research is then shifted to improving the accuracy of these results. In order to do so, stress recovery is an approach to extrapolate the element solution to nodal solution. The goal is to be as accurate as possible in the computed displacements while keeping the computational effort reasonable. When the most important functions are completed and running well, it is time to check if the AMfe Toolbox exports the reasonable results. The results of stress and strain from AMfe Toolbox will be compared with a commercial FEM software - ANSYS. The comparison of each element type will be recorded and discussed. 
 
 \begin{figure}
 	\begin{center}
@@ -31,7 +31,7 @@ It contains several modules with different functions to solve problems step by s
 	\end{center}
 \end{figure}
 
-This study can be divided into three parts.  Figure \ref{fig: Overview} shows the flow chart of structure in this study. The first part is marked with green box. The main job for this part is to export data of meshed geometry by using ANSYS Parametric Design Language(APDL) code and import them into AMfe Toolbox. This procedure called Pre-Processing which is the first step in solving a problem in Finite Element Analysis. This step also ensures the both analysis with same set of elements and nodes. After that it is the processing step, which is marked with yellow box. AMfe Toolbox has several modules with different functions. These modules combine with each other and provides all the calculation function for processing. This study is focusing on calculating stress and strain. The last part marked with blue colour is to check the accuracy of stress and strain with using different types of elements.
+This study can be divided into three parts.  Figure \ref{fig: Overview} shows the structural flow chart in this study. The first part is marked with a green box. The main function for this part is to export the data of a meshed geometry using ANSYS Parametric Design Language(APDL) code and import the data into the AMfe Toolbox. This procedure, which is called Pre-Processing, is the first step in solving a problem in Finite Element Analysis. This step also ensures the analyses from both ANSYS and AMfe Toolbox have the same set of elements and nodes. The processing step comes next, which is marked with a yellow box. AMfe Toolbox has several modules with different functions. These modules combined provides all calculation functions needed for processing. This study is focusing on calculating stress and strain. The last part marked by blue is to check the accuracy of strain and stress using different types of elements.
 
 \chapter{Numerical Aspect for Finite Element Formulation}
 \section{Shape Function}
@@ -336,10 +336,10 @@ k_i^E= k_i^G\sqrt{3}
 		\hline
 		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
 		\hline
-		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& 1/$+\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
-		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& 1/$+\sqrt{3}$& +1/$\sqrt{3}$& +1& -1 \\
-		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& 1/$+\sqrt{3}$& +1/$\sqrt{3}$& +1& +1\\
-		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$+\sqrt{3}$& +1/$\sqrt{3}$& -1& +1\\
+		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& +1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
+		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& +1/$\sqrt{3}$& +1/$\sqrt{3}$& +1& -1 \\
+		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& +1/$\sqrt{3}$& +1/$\sqrt{3}$& +1& +1\\
+		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$\sqrt{3}$& +1/$\sqrt{3}$& -1& +1\\
 		\hline
 	\end{tabular}
 \end{table}		
@@ -1191,7 +1191,7 @@ It is noteworthy that errors of approximation or rounding and truncation are int
 
 \section{The Patch Test}
 After testing the quality of each element type, we need to know if the finite element program have the algorithmic procedure correctly. This is generally not easy to verify if the modelling is too complex. The patch test is an useful technique to check the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary condition to keep a constant strain/stress state. It is to simplify a complex problem to a simple one, which you already know the correct numerical results. \\
-The procedure of displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes, the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is displacements are related to the background continuum. The last step is to verify if the patch has a constant strain state. Now we take Tri3 as an example to implement the displacement patch test. We create a simple rectangle geometry that consist of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain state can be viewed in Figure \ref{fig: PatchTest} in ANSYS. As expected, $\epsilon_{xx} = 0$. So we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has a same constant strain state. We export the node, element and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in AMfe, the contour plot of strain that shown in ParaView as Figure \ref{fig: PatchParaView}. The plot from AMfe Toolbox illustrate the same result $\epsilon_ {xx} = 0$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no a state which like pass the patch test 90 percent. Another element type like Tri3, Quad4, Quad8, Tet4 and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, the details are no longer listed here. 
+The procedure of displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes, the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is displacements are related to the background continuum. The last step is to verify if the patch has a constant strain state. Now we take Tri3 as an example to implement the displacement patch test. We create a simple rectangle geometry that consist of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain state can be viewed in Figure \ref{fig: PatchTest} in ANSYS. As expected, $\epsilon_{xx} = 0$. So we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has a same constant strain state. We export the node, element and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in AMfe, the contour plot of strain that shown in ParaView as Figure \ref{fig: PatchTest} right side. The plot from AMfe Toolbox illustrate the same result $\epsilon_ {xx} = 0$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no a state which like pass the patch test 90 percent. Another element type like Tri3, Quad4, Quad8, Tet4 and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, the details are no longer listed here. From the patch test we can not find any problem why Quad8, Tri6, Tet4 and Tet10 did not passed the unit test. This is still a issue to discuss later.
 
 \begin{figure}
 	\begin{center}
@@ -1202,23 +1202,182 @@ The procedure of displacement patch test is as follows: create a simple geometry
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=10cm,clip]{PatchTest.png} 			
-		\caption{Contour plot of $\epsilon_{xx}$ from ANSYS, SMN: minimal value; SMX: maximal value} \label{fig: PatchTest}
+		\includegraphics[width=7cm,clip]{PatchTest.png} 		
+		\includegraphics[width=7cm,clip]{PatchParaView.pdf} 		
+		\caption{left: Contour plot of $\epsilon_{xx}$ from ANSYS (SMN: minimal value; SMX: maximal value); right: Contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: PatchTest}
 	\end{center}
 \end{figure}
 
-\begin{figure}
+
+\section{Complex Model Test}
+The patch test is only investigated for simple model, it is of interest that how these element type behave with a complex model. Now we create a relative complex model for 2-D element and 3-D element, respectively. The motivation is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox. For 2-D model we pick a failed element type Tri6 as example
+
+
+
+For 3-D model we pick another failed element type Tet10
+
+\begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=10cm,clip]{PatchParaView.pdf} 			
-		\caption{Contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: PatchParaView}
+		\includegraphics[width=13cm,clip]{Quad4_Exx.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Exx_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Exx}
 	\end{center}
 \end{figure}
 
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Quad4_Eyy.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Eyy_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Eyy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Quad4_Exy.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Exy_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Exy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Quad4_Sxx.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Sxx_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Sxx}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Quad4_Syy.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Syy_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Syy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Quad4_Sxy.png} 		
+		\includegraphics[width=13cm,clip]{Quad4_Sxy_P.png} 		
+		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Sxy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Exx.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Exx_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exx}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Eyy.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Eyy_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Eyy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Ezz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Ezz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{zz}$ from ANSYS; lower: contour plot of $\epsilon_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Ezz}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Exy.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Exy_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Eyz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Eyz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{yz}$ from ANSYS; lower: contour plot of $\epsilon_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Eyz}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Exz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Exz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xz}$ from ANSYS; lower: contour plot of $\epsilon_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exz}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Sxx.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Sxx_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxx}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Syy.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Syy_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Syy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Szz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Szz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{zz}$ from ANSYS; lower: contour plot of $\sigma_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Szz}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Sxy.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Sxy_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxy}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Syz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Syz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{yz}$ from ANSYS; lower: contour plot of $\sigma_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Syz}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet10_Sxz.png} 		
+		\includegraphics[width=13cm,clip]{Tet10_Sxz_P.png} 		
+		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xz}$ from ANSYS; lower: contour plot of $\sigma_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxz}
+	\end{center}
+\end{figure}
+
+\clearpage 
 
 % Testing with all element type and formulate a table
 % my_material  = KirchhoffMaterial()
+% ParaView Numbering and vorher introduction
 % 不同单元之间也可以进行比较
-\section{Convergent Analysis}
+\section{Convergence Analysis}
+We can either decrease the element size or increase the polynomial degree of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degree of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem in a global point of view. It is also necessary to check the convergence of internal energy. The internal energy can be derived as:
+\begin{equation}
+\prod int = \frac{1}{2}\int_\Omega \sigma_{ij}^u\epsilon_{ij}^u \mathrm{d \Omega}
+\end{equation}
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=10cm,clip]{convergence.pdf} 			
+		\caption{Convergence analysis} \label{fig: convergence}
+	\end{center}
+\end{figure}
 
 \cite[p. 18]{bibid}
 Interelement Averaging can be as future research ..

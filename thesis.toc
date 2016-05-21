@@ -25,5 +25,6 @@
 \contentsline {chapter}{\numberline {4}Element Type Test}{39}{chapter.139}
 \contentsline {section}{\numberline {4.1}Unit Testing with Python}{39}{section.140}
 \contentsline {section}{\numberline {4.2}The Patch Test}{40}{section.143}
-\contentsline {chapter}{\numberline {5}Konvergent}{43}{chapter.147}
-\contentsline {chapter}{References}{45}{chapter*.148}
+\contentsline {section}{\numberline {4.3}Complex Model Test}{40}{section.146}
+\contentsline {section}{\numberline {4.4}Convergence Analysis}{61}{section.165}
+\contentsline {chapter}{References}{63}{chapter*.168}
