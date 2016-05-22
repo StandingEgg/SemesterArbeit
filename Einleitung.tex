@@ -36,15 +36,17 @@ This study can be divided into three parts.  Figure \ref{fig: Overview} shows th
 \chapter{Numerical Aspect for Finite Element Formulation}
 \section{Shape Function}
 \subsection{Quadrilateral Elements}
-To get the approximate solution (position, displacement, stress and strain) in structural mechanical field is the goal of AMfe Code.  The approximation is basically depended on shape function $N$. The standard approach for the definition of shape functions is to chose them as simple polynomials which are associated to nodes. One element includes $n$ nodes and $n$ shape functions, where the $i$-th shape function takes the value 1 at the $i$-th node in reference coordinates, then the $j$-th shape function can be written like this: \\
+The goal of the AMfe Code in the structural mechanical field is to get the approximate solutions to position, displacement, stress, and strain. The approximation is dependent on the shape function $N$. The standard approach to define the shape functions is choosing them as simple polynomials that are associated to nodes. In one element, there are $n$ nodes and $n$ shape functions, in which the $i$-th shape function takes the value of 1 at the $i$-th node in reference coordinates, then the $j$-th shape function can be written like this: \\
 
 \begin{center}
 	if $j$ = $i$ then $N_j\left(\hat{\xi_i}\right) = 1$ \\
 	if $j$ $\neq$ $i$ then $N_j\left(\hat{\xi_i}\right) = 0$
 \end{center}
 
+
+
 for $i$,$j$ = 1,...,n. \\
-In Figure \ref{fig: shape_func}, linear, quadratic shape function are shown together with corresponding node positions. When it comes to a element with three nodes, as shown in the right of Figure \ref{fig: shape_func}. For each shape functions, there are three restrictions:
+In Figure \ref{fig: shape_func}, linear and quadratic shape functions are shown together with corresponding node positions. When referring to an element with three nodes, as shown in the right of Figure \ref{fig: shape_func}. For each shape functions, there are three restrictions:
 
 \begin{figure}
 	\begin{center}
@@ -58,22 +60,21 @@ In Figure \ref{fig: shape_func}, linear, quadratic shape function are shown toge
 	$N_2\left(\hat{\xi_1} = -1\right) = 0$, $N_2\left(\hat{\xi_2} = 0\right) = 1$, $N_2\left(\hat{\xi_3} = 1\right) = 0$;\\
 	$N_3\left(\hat{\xi_1} = -1\right) = 0$, $N_3\left(\hat{\xi_2} = 0\right) = 0$, $N_3\left(\hat{\xi_3} = 1\right) = 1$
 \end{center}
-
-In general quadratic polynomial, the shape functions have three coefficients, and it can be constructed as follows:
+For quadratic polynomial, the shape function has three coefficients, and it can be constructed as follows:
 \begin{center}
 	$p_{quad}\left(\xi\right) = c_0 + c_1\xi + c_2\xi^2$
 \end{center}
 
-Lagrange polynomials are a general class of polynomials with the node association property: a Lagrange polynomial $l_k^n-1$ (in one coordinate $\xi$) of order $n-1$ passes through $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ evaluates unity $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node results in zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
+Lagrange polynomials are a general group of polynomials with the node undermentioned association property: a Lagrange polynomial $l_k^n-1$ (in one coordinate $\xi$) of order $n-1$ passes through $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ equals one $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node results in zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
 
 \begin{center}
 	$l_k^{n-1} \left( \xi \right) = \prod_{j = 1, j \neq k}^{n} \frac{\xi - \bar{\xi^1}}{\bar{\xi^k - \bar{\xi^j}}} = \frac{\left(\xi - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \xi - \bar{\xi}^{k-1}\right) \left(\xi - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\xi -\bar{\xi}^n\right)}{\left(\bar{\xi}^k - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \bar{\xi}^k - \bar{\xi}^{k-1}\right) \left(\bar{\xi}^k - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\bar{\xi}^k -\bar{\xi}^n\right)}$ \\[4mm] \quad $k = 1,2....,n$
 \end{center}
-For instance linear, i.e. order 1, Lagrange polynomials are achieved with $n-1=1$ $\Rightarrow$ $n=2$ nodes. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ results in: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
+For instance, to calculate linear, i.e. order 1, Lagrange polynomials can be calculated by $n-1=1$ $\Rightarrow$ $n=2$. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ results in: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
 Then the linear shape functions can be simply constructed as $N_1 =l_1^1 = 1/2\left(1-\xi\right)$ and $N_2 = l_2^1 = 1/2\left(1+\xi\right)$.
 
 \subsection{Triangular and Tetrahedral Elements}
-Due to the higher flexibility of triangles and tetrahedra for meshing complex geometries, they are often preferred over quadrilaterals or hexahedral. The shape functions are given in an analogous method, but they are expressed in area and volume coordinates, respectively. Figure \ref{tri&tet} shows the geometries and shape functions. These coordinates represent area and volume fractions, a visualization is given below:
+Triangular and tetrahedral elements have higher flexibility than that of quadrilateral and hexahedral elements in meshing complex geometries, thus the former is often preferred to the latter. The shape functions can be solved by an analogous method, but Triangular and tetrahedral elements are expressed in area and volume coordinates, respectively. Figure \ref{fig: tri&tet} shows the geometries and shape functions. These coordinates represent area and volume fractions, and visualization is given below:
 \begin{center}
 	$L_1 = \frac{\text{area}P23}{\text{area}123}$, \quad $V_1 = \frac{\text{area}P234}{\text{area}1234}$ \\[4mm]
 	$\sum L_i = 1$ \quad\quad $\sum V_i = 1$
@@ -86,10 +87,10 @@ Due to the higher flexibility of triangles and tetrahedra for meshing complex ge
 	\end{center}
 \end{figure}
 
-\section{Non- linear Element Formulation}
+\section{Non-linear Element Formulation}
 \subsection{Discretization of the Displacement Field}
-After meshing of the geometry, displacement field $u$ can be discretized by inserting shape function $N$. Firstly, we introduce the nodal displacement $d^e$ to save displacements at each node of the considered element for each spatial direction.
-In elastic materials, through the elastic constitutive equations can be derived that stresses $\sigma$ are directly related to strains $\varepsilon$ at each point:
+After meshing the geometry, We discretize displacement field $u$ by inserting shape function $N$. Firstly, we introduce the nodal displacement $d^e$ to record displacements at each node of the considered element in each spatial direction.
+In elastic materials, It can be derived through the elastic constitutive equations that stress $\sigma$ are directly related to strain $\varepsilon$ at each point:
 \begin{equation}
 \sigma = E\varepsilon
 \end{equation}
@@ -109,7 +110,7 @@ In the applications it is of interest to evaluate and report these stresses at t
 It is important to realize that the stresses computed at the same nodal point from adjacent elements will not generally be the same, since stresses are not required to be continuous in displacement- assumed finite elements. This suggests some form of stress averaging can be used to improve the stress accuracy, and indeed this is part of the stress recovery technique further. The results from this averaging procedure are called nodal point stresses.
 
 \section{Non-linear Formulation of Strain and Stress}
-This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. According to Rutzmoser \cite{Johannes} ,in the first part of this introduction, we will pick a fictional 3D element with five nodes as object of study. The coordinate system is based on three coordinate:$\xi_1$, $\xi_2$ and $\xi_3$. Therefore the shape function of this element can be ordered in Voigt notation as follows:
+This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. The following section is based on the work of Johaness Rutzmoser[\cite{Johannes}] in non-linear formulation of strain and stress. In the first part of this introduction, we will pick a fictional 3D element with five nodes as our object of study. The coordinate system is based on three coordinate, namely $\xi_1$, $\xi_2$ ,and $\xi_3$. The shape function of this 3D element can be ordered in Voigt notation as follows:
 \begin{equation}
  \textbf{\textit{N}}\left(\xi\right) = \begin{pmatrix}
  N_1\left(\xi\right)           \\[0.3em]
@@ -119,7 +120,7 @@ This section provides an introduction to the most common model and simulation te
  N_5\left(\xi\right)                            
 \end{pmatrix}
 \end{equation}
-We can denote the coordinate of element as vector $\textbf{\textit{X}}^e$. The columns of $\textbf{\textit{X}}^e$ stands for axis direction and the rows of $\textbf{\textit{X}}^e$ stands for index of nodes. The matrix of $\textbf{\textit{X}}^e$ is shown as:
+We can denote the coordinate of this element as vector $\textbf{\textit{X}}^e$. The columns of $\textbf{\textit{X}}^e$ stands for its axis direction and the rows of $\textbf{\textit{X}}^e$ stands for the index of nodes. The matrix of $\textbf{\textit{X}}^e$ is shown as:
 \begin{equation}
 \textbf{\textit{X}}^e = \begin{pmatrix}
 X_1 & Y_1 & Z_1           \\[0.3em]
@@ -129,7 +130,7 @@ X_4 & Y_4 & Z_5          \\[0.3em]
 X_5 & Y_5 & Z_6                            
 \end{pmatrix}
 \end{equation}	
-The coordinates $\textbf{\textit{X}}$ of element in the initial configuration relies on the local coordinate of element $\xi$ and the shape function $\textbf{\textit{N}}$. It can be described as:
+The coordinates $\textbf{\textit{X}}$ of this element in the initial configuration relies on the local coordinate of the element $\xi$ and the shape function $\textbf{\textit{N}}$. It can be described as:
 \begin{equation}
 \textbf{\textit{X}}  \left(\xi\right) = \begin{pmatrix}
 X \\
@@ -147,7 +148,7 @@ N_4 \\
 N_5 
 \end{pmatrix}
 \end{equation} 
-The displacements $\textbf{\textit{u}}$ of any points of the element are interpolated from the nodal coordinate, just like it was done previous for the coordinates $\textbf{\textit{X}}$. So the displacements field can be shown as:
+The displacements $\textbf{\textit{u}}$ at any points of the element are interpolated from the nodal coordinate, in the same manner that was completed for the coordinate  $\textbf{\textit{X}}$ above. Then the displacement field can be shown as:
 \begin{equation}
 \textbf{\textit{u}}\left(\xi\right) = \begin{pmatrix}
 u_x\left(\xi\right) \\
@@ -165,11 +166,11 @@ N_4 \\
 N_5 
 \end{pmatrix}
 \end{equation}
-This approach is called isoparametric concept, that is possible to present all the parameters in Element. The method to calculate the magnitude of parameter in element is using the known value of parameters at every nodes and the shape function. An example of displacements can be formed like this:
+This approach is called the isoparametric concept, which makes it possible to present  the parameters at any given point within an element. The magnitude of parameters at a one of such points can be calculated through both the known values of parameters and shape functions at each node. An example of displacements can be formed like this:
 \begin{equation}
 \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}
 \end{equation}
-The deviation of parameter can be passed to the shape function. By using this approach, we can define a new term $\tilde{\textbf{\textit{B}}_0} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}}$. The expand of $\tilde{\textbf{\textit{B}}_0}$ can be derived as:
+The deviation of a parameter can be passed to the shape function. Through this approach, we can define a new term $\tilde{\textbf{\textit{B}}_0} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}}$. The expansion of $\tilde{\textbf{\textit{B}}_0}$ can be derived as:
 \begin{equation} \label{eq: B_0}
 \frac{\partial \textbf{\textit{N}}}{\partial \textbf{\textit{X}}} = \tilde{\textbf{\textit{B}}_0} = \begin{pmatrix}
 \frac{\partial N_1}{\partial X} & \frac{\partial N_1}{\partial Y} & \frac{\partial N_1}{\partial Z} \\
@@ -179,67 +180,67 @@ The deviation of parameter can be passed to the shape function. By using this ap
 \frac{\partial N_5}{\partial X} & \frac{\partial N_5}{\partial Y} & \frac{\partial N_5}{\partial Z} \\
 \end{pmatrix} = \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}} \frac{\partial \boldsymbol{\xi}}{\partial \textbf{\textit{X}}}
 \end{equation}
-The first term of equation \ref{eq: B_0} can be directly presented with shape function. It is shown as:
+The first term $\frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}}$ in Equation \ref{eq: B_0} can be directly expressed with shape function relating coordinate $\xi$. It is shown as:
 \begin{equation}
 \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}} = \begin{pmatrix}
 \frac{\partial N_1}{\partial \xi_1} & \frac{\partial N_1}{\partial \xi_2} & \frac{\partial N_1}{\partial \xi_3} \\
-\frac{\partial N_2}{\partial \xi_1} & \frac{\partial N_2}{\partial Y
+\frac{\partial N_2}{\partial \xi_1} & \frac{\partial N_2}{\partial
 	\xi_2} & \frac{\partial N_2}{\partial \xi_3} \\
 \frac{\partial N_3}{\partial \xi_1} & \frac{\partial N_3}{\partial \xi_2} & \frac{\partial N_3}{\partial \xi_3} \\
 \frac{\partial N_4}{\partial \xi_1} & \frac{\partial N_4}{\partial \xi_2} & \frac{\partial N_4}{\partial \xi_3} \\
 \frac{\partial N_5}{\partial \xi_1} & \frac{\partial N_5}{\partial \xi_2} & \frac{\partial N_5}{\partial \xi_3} \\
 \end{pmatrix}
 \end{equation}
-The second term $\frac{\partial \boldsymbol{\xi}}{\partial \textbf{\textit{X}}}$ is not straightforward to obtain. On the other hand it is much more easier to get the matrix $\frac{\partial \textbf{\textit{X}}}{\partial \boldsymbol{\xi}}$. This matrix is called Jocobian matrix $\textbf{\textit{J}}$, which is a matrix of $\boldsymbol{\xi}$ with respect to $x$. The inverse Jocobian are denoted as $\textbf{\textit{J}}^{-1}$, which is the second term. \\
-The deformation gradient $\textbf{\textit{F}} = \textbf{\textit{H}} + \textbf{\textit{I}}$ can be defined through the help matrix $\textbf{\textit{H}} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}$, which describes the mapping of an infinitesimal fiber in the initial state to its new position in the current configuration. Then, the Green-Lagrange strain tensor can be also formed as:
+The second term $\frac{\partial \boldsymbol{\xi}}{\partial \textbf{\textit{X}}}$ is not straightforward to obtain. However, it is much easier to get the matrix $\frac{\partial \textbf{\textit{X}}}{\partial \boldsymbol{\xi}}$. This matrix is called Jacobian matrix $\textbf{\textit{J}}$, which is a matrix of $\boldsymbol{\xi}$ with respect to $x$. The inverse Jacobian matrix is denoted as $\textbf{\textit{J}}^{-1}$, which is the second term in the Equation \ref{eq: B_0}. \\
+The deformation gradient $\textbf{\textit{F}}$ describes the mapping of an infinitesimal fiber from its initial state to its new position in the current configuration.    $\textbf{\textit{F}} = \textbf{\textit{H}} + \textbf{\textit{I}}$ can be derived through the transient matrix $\textbf{\textit{H}} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}$.  The Green-Lagrange strain tensor can also be written as:
 \begin{equation}
 \textbf{\textit{E}} = \frac{1}{2} \left(\textbf{\textit{H}} + \textbf{\textit{H}}^T + \textbf{\textit{H}}^T \textbf{\textit{H}}\right)
 \end{equation}
 \begin{equation} \label{eq: E_eq}
 \textbf{\textit{E}} = \frac{1}{2} \left(\textbf{\textit{F}}^T \textbf{\textit{F}} - \textbf{\textit{I}}\right)
 \end{equation}
-The help matrix $\textbf{\textit{H}}$ can be expressed more detailed as:
+The transient matrix $\textbf{\textit{H}}$ can be expressed in more details as:
 \begin{equation} \label{eq: Help_matrix}
 \textbf{\textit{H}} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \frac{\partial \textbf{\textit{u}}}{\partial \boldsymbol{\xi}} \frac{\partial \boldsymbol{\xi}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}} \left[ \left(\textbf{\textit{X}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}}\right]^{-1}
 \end{equation}
-It is possible to calculate stress $\textbf{\textit{S}}$ while strain is presented. One simply constitutive equation between stress $\textbf{\textit{S}}$ (2. Piola-Kirchhoff-Stress tensor) and $\textbf{\textit{E}}$ (Green-Lagrange-Strain tensor) can be formulated as:
+ When we have result for strain $\textbf{\textit{E}}$, It is possible to calculate stress $\textbf{\textit{S}}$. One simply constitutive equation between stress $\textbf{\textit{S}}$ (2. Piola-Kirchhoff-Stress tensor) and $\textbf{\textit{E}}$ (Green-Lagrange-Strain tensor) can be formulated as:
 \begin{equation}
 \textbf{\textit{S}} = \textbf{\textit{C}} : \textbf{\textit{E}}
 \end{equation}
-The result of stress is subsequently transfer into the degree of freedom at each nodes. The principle for calculation of stress can be formulated as follows:\\
-In the total Lagrange approach, the principle of virtual work represents that the internal stress work $\delta \textbf{\textit{W}}_{int} = \int \boldsymbol{\sigma} : \delta \boldsymbol{\epsilon} \mathrm{d}\Omega_0 = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0$ equals the external node force $\delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{nl}^v$
+The value of stress is subsequently transferred into the degree of freedom at each nodes. The principle for stress calculation can be formulated as follows:\\
+In the Total Lagrange approach, the principle of virtual work represents that the internal strain energy $\delta \textbf{\textit{W}}_{int} = \int \boldsymbol{\sigma} : \delta \boldsymbol{\epsilon} \mathrm{d}\Omega_0 = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0$ equals the external energy $\delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{nl}^v$, which is caused by external nodal force. The complete equation can be expressed as:
 \begin{equation} \label{eq: W}
 \delta \textbf{\textit{W}} = \delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{int}^v = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0 = \int \left( \delta \textbf{\textit{E}}^v\right)^T \textbf{\textit{S}}^v \mathrm{\Omega_0}
 \end{equation}
-The internal deformation work can be computed by matrix-vector-product in voigt-notation or direct product of two matrix with notation (:). Now, we evaluate the variation of Green-Lagrange strain tensor $\delta \textbf{\textit{E}}$. From equation \ref{eq: E_eq}, it is obvious that the variation of tensor $\delta \textbf{\textit{E}}$ is determined by the variation of deformation gradient. According to above equation \ref{eq: Help_matrix}, the variation of deformation gradient can be transformed as:
+The internal deformation energy can be computed by matrix-vector-product in voigt-notation or direct product of two matrix with notation (:). Now, we evaluate the variation of Green-Lagrange strain tensor $\delta \textbf{\textit{E}}$. From equation \ref{eq: E_eq}, it is obvious that the variation of tensor $\delta \textbf{\textit{E}}$ is determined by the variation of deformation gradient. According to above equation \ref{eq: Help_matrix}, the variation of deformation gradient can be transformed into:
 \begin{equation}
 \delta \textbf{\textit{F}} = \delta \textbf{\textit{H}} = \left(\delta \textbf{\textit{u}}^e\right)^T \frac{\delta \textbf{\textit{N}}}{\delta \textbf{\textit{X}}} = \left(\delta \textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}
 \end{equation}
-Consequently, the variation of tensor $\delta \textbf{\textit{E}}$ as:
+Consequently, the variation of tensor $\delta \textbf{\textit{E}}$ is:
 \begin{equation}
 \delta \textbf{\textit{E}} = \frac{1}{2} \left(\delta \textbf{\textit{F}}^T \textbf{\textit{F}} + \textbf{\textit{F}}^T \delta F \right)
 \end{equation}
-Green-Lagrange-Strain are often represented in voigt-notation because of the complex matrix form in computer programming. Then, $\delta \textbf{\textit{E}}^v$ can be coupled with $\textbf{\textit{B}}_0$-matrix as:
+Green-Lagrange-Strain $\delta \textbf{\textit{E}}$ is often represented in a complex matrix form, thus it is often expressed in Voigt-Notation in computer programming. Then, $\delta \textbf{\textit{E}}^v$ can be coupled with $\textbf{\textit{B}}_0$-matrix as:
 \begin{equation} \label{eq: E_voigt}
 \delta \textbf{\textit{E}}^v = \textbf{\textit{B}}_0 \delta \textbf{\textit{u}}^{e,v}
 \end{equation} 
-The entries of $\textbf{\textit{B}}_0$ will be packed as a black box and direct implemented in the FEM simulation. Gathering the equation \ref{eq: W} and equation \ref{eq: E_voigt}, the non-linear force results in:
+The entry of $\textbf{\textit{B}}_0$ will be packed into a black box and directly implemented in the FEM simulation. By solving simultaneous equations of Equation \ref{eq: W} and Equation \ref{eq: E_voigt}, the non-linear force $\textbf{\textit{f}}_{int}^v$ results in:
 \begin{equation}
 \delta \textbf{\textit{W}} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{int}^v = \int \left(\delta \textbf{\textit{E}}^v\right)^T \textbf{\textit{S}}^v \mathrm{d}\Omega_0 = \left( \delta \textbf{\textit{u}}^{e,v}\right)^T \int \textbf{\textit{B}}_0^T \textbf{\textit{S}}^v \mathrm{d}\Omega_0
 \end{equation}
 \begin{equation}
 \textbf{\textit{f}}_{int}^v = \int \textbf{\textit{B}}_0^T \textbf{\textit{S}}^v \mathrm{d}\Omega_0
 \end{equation}
-The non-linear internal force of element concerning to coordinate of node can be integrated by $\textbf{\textit{B}}_0$-martrix with second Piola-Kirchhoff-Stress tensor in voigt-notation. To obtain the tangential stiffness matrix, it is necessary to calculate the partial derivative of internal force $\textbf{\textit{f}}_{int}^v$ respect to the nodal degree of freedom $\textbf{\textit{u}}^{e,v}$:
+The non-linear internal force of element concerning the coordinate of node can be integrated by $\textbf{\textit{B}}_0$-martrix with second Piola-Kirchhoff-Stress tensor in Voigt-Notation. To obtain the tangential stiffness matrix, it is necessary to calculate the partial derivative of internal force $\textbf{\textit{f}}_{int}^v$ in respect to the nodal degree of freedom $\textbf{\textit{u}}^{e,v}$:
 \begin{equation} \label{K}
 \frac{\partial \textbf{\textit{f}}_{int}^v}{\partial \textbf{\textit{u}}^{e,v}} = \textbf{\textit{K}} = \int \frac{\partial \textbf{\textit{B}}_0^T}{\partial \textbf{\textit{u}}^{e,v}} \textbf{\textit{S}}^v \mathrm{d}\Omega_0 + \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \textbf{\textit{K}}_{geo} + \textbf{\textit{K}}_{mat}
 \end{equation}
-Stiffness can be divide into two term, one for material stiffness matrix $\textbf{\textit{K}}_geo$, which is shown as:
+Stiffness matrix can be divided into two terms, one of the terms is the material stiffness matrix $\textbf{\textit{K}}_{amt}$, which is shown as:
 \begin{equation}
 \textbf{\textit{K}}_{mat} = \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}}\mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T\frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v} \frac{\partial \textbf{\textit{E}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T \textbf{\textit{C}}^{SE} \textbf{\textit{B}}_0 \mathrm{d}\Omega_0
 \end{equation}
-The derivative of stress respect to strain is considered as Tangent-Modulus $\textbf{\textit{C}}^{SE} = \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v}$ by constitutive equation. The derivative of strain is $\textbf{\textit{B}}_0$ as determined in equation \ref{eq: E_eq}. \\
-The geometrical stiffness matrix is much more complex to derive. In a word, the internal work from equation \ref{eq: W} is reformulated by concerning relation between the deformation gradient and continuum mechanics $\textbf{\textit{P}} = \textbf{\textit{S}}\textbf{\textit{F}}^T$:
+The derivative of stress in respect to strain is considered as Tangent-Modulus $\textbf{\textit{C}}^{SE} = \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v}$ by constitutive equation. The derivative of strain is $\textbf{\textit{B}}_0$ as determined in equation \ref{eq: E_eq}. \\
+The other term, the geometrical stiffness matrix, is much more complex to derive. In short, base on relation between the deformation gradient and continuum mechanics $\textbf{\textit{P}} = \textbf{\textit{S}}\textbf{\textit{F}}^T$, the internal energy from Equation \ref{eq: W} is reformulated into:  
 \begin{equation}
 \delta \textbf{\textit{W}} = \textbf{\textit{u}}^e : \textbf{\textit{f}}_{int} = \int \delta \textbf{\textit{F}}^T : \textbf{\textit{P}} \mathrm{d}\Omega_0 = \int \delta \textbf{\textit{F}}_{ij} \textbf{\textit{P}}_{ji} \mathrm{d}\Omega_0
 \end{equation}
@@ -1437,7 +1438,106 @@ For 3-D model we pick another failed element type Tet10
 	\begin{center}
 		\includegraphics[width=13cm,clip]{Tet4Exx.png} 		
 		\includegraphics[width=13cm,clip]{Tet4ExxP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10Exx}
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exx}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Eyy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4EyyP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Eyy}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Ezz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4EzzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{zz}$ from ANSYS; lower: contour plot of $\epsilon_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Ezz}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Exy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4ExyP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exy}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Eyz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4EyzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{yz}$ from ANSYS; lower: contour plot of $\epsilon_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Eyz}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Exz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4ExzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xz}$ from ANSYS; lower: contour plot of $\epsilon_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exz}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Sxx.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SxxP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxx}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Syy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SyyP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Syy}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Szz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SzzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{zz}$ from ANSYS; lower: contour plot of $\sigma_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Szz}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Sxy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SxyP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxy}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Syz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SyzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{yz}$ from ANSYS; lower: contour plot of $\sigma_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Syz}
+	\end{center}
+\end{figure}
+\clearpage 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=13cm,clip]{Tet4Sxz.png} 		
+		\includegraphics[width=13cm,clip]{Tet4SxzP.png} 		
+		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xz}$ from ANSYS; lower: contour plot of $\sigma_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxz}
 	\end{center}
 \end{figure}
 \clearpage 

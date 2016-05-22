@@ -8,23 +8,23 @@
 \contentsline {section}{\numberline {2.1}Shape Function}{5}{section.12}
 \contentsline {subsection}{\numberline {2.1.1}Quadrilateral Elements}{5}{subsection.13}
 \contentsline {subsection}{\numberline {2.1.2}Triangular and Tetrahedral Elements}{6}{subsection.15}
-\contentsline {section}{\numberline {2.2}Non- linear Element Formulation}{6}{section.17}
+\contentsline {section}{\numberline {2.2}Non-linear Element Formulation}{6}{section.17}
 \contentsline {subsection}{\numberline {2.2.1}Discretization of the Displacement Field}{7}{subsection.18}
 \contentsline {section}{\numberline {2.3}Non-linear Formulation of Strain and Stress}{8}{section.23}
 \contentsline {subsection}{\numberline {2.3.1}Gauss Integration}{13}{subsection.50}
 \contentsline {section}{\numberline {2.4}Extrapolation from Gauss Points}{13}{section.53}
 \contentsline {subsection}{\numberline {2.4.1}Quad4}{13}{subsection.54}
-\contentsline {subsection}{\numberline {2.4.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{17}{subsection.70}
-\contentsline {subsection}{\numberline {2.4.3}Triangle with three nodes: Tri3}{19}{subsection.86}
-\contentsline {subsection}{\numberline {2.4.4}Second order triangle with six nodes: Tri6}{21}{subsection.95}
-\contentsline {subsection}{\numberline {2.4.5}Tetrahedron element with four nodes: Tet4}{24}{subsection.109}
-\contentsline {subsection}{\numberline {2.4.6}Tetrahedron element with ten nodes: Tet10}{25}{subsection.117}
-\contentsline {section}{\numberline {2.5}Assembly}{27}{section.125}
+\contentsline {subsection}{\numberline {2.4.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{18}{subsection.70}
+\contentsline {subsection}{\numberline {2.4.3}Triangle with three nodes: Tri3}{20}{subsection.86}
+\contentsline {subsection}{\numberline {2.4.4}Second order triangle with six nodes: Tri6}{22}{subsection.95}
+\contentsline {subsection}{\numberline {2.4.5}Tetrahedron element with four nodes: Tet4}{25}{subsection.109}
+\contentsline {subsection}{\numberline {2.4.6}Tetrahedron element with ten nodes: Tet10}{26}{subsection.117}
+\contentsline {section}{\numberline {2.5}Assembly}{28}{section.125}
 \contentsline {chapter}{\numberline {3}Programming Implementation}{35}{chapter.134}
 \contentsline {section}{\numberline {3.1}Pre-Processing}{35}{section.135}
 \contentsline {chapter}{\numberline {4}Element Type Test}{39}{chapter.139}
 \contentsline {section}{\numberline {4.1}Unit Testing with Python}{39}{section.140}
 \contentsline {section}{\numberline {4.2}The Patch Test}{40}{section.143}
 \contentsline {section}{\numberline {4.3}Complex Model Test}{40}{section.146}
-\contentsline {section}{\numberline {4.4}Convergence Analysis}{80}{section.184}
-\contentsline {chapter}{References}{81}{chapter*.187}
+\contentsline {section}{\numberline {4.4}Convergence Analysis}{91}{section.195}
+\contentsline {chapter}{References}{93}{chapter*.198}
