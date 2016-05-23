@@ -240,41 +240,41 @@ Stiffness matrix can be divided into two terms, one of the terms is the material
 \textbf{\textit{K}}_{mat} = \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}}\mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T\frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v} \frac{\partial \textbf{\textit{E}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T \textbf{\textit{C}}^{SE} \textbf{\textit{B}}_0 \mathrm{d}\Omega_0
 \end{equation}
 The derivative of stress in respect to strain is considered as Tangent-Modulus $\textbf{\textit{C}}^{SE} = \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v}$ by constitutive equation. The derivative of strain is $\textbf{\textit{B}}_0$ as determined in equation \ref{eq: E_eq}. \\
-The other term, the geometrical stiffness matrix, is much more complex to derive. In short, base on relation between the deformation gradient and continuum mechanics $\textbf{\textit{P}} = \textbf{\textit{S}}\textbf{\textit{F}}^T$, the internal energy from Equation \ref{eq: W} is reformulated into:  
+The other term, the geometrical stiffness matrix, is much more complex to derive. In short, based on the relation between deformation gradient and continuum mechanics $\textbf{\textit{P}} = \textbf{\textit{S}}\textbf{\textit{F}}^T$, the internal energy from Equation \ref{eq: W} is reformulated into:  
 \begin{equation}
 \delta \textbf{\textit{W}} = \textbf{\textit{u}}^e : \textbf{\textit{f}}_{int} = \int \delta \textbf{\textit{F}}^T : \textbf{\textit{P}} \mathrm{d}\Omega_0 = \int \delta \textbf{\textit{F}}_{ij} \textbf{\textit{P}}_{ji} \mathrm{d}\Omega_0
 \end{equation}
-The variation of deformation gradient $\delta \textbf{\textit{F}} = \delta \textbf{\textit{u}}^{eT} \textbf{\textit{B}}_0$. In index-notation form it can be written as $\delta \textbf{\textit{F}}_{ij} = \delta \textbf{\textit{u}}_{ki}^e \tilde{\textbf{\textit{B}}_{kj}^0}$. Then, the internal force in matrix notation can be derived as:
+The variation of deformation gradient can be written as $\delta \textbf{\textit{F}} = \delta \textbf{\textit{u}}^{eT} \textbf{\textit{B}}_0$. It can also be written in the Index-Notation form as $\delta \textbf{\textit{F}}_{ij} = \delta \textbf{\textit{u}}_{ki}^e \tilde{\textbf{\textit{B}}_{kj}^0}$. Then, the internal force in matrix notation can be derived as:
 \begin{equation}
 \delta \textbf{\textit{W}} = \delta u^e : \textbf{\textit{f}}_{int} = \textbf{\textit{u}}_{ki}^e \textbf{\textit{f}}_{ki}^{int} = \int \delta \textbf{\textit{F}}_{ji} \textbf{\textit{P}}_{ij} \mathrm{d}\Omega_0 = \delta \textbf{\textit{u}}_{ki}^e \int \tilde{\textbf{\textit{B}}_{kj}^0} \textbf{\textit{P}}_{ji}\mathrm{d}\Omega_0 = \delta \textbf{\textit{u}}^e : \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{P}} \mathrm{d}\Omega_0
 \end{equation}
 \begin{equation}
 \textbf{\textit{f}}_{int} = \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{P}} \mathrm{d}\Omega_0
 \end{equation}
-The tangential stiffness matrix is defined by changing the force vector, which is determined over time concerning with the velocity of nodal displacement $\dot{\textbf{\textit{u}}^e}$. Because Jacobi-Matrix is relative complex to build. Therefore, the derivative of internal force $\dot{\textbf{\textit{f}}_{int}}$in time as follows:
+The tangential stiffness matrix is determined by variation of the force vector, which is determined by the velocity of nodal displacement $\dot{\textbf{\textit{u}}}^e$. Because Jacobian Matrix is relatively complex to build, the derivative of internal force $\dot{\textbf{\textit{f}}}_{int}$in time is as follows:
 \begin{equation} \label{eq: f_int}
 \dot{\textbf{\textit{f}}_{int}} = \int \tilde{\textbf{\textit{B}}_0} \dot{\textbf{\textit{S}}} \textbf{\textit{F}}^T \mathrm{d}\Omega_0 + \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{S}} \dot{\textbf{\textit{F}}^T} \mathrm{d}\Omega_0
 \end{equation}
-The fist term conresponds to material stiffness, becasue the time derivative of second Piola-Kirchhoff-Stress tensor is related with time-dependent part. And the second term conresponds to geometrical stiffness as shown in equation \ref{K}. Becase the time derivative $\dot {\textbf{\textit{F}}}$ equals $\dot{\textbf{\textit{u}}^e}^T \tilde{\textbf{\textit{B}}_0}$, equation\ref{eq: f_int} can be transformed as:
+The first term corresponds to material stiffness because the time derivative of second Piola-Kirchhoff-Stress tensor is time-dependent part. And the second term conresponds to geometrical stiffness, as is shown in equation \ref{K}. Because the time derivative $\dot {\textbf{\textit{F}}}$ equals $\dot{\textbf{\textit{u}}^e}^T \tilde{\textbf{\textit{B}}_0}$, Equation \ref{eq: f_int} can be transformed as:
 \begin{equation}
 \dot{\textbf{\textit{f}}}_{int,geo} = \int \tilde{\textbf{\textit{B}}}_0 \textbf{\textit{S}} \tilde{\textbf{\textit{B}}}_0 \mathrm{\Omega_0} \dot{\textbf{\textit{u}}}^e
 \end{equation}
-The geometrical stiffness matrix is given, because the temporal variation of non-linear force is coupled with the displacements over the tangential stiffness matrix.
+The geometrical stiffness matrix can be achieved by coupling the temporal variation of non-linear force with the displacements using the tangential stiffness matrix.
 \begin{equation}
 \dot{\textbf{\textit{f}}}_{int,geo} = \textbf{\textit{K}}_{geo} \dot{\textbf{\textit{u}}}^e =\int \tilde{\textbf{\textit{B}}}_0 \textbf{\textit{S}} \tilde{\textbf{\textit{B}}}_0 \mathrm{\Omega_0} \dot{\textbf{\textit{u}}}^e
 \end{equation}
-The last step to determine the non-linear force and the tangential stiffness matrix is to integrate on domain $d\Omega_0$. There are two concept for this integration to mention: the first one is transformation from domain $d\Omega_0$ to reference coordinate system:
+The last step in determining the non-linear force and the tangential stiffness matrix is the integrate the non-linear force on domain $d\Omega_0$, which is the transformation from domain $d\Omega_0$ to reference coordinate system:
 \begin{equation}
 \int {\textbf{\textit{f}}}\left(x\right) \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \boldsymbol{\xi}}{\partial \boldsymbol{\xi}} \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \Omega}{\partial \boldsymbol{\xi}} \mathrm{d}\boldsymbol{\xi} = \int {\textbf{\textit{f}}}\left(x\right) det \left(\frac{\partial X}{\partial \boldsymbol{\xi}}\right) \mathrm{d}\boldsymbol{\xi}
 \end{equation}
-For the transformation of integration, it is necessary to adapt the bound of integration. It is in FEM a pleasant benefit, its advantage is the new bound of integration is the standard bound of reference element. So it is easier to determine the bound of integration. And the Jocobi-matrix is ready to use, because we have once the inverse of Jocobi-matrix calculated.
+
 
 \subsection{Gauss Integration}
-Numerical integration plays a important role in finite element. Gauss integration, as an efficient approach compared to other numerical integration, integrate a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ is replaced by a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ which are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  In total $numgp_1$ $\times$ $numggp_2$ $\times$ $numgp_3$ Gauss points are used:
+Numerical integration plays an important role in FEM. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$. A clear expression of Gauss integration is:
 \begin{equation}
 \int \limits_E {\textbf{\textit{f}}} \left(\boldsymbol{\xi}\right) \mathrm{d\boldsymbol{\xi_1}}\mathrm{d\boldsymbol{\xi_2}}\mathrm{d\boldsymbol{\xi_3}} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\boldsymbol{\xi_1^i}}\tilde{\boldsymbol{\xi_2^j}}\tilde{\boldsymbol{\xi_3^k}}\right)\cdot w_1^i w_2^j w_3^k
 \end{equation}
-In which we used corresponding weights for each of the three spatial directions. This allows to use Gauss points coordinates and weights tabulated for the one-dimensional case. The location and weights of these points can be given analytically in Table \ref{tab: Gauss table}.
+In this expression, we used corresponding weights for each of the three spatial directions, which allows us to use Gauss points coordinates and weights tabulated for the one-dimensional case[\cite{FiniteElement}]. The locations and weights of these points can be expressed analytically in Table \ref{tab: Gauss table}.
 	
 \begin{table}
 	\begin{center}
@@ -302,7 +302,7 @@ In which we used corresponding weights for each of the three spatial directions.
 
 \section{Extrapolation from Gauss Points}
 \subsection{Quad4} \label{Quad4}
-Quad4 is used for 2-D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points, which are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$ so it is seen that Gauss point numbering essentially follows element node numbering in the counterclockwise sense. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points by passing these natural coordinates to the shape function subroutine. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly it is convenient to consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. Its quadrilateral (natural) coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  These are linked to $\xi^{\prime}$ and $\eta^{\prime}$ by the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
+Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$.and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
 \begin{equation}
 k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
 k_i^E= k_i^G\sqrt{3}
@@ -345,28 +345,28 @@ k_i^E= k_i^G\sqrt{3}
 	\end{tabular}
 \end{table}		
 
-The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 as typical node. From Figure \ref{fig: Quad4_2} we can suggest:
+The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 to be a typical node. From Figure \ref{fig: Quad4_2} we can suggest:
 \begin{equation} \label{eq: Quad4_1}
 N_1^e = c_1L_{2-3}L_{3-4}
 \end{equation}
-The equation of side 2-3 is $\xi - 1 = 0$. The equation of side 3-4 is $\eta - 1 = 0$. Replacing in Equation (\ref{eq: Quad4_1}):
+The equation of edge 2-3 is $\xi - 1 = 0$. The equation of edge 3-4 is $\eta - 1 = 0$. Inserting in Equation (\ref{eq: Quad4_1}) results in:
 
 \begin{equation}
 N_1^e\left(\xi, \eta\right) = c_1 \left( \xi -1 \right) \left( \eta - 1\right) = c_1 \left(1 - \xi\right) \left( 1 - \eta \right)
 \end{equation}
-We evaluate the point at node 1 to find $c_1$, the natural coordinates can be expressed as $\xi = \eta = -1$:
+We evaluate the point at node 1 to find $c_1$ and the natural coordinates can be expressed as $\xi = \eta = -1$:
 
 \begin{equation}
 N_1^e \left(-1, -1 \right) = c_1 \times 2 \times 2 = 4c_1 = 1
 \end{equation}
 
-So, $c_1 = \frac{1}{4}$ and the shape functions is
+Therefore, $c_1 = \frac{1}{4}$ and the shape functions is
 
 \begin{equation}
 N_1^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 - \eta\right)
 \end{equation}
 
-We can use the same approach to calculate the other three nodes. Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as
+We can use the same approach to calculate the other three nodes. Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as:
 
 \begin{equation}
 N_2^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 - \eta\right)
@@ -380,7 +380,7 @@ N_3^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 + \eta\right)
 N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
 \end{equation}
 
-When we have all the shape function for Gauss element, it is able to extrapolate the component(stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to \ref{tab: Quad4} and \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the corner nodes in Gauss coordinate into the shape function of each Gauss points. Then we obtain:
+When we have all the shape functions for Gauss element, we are able to extrapolate the components (stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to Table \ref{tab: Quad4} and  Figure \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the corner nodes in Gauss coordinate with the shape function of each Gauss points. Then we obtain:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -429,8 +429,8 @@ Here $w'$ means strains and stresses for our case. So the $w'$ part can be writt
 \end{equation}
 
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad8}
-Quad8 is a higher order 2-D, 8 node element. This element is defined by 8 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8 we have various choice for the type of Gauss element.  We usually use four, eight and nine nodes Gauss element for three quadrilateral elements. Here we introduce the Gauss element with nine nodes. The nine-nodes quadrilateral has three types of shape functions, which are associated with corner, midpoint nodes and center node, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
-The three types of shape functions are illustrated in Figure  for nodes 1, 5 and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here the summary of calculation for nodes 1, 5 and 9, which are taken as three typical types: The three types of shape function are illustrated in Figure \ref{fig: Quad8_2}.
+Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element.  We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
+The three types of shape functions are illustrated in Figure  for nodes 1, 5, and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here we summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}.
 
 \begin{equation} \label{eq: Quad8_1}
 N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
@@ -444,13 +444,13 @@ N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi
 N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
 \end{equation}
 
-Applying the normalization conditions results in:
+By applying the normalization conditions, the results are:
 
 \begin{equation*}
 c_1 = \frac{1}{4}, \quad c_5 = -\frac{1}{2}, c_9 = 1
 \end{equation*}
 
-By following this approach all the shape functions can be calculated:
+By following this approach, all the shape functions can be calculated:
 
 \begin{equation}
 N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
@@ -488,7 +488,7 @@ N_8 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi - 1
 N_9 = \left(1 + \xi \right) \left( 1 - \xi \right)  \left( 1 + \eta \right) \left(1 - \eta \right)
 \end{equation}
 
-Same as Quad4, the extrapolation function can be expressed by replacing corner nodes in Gauss coordinate into the shape function of Gauss points:
+Same as in Quad4, the extrapolation function can be expressed by inserting corner nodes in Gauss coordinate into the shape function of Gauss points:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -532,8 +532,6 @@ a_8 = +0.1878361 \\
 a_9 = -0.6666666
 \end{align*}
 
-
-
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=10cm,clip]{Quad8_1.pdf}			
@@ -551,17 +549,17 @@ a_9 = -0.6666666
 \end{figure}
 
 \subsection{Triangle with three nodes: Tri3}
-Tri3 is used for 2-D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of the 3-node triangle shown in Figure \ref{fig: Tri3_1} is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape function for triangular element has a different form, which compares with quadrilateral elements. The three shape functions have the simply own coordinates - the triangular coordinates: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from a method as follows: The equation of triangle side opposite to node $i$ is $L_{j-k} = \xi_i = 0$, where $j$ and $k$ are the cyclic permutations of $i$. Here symbol $L_{j-k}$ denotes the left hand side of the homogeneous equation of the natural coordinate line that passes through node points $j$ and $k$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious suppose is:
+Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
-To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The triangular coordinates of this node are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. so $c_1 = 1$ and analogically $c_2 = 1$, $c_3 = 1$
+To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The triangular coordinates of this node are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. Therefore $c_1 = 1$, using the same method, $c_2 = 1$, $c_3 = 1$. Thus the shape functions are:
 
 \begin{equation}
 N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
 \end{equation}
 
-Combining the shape function and corner coordinate in Gauss element from Table \ref{tab: Tri3}, the extrapolation of Tri3 can be written as:
+By combining the shape function and corner coordinate in Gauss element from Table \ref{tab: Tri3}, the extrapolation of Tri3 can be written as:
 
 \begin{equation}
 \begin{pmatrix}
@@ -579,7 +577,7 @@ w_3 \\
 \end{pmatrix}
 \end{equation}
 
-Quantities that are closely related with the element geometry are best represented in triangular coordinates. On the other hand, quantities such as displacements, strains and stresses are often calculated in the Cartesian system. Thus we need transformation equations through which it is possible to pass from one coordinate system to the other. Cartesian and triangular coordinates are linked by the relation.
+Quantities that are closely related to the element geometry are best represented in triangular coordinates. However, quantities such as displacements, strains and stresses are often calculated in the Cartesian system. Thus, we need transformation equations through to make it possible to pass from one coordinate system to the other. Cartesian and triangular coordinates are linked by the following relation:
 \begin{equation}
 \begin{pmatrix}
 1 \\
@@ -654,8 +652,6 @@ y \\
 	\end{tabular}
 \end{table}			
 
-
-
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=6cm,clip]{Tri3_2.pdf}			
@@ -664,37 +660,35 @@ y \\
 \end{figure}
 
 \subsection{Second order triangle with six nodes: Tri6}
-Tri6 is a higher order 2-D, 8 node element. This element is defined by 6 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of six-node quadratic is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case: triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). For both cases it is necessary to product the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figures \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
-For corner node 1, inspection of Figure \ref{fig: Tri6_2} at top left side suggests trying
+Tri6 is a higher order 2D, 6 node element. This element is defined by 6 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of Tri6 is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case, namely, triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). In both cases, it is necessary to get the product of the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figure \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
+For corner node 1, inspection of Figure \ref{fig: Tri6_2} at left hand side suggests trying
 \begin{equation} \label{eq: Tri6_N1}
 N_1^e = c_1L_{2-3}L_{4-6}
 \end{equation}
-$N_1^e$ will vanish over 2-5-3 and 4-6. This makes the function zero at node 2,3,4,5,6, as is obvious upon inspection of Figure \ref{fig: Tri6_2}, while being nonzero at 1. The value can be adjusted to be unity if $c_1$ is appropriately chosen. The equations of the lines that appear  in Equation \ref{eq: Tri6_N1} are
+For calculating $N_1^e$ will take edge 2-5-3 and edge 4-6 into consideration. This makes the function zero at node 2,3,4,5,6 and nonzero at node 1. The value of function can be adjusted to 1 if $c_1$ is appropriately chosen. The equations of the edges that show in Equation \ref{eq: Tri6_N1} are:
 \begin{equation}
 L_{2-3}: \xi_1 = 0, \quad L_{4-6}: \xi_1 - \frac{1}{2} = 0
 \end{equation}
-Replacing into Equation \ref{eq: Tri6_N1}
+Replacing the above functions into Equation \ref{eq: Tri6_N1}
 
 \begin{equation}
 N_1^e = c_1\xi_1 \left(\xi_1 - \frac{1}{2}\right)
 \end{equation}
-Same as triangle with three nodes, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then $c_1 = 2$ can be calculated and finally 
+Same as in Tri3, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then the result $c_1 = 2$ can be achieved and finally: 
 
 \begin{equation}
 N_1^e = 2\xi_1\left(\xi_1 - \frac{1}{2}\right) = \xi_1 \left(2 \xi_1 -1 \right)
 \end{equation} 
-
-For midside node 4, inspection of Figure \ref{fig: Tri6_2} suggests trying
-
+For midside node 4, observation of Figure \ref{fig: Tri6_2} suggests trying:
 \begin{equation}
 N_4^e = c_4L_{2-3}L_{1-3}
 \end{equation}
-The equation of sides $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. To find $c_4$, evaluate this function at node 4, the triangular coordinates of which are $\xi_1 = \xi_2 = \frac{1}{2}$,$\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$, which the shape function gives
+The equations of edges $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore, $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. We evaluate this function at node 4 to find $c_4$, and its triangular coordinates are $\xi_1 = \xi_2 = \frac{1}{2}$, $\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$ and the shape function is:
 
 \begin{equation}
 N_4^e = 4\xi_1\xi_2
 \end{equation}
-The rest shape function can be calculated by following same approach. The rest shape functions of Tri6 can be expressed as:
+The rest of the shape function can be solved with by the same approach. They can be expressed as:
 \begin{equation}
 N_2^e = \xi_2\left(2\xi_2-1\right)
 \end{equation}
@@ -711,7 +705,7 @@ N_5^e = 4\xi_2 \xi_3
 N_6^e = 4\xi_1 \xi_3
 \end{equation}
 
-Then the extrapolation function of Tri6 can be written as:
+From the above functions, the extrapolation function of Tri6 can be written as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -766,7 +760,7 @@ a_7 = +0.22222222 \\
 
 
 \subsection{Tetrahedron element with four nodes: Tet4}
-Tet4 is a higher order 3-D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry of Tet4 are shown in Figure \ref{fig: Tet4_1}. For tetrahedron element it is beneficial to use its own coordinate. The shape function of Tet4 are:
+Tet4 is a higher order 3D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry of Tet4 is shown in Figure \ref{fig: Tet4_1}. For the tetrahedron element, it is beneficial to use its own coordinate. The shape functions of Tet4 are:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -782,7 +776,7 @@ N_3 = L_3
 \begin{equation}
 N_4 = L_4
 \end{equation}
- We take a tetrahedron with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can find out four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. After replacing the corner points into shape function, the extrapolation of Tet4 are shown as:
+ We take a tetrahedron element with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can conclude four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. After inserting the corner points into shape function, the extrapolation of Tet4 is shown as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -837,7 +831,7 @@ a_2 = -0.309017 \\
 \end{table}		
 
 \subsection{Tetrahedron element with ten nodes: Tet10}
-Tet10 is a higher order 3-D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry, node location and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 are same as Tet4:
+Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 is same as Tet4:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -853,7 +847,7 @@ N_3 = L_3
 \begin{equation}
 N_4 = L_4
 \end{equation}
-The relation between Gauss and nodal coordinate are basically also similar as Tet4.  The new appended six corner nodes are picked as midpoint of each edges. Table \ref{tab: Tet10} shows the details about Gauss and nodal coordinate system, respectively. Then the extrapolation of Tet10 can be formed as:
+The relation between Gauss and natural coordinate of Tet10 has a similar basic frame as Tet4. The new appended six corner nodes are picked as midpoint of each edges. Table \ref{tab: Tet10} shows the details of Gauss and nodal coordinate system, respectively. Then the extrapolation of Tet10 can be formed as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -889,8 +883,6 @@ a_1 = +1.927051 \\
 a_2 = -0.309017 \\
 a_3 = +0.809017
 \end{align*}
-
-
 
 \begin{table}
 	\centering
@@ -928,8 +920,8 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In previous section, we have solved stain and stress in one element. The next step is to assembly strain and stress at each node. At the same time, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, which two neighboring element share one or more nodes. Now we take a simple 2-D an object as example, which are meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been done before. The stiffness matrix of elements is given as:
-\begin{equation}
+In the previous section, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
+\begin{equation} \label{eq: k_1}
 k^{\left(1\right)} = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
 k_{21}^{\left(1\right)} & k_{22}^{\left(1\right)} &  k_{23}^{\left(1\right)} &  k_{24}^{\left(1\right)} & k_{25}^{\left(1\right)}  & k_{26}^{\left(1\right)}   \\[0.3em]
@@ -940,7 +932,7 @@ k_{61}^{\left(1\right)} & k_{62}^{\left(1\right)} &  k_{63}^{\left(1\right)} &  
 \end{pmatrix} 
 \end{equation}	
 
-\begin{equation}
+\begin{equation} \label{eq: k_2}
 k^{\left(2\right)} = \begin{pmatrix}
 k_{11}^{\left(2\right)} & k_{12}^{\left(2\right)} &  k_{13}^{\left(2\right)} &  k_{14}^{\left(2\right)} & k_{15}^{\left(2\right)}  & k_{16}^{\left(2\right)}   \\[0.3em]
 k_{21}^{\left(2\right)} & k_{22}^{\left(2\right)} &  k_{23}^{\left(2\right)} &  k_{24}^{\left(2\right)} & k_{25}^{\left(2\right)}  & k_{26}^{\left(2\right)}   \\[0.3em]
@@ -951,7 +943,9 @@ k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  
 \end{pmatrix} 
 \end{equation}	
 
-Now we can combine the stiffness matrix contribution at the same degree of freedom.  The procedure of assembly is represented as follows:
+\clearpage
+
+Now we can assemble both stiffness matrix contribution, namely from Equation \ref{eq: k_1} and from Equation \ref{eq: k_2}, at the same degree of freedom.  The procedure of assembly is represented as follows:
 \begin{equation*}
 K = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{15}^{\left(1\right)} &  k_{16}^{\left(1\right)} & k_{13}^{\left(1\right)}  & k_{14}^{\left(1\right)} & 0 & 0   \\[0.3em]
@@ -993,7 +987,7 @@ k_{41}^{\left(1\right)} & k_{42}^{\left(1\right)}&k_{45}^{\left(1\right)}+ k_{41
 	\end{center} 
 \end{figure}
 
-The same approach are also applied for force vector, because it also share the contribution at degree of freedom. The procedure of assembly are expressed as:
+The same approach is also applied to force vector, because it also share the contribution at each degree of freedom. The procedure of assembly are expressed as:
 \begin{equation}
 F =  \begin{pmatrix}
 f_1^{\left(1\right)} \\
@@ -1024,7 +1018,7 @@ f_5^{\left(2\right)} \\
 f_6^{\left(2\right)}  \\ 
 \end{pmatrix} 
 \end{equation}
-For assembly of strain and stress, we need to combine the contribution at each node. An extra procedure after combining of strain or stress is to solve the average value by dividing the number of element that share a same node. Because the strain and strain are always jump between elements. The rule for solving averaging strain and stress can be formed as:
+For strain and stress, we need to assemble the contribution at each node. An extra procedure after assembling of strain or stress is solving the average value by dividing the number of elements that share the same node. Because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
 \begin{equation}
 \epsilon = \displaystyle\sum_{i=1}^{n} \frac{\epsilon_{i,raw}}{n}
 \\
@@ -1118,14 +1112,14 @@ For assembly of strain and stress, we need to combine the contribution at each n
 
 \chapter{Programming Implementation}
 \section{Pre-Processing}
-The purpose of Pre-Processing is to build a numerical model and export as two lists- node list and element list.  The data of model are ultimately imported into AMfe Toolbox. ANSYS Parametric Design Language (APDL) code is the tool to create a meshed geometry in ANSYS. A simple meshed geometry are shown in Figure \ref{fig: muster}. Task step for building model contains a series of related path. An example of a path step is: 
+The purpose of Pre-Processing is to build a numerical model and export data of a meshed geometry as two lists - node list and element list.  The two lists are ultimately imported into the AMfe Toolbox. ANSYS Parametric Design Language (APDL) code is used to create a meshed geometry in ANSYS. A simple meshed geometry is shown in Figure \ref{fig: muster}. The steps for building model contains a series of related path. An example of such path is: 
 
 \begin{center}
 	\large{\textbf{Geometry $\Rightarrow$ Element Type $\Rightarrow$ Material $\Rightarrow$ Mesh
 			$\Rightarrow$ Boundary Condition  }}
 \end{center}
 
-After building the model, numerical data can be exported as node list and element list. Node list contains coordinate all the nodes of geometry. Element list are formed with the attributes of each elements and the index of node with belongs to element. The element attributes are assigned to different parts of model by 'pointing' to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) and section ID number (SEC). Connecting with the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured with regular expression approach and stored in AMfe Toolbox. For different data it is necessary to store in specific data type. Coordinate of each node and the index of nodes from elements are stored as Numpy array. NumPy is the fundamental package for scientific computing with Python. The advantage of Numpy for storage of node and element information depends on its efficient multi-dimensional container of generic data. It contains a powerful N-dimensional array object and sophisticated (broadcasting) functions. Moreover, it is possible for integrating Fortran code. General attributes of element can be stored as a efficient form- Pandas DataFrames. Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects. 
+After building the model, numerical data can be exported as a node list and an element list. The node list contains coordinates of nodes. The element list consists of the attributes of each element and the index of each node that belongs to the element. The element attributes are assigned to the different parts of model by referring to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) ,and section ID number (SEC). According to the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured using regular expression and stored in the AMfe Toolbox. For different kinds of data it is necessary to store in its specific data type. The coordinate of each node and the index of nodes from elements are stored as NumPy array. NumPy is the fundamental package for scientific computing using Python. The advantage of NumPy for storage of node and element information depends on its efficient multi-dimensional container of generic data. NumPy contains a powerful N-dimensional array object and sophisticated (broadcasting) functions. Moreover, it is possible to integrate Fortran code. General attributes of the element can be stored as an efficient form- Pandas DataFrames. Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects. 
 
 \begin{figure}
 	\begin{center}
@@ -1169,7 +1163,7 @@ After building the model, numerical data can be exported as node list and elemen
 
 \chapter{Element Type Test}
 \section{Unit Testing with Python}
-Automated unit testing is the best way to determine if the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type, and try to find reason for failed test. The element type to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. Strain and stress components are of interest to test. As mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare. The component from ANSYS will be compared to the results that calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us to check the quality of element type in AMfe Toolbox. For a compare test we need to define the absolute error and relative error. Absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
+Automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find reason for failed test. The element types to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. It is of interest to test strain and stress components. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The component from ANSYS will be compared to the results that are calculated from the AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element type in the AMfe Toolbox. As a comparison, we need to define the absolute error and relative error in the test. Absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
 \begin{equation}
 e_{abs} = \|X_{actual} - X_{fem} \|
 \end{equation}
@@ -1177,7 +1171,7 @@ The relative error is the absolute error relative to the actual value. It can be
 \begin{equation}
 e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 \end{equation} 
-It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers[\cite{NumericalMethod}]. It is hard to set one tolerance for all engineering problems. The tolerance for error can be various in different situation. One thing we can do here is to set the tolerance with different value and evaluate the highest tolerance for each element type. The whole tests of all elements type are described in Table \ref{tab: error}. It is obvious that only Tri3 shows a good performance and Quad4 has also a relative good quality. It is necessary to investigate what is wrong with the other element type. 
+It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers[\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and evaluate the highest tolerance for each element type. The complete test of all element types is shown in Table \ref{tab: error}. It is obvious that only Tri3 shows a good performance and Quad4 has also a relative good quality. It is necessary to investigate what is wrong with the other element type. 
 
 
 \begin{tabular}{l*{5}{c}r} \label{tab: error}
@@ -1188,7 +1182,6 @@ It is noteworthy that errors of approximation or rounding and truncation are int
 	$e_{abs}=10^{-10}$; $e_{rel}=10^{-3}$ & Pass & Fail & Pass & Fail &  Fail & Fail   \\
    \hline
 \end{tabular}
-
 
 \section{The Patch Test}
 After testing the quality of each element type, we need to know if the finite element program have the algorithmic procedure correctly. This is generally not easy to verify if the modelling is too complex. The patch test is an useful technique to check the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary condition to keep a constant strain/stress state. It is to simplify a complex problem to a simple one, which you already know the correct numerical results. \\
@@ -1209,13 +1202,11 @@ The procedure of displacement patch test is as follows: create a simple geometry
 	\end{center}
 \end{figure}
 
-
 \section{Complex Model Test}
-The patch test is only investigated for simple model, it is of interest that how these element type behave with a complex model. Now we create a relative complex model for 2-D element and 3-D element, respectively. The motivation is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox. For 2-D model we pick a failed element type Tri6 as example
+The patch test is only investigated for simple model, it is of interest that how these element type behave in a complex model. Now we create a relative complex model using each element type. The main motivation is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox. Furthermore, the comparison between analogous element (Quad4 and Quad8; Tri3 and Tri6; Tet4 and Tet10) are also meaningful for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with..  
+In a sum, all of these element type in AMfe Toolbox shows the exact contour plot in compare with the ANSYS generating contour plot. For the bound of value, Tri3 and Quad4 in AMfe Toolbox have almost the same value as them in ANSYS. The other element type have more or less problems.
 
-
-
-For 3-D model we pick another failed element type Tet10
+The relation between the numbering of components in ParaView and the tensor direction follows this rule: 0-xx,  1-yy, 2-zz, 3-yy, 4-yz, 5-xz, 6-zz, 7-xz, 8-xy. 
 
 \begin{figure}[htbp]
 	\begin{center}
@@ -1667,6 +1658,8 @@ We can either decrease the element size or increase the polynomial degree of the
 		\caption{Convergence analysis} \label{fig: convergence}
 	\end{center}
 \end{figure}
+
+% 可以去比较用直接用节点求解的应力应变和用高斯点外推求得的应力应变的差别
 
 \cite[p. 18]{bibid}
 Interelement Averaging can be as future research ..
