@@ -10,10 +10,10 @@
 \contentsline {subsection}{\numberline {2.1.2}Triangular and Tetrahedral Elements}{6}{subsection.15}
 \contentsline {section}{\numberline {2.2}Non-linear Element Formulation}{6}{section.17}
 \contentsline {subsection}{\numberline {2.2.1}Discretization of the Displacement Field}{7}{subsection.18}
-\contentsline {section}{\numberline {2.3}Non-linear Formulation of Strain and Stress}{8}{section.23}
+\contentsline {section}{\numberline {2.3}Non-linear Formulation}{8}{section.23}
 \contentsline {subsection}{\numberline {2.3.1}Gauss Integration}{13}{subsection.50}
 \contentsline {section}{\numberline {2.4}Extrapolation from Gauss Points}{13}{section.53}
-\contentsline {subsection}{\numberline {2.4.1}Quad4}{13}{subsection.54}
+\contentsline {subsection}{\numberline {2.4.1}Quadrangle with quadratic shape function and eight nodes: Quad4}{13}{subsection.54}
 \contentsline {subsection}{\numberline {2.4.2}Quadrangle with quadratic shape function and eight nodes: Quad8}{18}{subsection.70}
 \contentsline {subsection}{\numberline {2.4.3}Triangle with three nodes: Tri3}{20}{subsection.86}
 \contentsline {subsection}{\numberline {2.4.4}Second order triangle with six nodes: Tri6}{22}{subsection.95}

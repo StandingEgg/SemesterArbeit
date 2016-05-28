@@ -7,10 +7,10 @@
 \BOOKMARK [2][-]{subsection.15}{Triangular and Tetrahedral Elements}{section.12}% 7
 \BOOKMARK [1][-]{section.17}{Non-linear Element Formulation}{chapter.11}% 8
 \BOOKMARK [2][-]{subsection.18}{Discretization of the Displacement Field}{section.17}% 9
-\BOOKMARK [1][-]{section.23}{Non-linear Formulation of Strain and Stress}{chapter.11}% 10
+\BOOKMARK [1][-]{section.23}{Non-linear Formulation}{chapter.11}% 10
 \BOOKMARK [2][-]{subsection.50}{Gauss Integration}{section.23}% 11
 \BOOKMARK [1][-]{section.53}{Extrapolation from Gauss Points}{chapter.11}% 12
-\BOOKMARK [2][-]{subsection.54}{Quad4}{section.53}% 13
+\BOOKMARK [2][-]{subsection.54}{Quadrangle with quadratic shape function and eight nodes: Quad4}{section.53}% 13
 \BOOKMARK [2][-]{subsection.70}{Quadrangle with quadratic shape function and eight nodes: Quad8}{section.53}% 14
 \BOOKMARK [2][-]{subsection.86}{Triangle with three nodes: Tri3}{section.53}% 15
 \BOOKMARK [2][-]{subsection.95}{Second order triangle with six nodes: Tri6}{section.53}% 16
