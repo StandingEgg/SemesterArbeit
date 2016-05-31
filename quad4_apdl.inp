@@ -1,0 +1,93 @@
+! Header
+FINISH
+/CLEAR
+/TITLE, W¨¹rfel
+
+! PARAMETER
+
+*SET,HDIV,33
+*SET,VDIV,33
+
+!------------------
+!---Preprocessor---
+!------------------
+
+/prep7
+
+! GEOMETRIE
+
+RECTNG,0,50,0,50
+
+! ELEMENTDEF.
+
+ET,1,PLANE42
+
+KEYOPT,1,1,0
+KEYOPT,1,2,0  ! 1 = no extra displ.shapes
+KEYOPT,1,3,3  ! Plane stress with thickness input
+KEYOPT,1,5,0
+KEYOPT,1,6,0
+
+! REAL CONST.
+R,1,50         ! Dicke
+
+
+! MATERIAL
+
+
+MP,EX,1,1000
+MP,PRXY,1,0
+
+! ELEMENTATTR.
+TYPE,   1   !elementtype
+MAT,    1   !mat.	 
+REAL,   1   !real const. Set 
+
+! VERNETZEN
+
+LESIZE, 1, , , HDIV
+LESIZE, 3, , , HDIV
+LESIZE, 2, , , VDIV 
+LESIZE, 4, , , VDIV 
+
+MSHAPE,0,2D   ! Quads=0/tets=1
+MSHKEY,1      ! mapped mesh
+
+AMESH,1
+
+!------------------
+!---Solver---------
+!------------------
+
+/SOLU
+
+ANTYPE,0    !Statische Analyse
+
+
+! Randbedingungen:
+
+! Dirichlet BC 
+DL,1, , ALL,0
+
+! Neumann BC
+NSEL,S,LOC,Y,50
+F,ALL,FY,-100
+NSEL,ALL
+
+SOLVE
+
+!------------------
+!--Postprocessing--
+!------------------
+
+/POST1
+
+!EPLOT
+
+!PATH,Mitte,2,30,30,  ! def. von pfad
+!PPATH, 1, , 25,0,0
+!PPATH, 2, ,25,25,0
+  
+!PDEF,versch_Y,U,Y   ! auf Pfad mappen
+
+!PRPATH,versch_Y

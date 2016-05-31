@@ -1,0 +1,30 @@
+
+ PRINT S    NODAL SOLUTION PER NODE
+ 
+  ***** POST1 NODAL STRESS LISTING *****                                       
+  PowerGraphics Is Currently Enabled                                           
+ 
+  LOAD STEP=     1  SUBSTEP=     1                                             
+   TIME=    1.0000      LOAD CASE=   0                                         
+  NODAL RESULTS ARE FOR MATERIAL   1                                           
+ 
+  THE FOLLOWING X,Y,Z VALUES ARE IN GLOBAL COORDINATES                         
+ 
+    NODE    SX          SY          SZ          SXY         SYZ         SXZ     
+       1  -424.14     -600.00      0.0000      134.48      0.0000      0.0000    
+       2  -424.14     -600.00      0.0000     -134.48      0.0000      0.0000    
+       3  -424.14     -600.00      0.0000    -0.81286E-11  0.0000      0.0000    
+       4   341.38     -600.00      0.0000     -382.76      0.0000      0.0000    
+       5  -41.379     -600.00      0.0000     -258.62      0.0000      0.0000    
+       6   341.38     -600.00      0.0000      382.76      0.0000      0.0000    
+       7   341.38     -600.00      0.0000    -0.22339E-10  0.0000      0.0000    
+       8  -41.379     -600.00      0.0000      258.62      0.0000      0.0000    
+
+ MINIMUM VALUES
+ NODE          1           1           1           4           1           1
+ VALUE   -424.14     -600.00      0.0000     -382.76      0.0000      0.0000    
+
+ MAXIMUM VALUES
+ NODE          4           1           1           6           1           1
+ VALUE    341.38     -600.00      0.0000      382.76      0.0000      0.0000    
+

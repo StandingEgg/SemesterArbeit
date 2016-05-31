@@ -1,0 +1,113 @@
+                       ! Header
+FINISH
+/CLEAR
+/TITLE, W¨¹rfel
+
+! PARAMETER
+
+*SET,HDIV,1
+*SET,VDIV,1
+
+!------------------
+!---Preprocessor---
+!------------------
+
+/prep7
+
+! GEOMETRIE
+
+RECTNG,-25,25,-25,25
+K,1,-25,-25,0
+K,2,25,-25,0
+K,3,25,25,0
+K,4,-25,25,0
+K,5,0,0,0
+
+
+! ELEMENTDEF.
+
+ET,1,PLANE183
+KEYOPT,1,1,1
+KEYOPT,1,3,0
+
+
+
+
+! REAL CONST
+
+
+
+MP,EX,1,210000
+MP,PRXY,1,0
+
+! ELEMENTATTR.
+TYPE,   1   !elementtype
+MAT,    1   !mat.	 
+REAL,   1   !real const. Set 
+
+! VERNETZEN
+
+LESIZE, 1, , , HDIV
+LESIZE, 2, , , HDIV
+LESIZE, 3, , , VDIV 
+LESIZE, 4, , , VDIV 
+
+
+MSHAPE,1,2D   ! Quads=0/tets=1
+MSHKEY,1      ! mapped mesh
+
+AMESH,1
+
+
+
+!------------------
+!---Solver---------
+!------------------
+
+/SOLU
+
+ANTYPE,0    !Statische Analyse
+
+
+! Randbedingungen:
+
+! Dirichlet BC 
+DK,1,UY,0
+DK,2,UY,0
+DK,3,UY,0
+DK,4,UY,0
+
+DK,1,UX,-25
+DK,2,UX,25
+DK,3,UX,25
+DK,4,UX,-25
+
+
+
+! Neumann BC
+KSEL,S,KP,5,
+F,ALL,FX,0
+F,ALL,FY,0
+F,ALL,FZ,0    
+KSEL,ALL
+
+SOLVE
+
+!------------------
+!--Postprocessing--
+!------------------
+
+/POST1
+
+!EPLOT
+
+!PATH,Mitte,2,30,30,  ! def. von pfad
+!PPATH, 1, , 25,0,0
+!PPATH, 2, ,25,25,0
+  
+!PDEF,versch_Y,U,Y   ! auf Pfad mappen
+
+!PRPATH,versch_Y
+
+
+/EFACET,2

@@ -1,0 +1,87 @@
+! Header
+FINISH
+/CLEAR
+/TITLE, W¨¹rfel
+
+! PARAMETER
+
+
+!------------------
+!---Preprocessor---
+!------------------
+
+/prep7
+
+! GEOMETRIE
+
+BLOCK,0,50,0,50,0,50
+
+! ELEMENTDEF.
+
+ET,1,SOLID45
+
+
+
+! REAL CONST.
+R,1,50         ! Dicke
+
+
+! MATERIAL
+
+
+MP,EX,1,1000
+MP,PRXY,1,0
+
+! ELEMENTATTR.
+TYPE,   1   !elementtype
+MAT,    1   !mat.	 
+REAL,   1   !real const. Set 
+
+! VERNETZEN
+
+LESIZE,ALL,,,1
+
+MSHAPE,1,3D   ! Quads=0/tets=1
+MSHKEY,0      ! mapped mesh
+
+VMESH,1
+
+!------------------
+!---Solver---------
+!------------------
+
+/SOLU
+
+ANTYPE,0    !Statische Analyse
+
+
+! Randbedingungen:
+
+! Dirichlet BC 
+d,2,ux,0                          
+d,2,uy,0
+d,6,ux,0
+d,6,uy,0
+d,13,ux,0
+d,1,ux,0
+d,9,ux,0                     
+
+
+! Neumann BC
+f,3,fx,2.5
+f,8,fx,2.5
+f,14,fx,5
+f,4,fx,2.5
+f,7,fx,2.5
+
+SOLVE
+
+!------------------
+!--Postprocessing--
+!------------------
+
+/POST1
+
+EPLOT
+
+/EFACET,2
