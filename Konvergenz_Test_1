@@ -1,0 +1,15 @@
+// Gmsh project created on Sun May 29 19:11:52 2016
+Point(1) = {0, -50, 0, 1.0};
+Point(2) = {500, 50, 0, 1.0};
+Point(3) = {500, -50, 0, 1.0};
+Point(4) = {0, 50, 0, 1.0};
+Line(1) = {4, 2};
+Line(2) = {2, 3};
+Line(3) = {3, 1};
+Line(4) = {1, 4};
+Line Loop(8) = {1, 2, 3, 4}
+Point(5) = {500, 0, 0, 1.0};
+Physical Point(5) = {5};
+Coherence;
+Line Loop(6) = {4, 1, 2, 3};
+Plane Surface(7) = {6};
