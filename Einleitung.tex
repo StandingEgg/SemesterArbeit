@@ -207,7 +207,7 @@ The transient matrix $\textbf{\textit{H}}$ can be expressed in more details as:
 \begin{equation}
 \textbf{\textit{S}} = \textbf{\textit{C}} : \textbf{\textit{E}}
 \end{equation}
-The value of stress is subsequently transferred into the degree of freedom at each nodes. The principle for stress calculation can be formulated as follows:\\
+The value of stress is subsequently transferred into the degrees of freedom(DOFs) at each nodes. The principle for stress calculation can be formulated as follows:\\
 In the Total Lagrange approach, the principle of virtual work represents that the internal strain energy $\delta \textbf{\textit{W}}_{int} = \int \boldsymbol{\sigma} : \delta \boldsymbol{\epsilon} \mathrm{d}\Omega_0 = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0$ equals the external energy $\delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{nl}^v$, which is caused by external nodal force. The complete equation can be expressed as:
 \begin{equation} \label{eq: W}
 \delta \textbf{\textit{W}} = \delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{int}^v = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0 = \int \left( \delta \textbf{\textit{E}}^v\right)^T \textbf{\textit{S}}^v \mathrm{\Omega_0}
@@ -231,7 +231,7 @@ The entry of $\textbf{\textit{B}}_0$ will be packed into a black box and directl
 \begin{equation}
 \textbf{\textit{f}}_{int}^v = \int \textbf{\textit{B}}_0^T \textbf{\textit{S}}^v \mathrm{d}\Omega_0
 \end{equation}
-The non-linear internal force of element concerning the coordinate of node can be integrated by $\textbf{\textit{B}}_0$-martrix with second Piola-Kirchhoff-Stress tensor in Voigt-Notation. To obtain the tangential stiffness matrix, it is necessary to calculate the partial derivative of internal force $\textbf{\textit{f}}_{int}^v$ in respect to the nodal degree of freedom $\textbf{\textit{u}}^{e,v}$:
+The non-linear internal force of element concerning the coordinate of node can be integrated by $\textbf{\textit{B}}_0$-martrix with second Piola-Kirchhoff-Stress tensor in Voigt-Notation. To obtain the tangential stiffness matrix, it is necessary to calculate the partial derivative of internal force $\textbf{\textit{f}}_{int}^v$ in respect to the nodal degrees of freedom(DOFs) $\textbf{\textit{u}}^{e,v}$:
 \begin{equation} \label{K}
 \frac{\partial \textbf{\textit{f}}_{int}^v}{\partial \textbf{\textit{u}}^{e,v}} = \textbf{\textit{K}} = \int \frac{\partial \textbf{\textit{B}}_0^T}{\partial \textbf{\textit{u}}^{e,v}} \textbf{\textit{S}}^v \mathrm{d}\Omega_0 + \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \textbf{\textit{K}}_{geo} + \textbf{\textit{K}}_{mat}
 \end{equation}
@@ -300,9 +300,76 @@ In this expression, we used corresponding weights for each of the three spatial 
 	\end{center}	
 \end{table}
 
-\section{Extrapolation from Gauss Points}
+\section{Stress Recovery}
+\subsection{Direct Calculation of Stress at nodes}
+This approach is direct to calculate the stress at nodes. An example in Figure \ref{fig: DirectCalculation} is good to describe the procedure of calculation. We have a quadrangle with quadratic shape function. Its four nodes are denoted as 1, 2, 3, 4. The shape functions of each node can be written in:
+
+\begin{equation}
+N_1 = \frac{1}{4}\times\left(1 - x\right) \times \left(1 - y \right) 
+\end{equation}  
+
+\begin{equation}
+N_2 = \frac{1}{4}\times\left(1 + x\right) \times \left(1 - y \right) 
+\end{equation}  
+
+\begin{equation}
+N_3 = \frac{1}{4}\times\left(1 + x\right) \times \left(1 + y \right) 
+\end{equation}  
+
+\begin{equation}
+N_4 = \frac{1}{4}\times\left(1 - x\right) \times \left(1 + y \right) 
+\end{equation}  
+
+The Gauss points within this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$ We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. For calculating the stress at node 1 can follow this equation as:
+
+\begin{equation}
+\sigma_1 = {\sigma_1}' N_1\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_1\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_1\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_1\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\sigma_2 = {\sigma_1}' N_2\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_2\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_2\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_2\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\sigma_3 = {\sigma_1}' N_3\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_3\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_3\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_3\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\sigma_4 = {\sigma_1}' N_4\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_4\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_4\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_4\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+Same as stress, strain at nodes can be written as:
+
+\begin{equation}
+\epsilon_1 = {\epsilon_1}' N_1\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_1\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_1\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_1\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\epsilon_2 = {\sigma_1}' N_2\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_2\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_2\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_2\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\epsilon_3 = {\epsilon_1}' N_3\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_3\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_3\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_3\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+\begin{equation}
+\epsilon_4 = {\epsilon_1}' N_4\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_4\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_4\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_4\left({\xi_4}', {\eta_4}'\right)
+\end{equation}
+
+
+
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width=8cm,clip]{DirectCalculation.pdf}			
+		\caption{quadrangle with four nodes}	\label{fig: DirectCalculation}
+	\end{center} 
+\end{figure}
+
+\subsection{Extrapolation from Gauss points}
+Excluding the direct method, there is a way to extrapolation the components of strain and stress from Gauss points. This method is also known as 'Stress Recovery'. Our goal is to implement this method with six types of element: Quad4, Quad8, Tri3, Tri6, Tet4, and Tet10. Furthermore, a comparison between calculation directly and extrapolation from Gauss points will be given in this thesis.  
+
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad4} \label{Quad4}
-Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$.and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
+Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom (DOFs) at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$.and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
 \begin{equation}
 k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
 k_i^E= k_i^G\sqrt{3}
@@ -429,7 +496,7 @@ Here $w'$ means strains and stresses for our case. So the $w'$ part can be writt
 \end{equation}
 
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad8}
-Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element.  We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
+Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element.  We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
 The three types of shape functions are illustrated in Figure  for nodes 1, 5, and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here we summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}.
 
 \begin{equation} \label{eq: Quad8_1}
@@ -549,7 +616,7 @@ a_9 = -0.6666666
 \end{figure}
 
 \subsection{Triangle with three nodes: Tri3}
-Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
+Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
@@ -660,7 +727,7 @@ y \\
 \end{figure}
 
 \subsection{Second order triangle with six nodes: Tri6}
-Tri6 is a higher order 2D, 6 node element. This element is defined by 6 nodes having two degrees of freedom at each node: translation in the nodal x and y direction. The geometry of Tri6 is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case, namely, triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). In both cases, it is necessary to get the product of the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figure \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
+Tri6 is a higher order 2D, 6 node element. This element is defined by 6 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of Tri6 is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case, namely, triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). In both cases, it is necessary to get the product of the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figure \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
 For corner node 1, inspection of Figure \ref{fig: Tri6_2} at left hand side suggests trying
 \begin{equation} \label{eq: Tri6_N1}
 N_1^e = c_1L_{2-3}L_{4-6}
@@ -760,7 +827,7 @@ a_7 = +0.22222222 \\
 
 
 \subsection{Tetrahedron element with four nodes: Tet4}
-Tet4 is a higher order 3D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry of Tet4 is shown in Figure \ref{fig: Tet4_1}. For the tetrahedron element, it is beneficial to use its own coordinate. The shape functions of Tet4 are:
+Tet4 is a higher order 3D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom (DOFs) per node: translation in the nodal x, y and z directions. The geometry of Tet4 is shown in Figure \ref{fig: Tet4_1}. For the tetrahedron element, it is beneficial to use its own coordinate. The shape functions of Tet4 are:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -831,7 +898,7 @@ a_2 = -0.309017 \\
 \end{table}		
 
 \subsection{Tetrahedron element with ten nodes: Tet10}
-Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom per node: translation in the nodal x, y and z directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 is same as Tet4:
+Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom (DOFs) per node: translation in the nodal x, y and z directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 is same as Tet4:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -920,7 +987,7 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In the previous section, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degree of freedom. In FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
+In the previous section, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom(DOFs). In FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
 \begin{equation} \label{eq: k_1}
 k^{\left(1\right)} = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
@@ -1173,7 +1240,8 @@ e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 \end{equation} 
 It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and evaluate the highest tolerance for each element type. The complete test of all element types is shown in Table \ref{tab: error}. It is obvious that only Tri3 shows a good performance and Quad4 has a relative good quality. It is necessary to investigate into what is wrong with the other element types. 
 
-\begin{tabular}{l*{5}{c}r} \label{tab: error}
+\begin{tabular}{l*{5}{c}r} 
+	\caption{Unit testing for }\label{tab: error}
 	Tolerance Parameter              & Tri3 & Tri6 & Quad4 & Quad8 & Tet4  & Tet10  \\
 	\hline
 	$e_{abs}=10^{-10}$; $e_{rel}=10^{-4}$ & Fail & Fail & Fail & Fail & Fail & Fail   \\
@@ -1183,8 +1251,21 @@ It is noteworthy that errors of approximation or rounding and truncation are int
 \end{tabular}
 
 \section{The Patch Test}
-After testing the quality of each element type, we need to know if the finite element program has the correct algorithmic procedure. It is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical results. \\
-The procedure of the displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field can be viewed in Figure \ref{fig: PatchTest} from ANSYS. As expected, $\epsilon_{xx} = 0$. Thus, we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has the same constant strain field. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in the AMfe, the contour plot of strain is shown in ParaView as the right side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 0$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no in-between state like "passing the patch test by 90 percent." Another element types namely Tri3, Quad4, Quad8, Tet4, and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, we are not listing the details here. From the patch test we can not find the reason why Quad8, Tri6, Tet4 and Tet10 did not passed the unit test. This is still an issue to discuss later.
+After testing the quality of each element type, we find out that Tri6, Quad8, Tet4, and Tet10 have some problems to fix. For fixing these problem, we need to know if the finite element program has the correct algorithmic procedure. It is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical results. \\
+According to the theory of Carlos A. Felippa [\cite{Felippa}], the procedure of the displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
+\begin{equation}
+\frac{\mathrm d u}{\mathrm d x} = 1
+\end{equation}
+As we know, 
+\begin{equation}
+\sum N_i = 1
+\end{equation}
+and, 
+\begin{equation}
+\epsilon = \sum N_i \cdot \epsilon_{i}
+\end{equation}
+Here we have $\epsilon_i = 0$ and $\sum N_i = 1$, hence the strain and stress field are constant and equal 1. \\
+Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field can be viewed in Figure \ref{fig: PatchTest} from ANSYS. As expected, $\epsilon_{xx} = 1$. Thus, we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has the same constant strain field. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in the AMfe, the contour plot of strain is shown in ParaView as the right side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 1$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no in-between state like "passing the patch test by 90 percent." Another element types namely Tri3, Quad4, Quad8, Tet4, and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, we are not listing the details here. From the patch test we can not find the reason why Quad8, Tri6, Tet4 and Tet10 did not passed the unit test. This is still an issue to discuss later.
 
 \begin{figure}
 	\begin{center}
@@ -1200,6 +1281,54 @@ The procedure of the displacement patch test is as follows: create a simple geom
 		\caption{left: Contour plot of $\epsilon_{xx}$ from ANSYS (SMN: minimal value; SMX: maximal value); right: Contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: PatchTest}
 	\end{center}
 \end{figure}
+
+\section{Convergence Analysis}
+We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem using another software Gmsh as Pre-Processing tool. The procedure of our convergence analysis is as follows: Firstly, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case that we do not have the analytical solution, thus the displacement result in this fine meshing will regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element Tet4 and Tet10 can be also tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure . 
+The displacement for each 2D element have been recorded in Table 
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=10cm,clip]{Convergence2D.png} 			
+		\caption{2D model meshing with Tri3 for convergence analysis; P as observer point} \label{fig: Convergence2D}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=14cm,clip]{Convergence3D.png} 			
+		\caption{3D model meshing with Tet4 for convergence analysis; P as observer point} \label{fig: Convergence3D}
+	\end{center}
+\end{figure}
+
+
+\begin{tabular}{ c | c | c }
+	\hline			
+	DOFs & Ux & Uy \\
+	90 & -0.000873929 & 0.0068367 \\
+	292 & -0.00127231 & 0.00993406 \\
+	1038 & -0.00143843 & 0.0112263 \\
+	3898 & -0.00148735 &  0.0112263\\
+	4170 & -0.00148835 &  0.0116131\\
+	4698 & -0.00148919 &  0.0116189\\
+	5298 & -0.00149204 &  0.0116457\\
+	5842 & -0.00149269 &  0.0116505\\
+	14322 & -0.00149982 & 0.0117028\\
+	25634 & -0.00150168 & 0.0117171 \\
+	\hline  
+\end{tabular}
+
+It is also necessary to check the convergence of internal energy. The internal energy can be derived as:
+\begin{equation}
+\prod int = \frac{1}{2}\int_\Omega \sigma_{ij}^u\epsilon_{ij}^u \mathrm{d \Omega}
+\end{equation}
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=10cm,clip]{convergence.pdf} 			
+		\caption{Convergence analysis} \label{fig: convergence}
+	\end{center}
+\end{figure}
+
 
 \section{Complex Model Test}
 The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type. The main motivation of complex model test is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox. Furthermore, the comparison between analogous elements (Quad4 and Quad8; Tri3 and Tri6; Tet4 and Tet10) are also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with..  
@@ -1645,22 +1774,11 @@ The relation between the numbering of components in ParaView and the tensor dire
 % my_material  = KirchhoffMaterial()
 % ParaView Numbering and vorher introduction
 % 不同单元之间也可以进行比较
-\section{Convergence Analysis}
-We can either decrease the element size or increase the polynomial degree of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degree of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem in a global point of view. It is also necessary to check the convergence of internal energy. The internal energy can be derived as:
-\begin{equation}
-\prod int = \frac{1}{2}\int_\Omega \sigma_{ij}^u\epsilon_{ij}^u \mathrm{d \Omega}
-\end{equation}
 
-\begin{figure}[htbp]
-	\begin{center}	
-		\includegraphics[width=10cm,clip]{convergence.pdf} 			
-		\caption{Convergence analysis} \label{fig: convergence}
-	\end{center}
-\end{figure}
 
 % 可以去比较用直接用节点求解的应力应变和用高斯点外推求得的应力应变的差别
 
 \cite[p. 18]{bibid}
 Interelement Averaging can be as future research ..
 And I can talk about why i choose extrapolation, why not direct evaluation!
-\cite[p. 1-10]{Johannes}
+\cite[p. 1-10]{Johannes} \cite{Felippa}

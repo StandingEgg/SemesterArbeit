@@ -2236,9 +2236,11 @@
     <bcf:citekey order="1">Johannes</bcf:citekey>
     <bcf:citekey order="2">FiniteElement</bcf:citekey>
     <bcf:citekey order="3">NumericalMethod</bcf:citekey>
-    <bcf:citekey order="4">FiniteElement</bcf:citekey>
-    <bcf:citekey order="5">bibid</bcf:citekey>
-    <bcf:citekey order="6">Johannes</bcf:citekey>
+    <bcf:citekey order="4">Felippa</bcf:citekey>
+    <bcf:citekey order="5">FiniteElement</bcf:citekey>
+    <bcf:citekey order="6">bibid</bcf:citekey>
+    <bcf:citekey order="7">Johannes</bcf:citekey>
+    <bcf:citekey order="8">Felippa</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="ynt" type="entry" sortscheme="ynt">
   <bcf:sorting>
