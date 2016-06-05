@@ -11,19 +11,19 @@
 \BOOKMARK [2][-]{subsection.50}{Gauss Integration}{section.23}% 11
 \BOOKMARK [1][-]{section.53}{Stress Recovery}{chapter.11}% 12
 \BOOKMARK [2][-]{subsection.54}{Direct Calculation of Stress at nodes}{section.53}% 13
-\BOOKMARK [2][-]{subsection.68}{Extrapolation from Gauss points}{section.53}% 14
-\BOOKMARK [2][-]{subsection.69}{Quadrangle with quadratic shape function and eight nodes: Quad4}{section.53}% 15
-\BOOKMARK [2][-]{subsection.85}{Quadrangle with quadratic shape function and eight nodes: Quad8}{section.53}% 16
-\BOOKMARK [2][-]{subsection.101}{Triangle with three nodes: Tri3}{section.53}% 17
-\BOOKMARK [2][-]{subsection.110}{Second order triangle with six nodes: Tri6}{section.53}% 18
-\BOOKMARK [2][-]{subsection.124}{Tetrahedron element with four nodes: Tet4}{section.53}% 19
-\BOOKMARK [2][-]{subsection.132}{Tetrahedron element with ten nodes: Tet10}{section.53}% 20
-\BOOKMARK [1][-]{section.140}{Assembly}{chapter.11}% 21
-\BOOKMARK [0][-]{chapter.149}{Programming Implementation}{}% 22
-\BOOKMARK [1][-]{section.150}{Pre-Processing}{chapter.149}% 23
-\BOOKMARK [0][-]{chapter.154}{Element Type Test}{}% 24
-\BOOKMARK [1][-]{section.155}{Unit Testing with Python}{chapter.154}% 25
-\BOOKMARK [1][-]{section.158}{The Patch Test}{chapter.154}% 26
-\BOOKMARK [1][-]{section.164}{Convergence Analysis}{chapter.154}% 27
-\BOOKMARK [1][-]{section.169}{Complex Model Test}{chapter.154}% 28
-\BOOKMARK [0][-]{chapter*.218}{References}{}% 29
+\BOOKMARK [2][-]{subsection.65}{Extrapolation from Gauss points}{section.53}% 14
+\BOOKMARK [2][-]{subsection.66}{Quadrangle with quadratic shape function and eight nodes: Quad4}{section.53}% 15
+\BOOKMARK [2][-]{subsection.82}{Quadrangle with quadratic shape function and eight nodes: Quad8}{section.53}% 16
+\BOOKMARK [2][-]{subsection.98}{Triangle with three nodes: Tri3}{section.53}% 17
+\BOOKMARK [2][-]{subsection.107}{Second order triangle with six nodes: Tri6}{section.53}% 18
+\BOOKMARK [2][-]{subsection.121}{Tetrahedron element with four nodes: Tet4}{section.53}% 19
+\BOOKMARK [2][-]{subsection.129}{Tetrahedron element with ten nodes: Tet10}{section.53}% 20
+\BOOKMARK [1][-]{section.137}{Assembly}{chapter.11}% 21
+\BOOKMARK [0][-]{chapter.146}{Programming Implementation}{}% 22
+\BOOKMARK [1][-]{section.147}{Pre-Processing}{chapter.146}% 23
+\BOOKMARK [0][-]{chapter.151}{Element Type Test}{}% 24
+\BOOKMARK [1][-]{section.152}{Unit Testing with Python}{chapter.151}% 25
+\BOOKMARK [1][-]{section.155}{The Patch Test}{chapter.151}% 26
+\BOOKMARK [1][-]{section.161}{Convergence Analysis}{chapter.151}% 27
+\BOOKMARK [1][-]{section.166}{Complex Model Test}{chapter.151}% 28
+\BOOKMARK [0][-]{chapter*.215}{References}{}% 29

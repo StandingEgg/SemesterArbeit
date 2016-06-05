@@ -14,19 +14,19 @@
 \contentsline {subsection}{\numberline {2.3.1}Gauss Integration}{13}{subsection.50}
 \contentsline {section}{\numberline {2.4}Stress Recovery}{13}{section.53}
 \contentsline {subsection}{\numberline {2.4.1}Direct Calculation of Stress at nodes}{13}{subsection.54}
-\contentsline {subsection}{\numberline {2.4.2}Extrapolation from Gauss points}{15}{subsection.68}
-\contentsline {subsection}{\numberline {2.4.3}Quadrangle with quadratic shape function and eight nodes: Quad4}{16}{subsection.69}
-\contentsline {subsection}{\numberline {2.4.4}Quadrangle with quadratic shape function and eight nodes: Quad8}{19}{subsection.85}
-\contentsline {subsection}{\numberline {2.4.5}Triangle with three nodes: Tri3}{21}{subsection.101}
-\contentsline {subsection}{\numberline {2.4.6}Second order triangle with six nodes: Tri6}{23}{subsection.110}
-\contentsline {subsection}{\numberline {2.4.7}Tetrahedron element with four nodes: Tet4}{26}{subsection.124}
-\contentsline {subsection}{\numberline {2.4.8}Tetrahedron element with ten nodes: Tet10}{27}{subsection.132}
-\contentsline {section}{\numberline {2.5}Assembly}{29}{section.140}
-\contentsline {chapter}{\numberline {3}Programming Implementation}{37}{chapter.149}
-\contentsline {section}{\numberline {3.1}Pre-Processing}{37}{section.150}
-\contentsline {chapter}{\numberline {4}Element Type Test}{41}{chapter.154}
-\contentsline {section}{\numberline {4.1}Unit Testing with Python}{41}{section.155}
-\contentsline {section}{\numberline {4.2}The Patch Test}{42}{section.158}
-\contentsline {section}{\numberline {4.3}Convergence Analysis}{43}{section.164}
-\contentsline {section}{\numberline {4.4}Complex Model Test}{44}{section.169}
-\contentsline {chapter}{References}{97}{chapter*.218}
+\contentsline {subsection}{\numberline {2.4.2}Extrapolation from Gauss points}{16}{subsection.65}
+\contentsline {subsection}{\numberline {2.4.3}Quadrangle with quadratic shape function and eight nodes: Quad4}{16}{subsection.66}
+\contentsline {subsection}{\numberline {2.4.4}Quadrangle with quadratic shape function and eight nodes: Quad8}{18}{subsection.82}
+\contentsline {subsection}{\numberline {2.4.5}Triangle with three nodes: Tri3}{21}{subsection.98}
+\contentsline {subsection}{\numberline {2.4.6}Second order triangle with six nodes: Tri6}{23}{subsection.107}
+\contentsline {subsection}{\numberline {2.4.7}Tetrahedron element with four nodes: Tet4}{26}{subsection.121}
+\contentsline {subsection}{\numberline {2.4.8}Tetrahedron element with ten nodes: Tet10}{27}{subsection.129}
+\contentsline {section}{\numberline {2.5}Assembly}{29}{section.137}
+\contentsline {chapter}{\numberline {3}Programming Implementation}{37}{chapter.146}
+\contentsline {section}{\numberline {3.1}Pre-Processing}{37}{section.147}
+\contentsline {chapter}{\numberline {4}Element Type Test}{41}{chapter.151}
+\contentsline {section}{\numberline {4.1}Unit Testing with Python}{41}{section.152}
+\contentsline {section}{\numberline {4.2}The Patch Test}{42}{section.155}
+\contentsline {section}{\numberline {4.3}Convergence Analysis}{43}{section.161}
+\contentsline {section}{\numberline {4.4}Complex Model Test}{46}{section.166}
+\contentsline {chapter}{References}{97}{chapter*.215}

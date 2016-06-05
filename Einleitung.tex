@@ -320,41 +320,49 @@ N_3 = \frac{1}{4}\times\left(1 + x\right) \times \left(1 + y \right)
 N_4 = \frac{1}{4}\times\left(1 - x\right) \times \left(1 + y \right) 
 \end{equation}  
 
-The Gauss points within this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$ We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. For calculating the stress at node 1 can follow this equation as:
+The Gauss points within this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$ We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. For calculating the stress at node  can follow this equation as:
 
 \begin{equation}
-\sigma_1 = {\sigma_1}' N_1\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_1\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_1\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_1\left({\xi_4}', {\eta_4}'\right)
+{\sigma_1}' = \sigma_1 N_1\left({\xi_1}', {\eta_1}'\right) + \sigma_2 N_2\left({\xi_1}', {\eta_1}'\right) + \sigma_3 N_3\left({\xi_1}', {\eta_1}'\right) + \sigma_4 N_4\left({\xi_1}', {\eta_1}'\right)
 \end{equation}
 
 \begin{equation}
-\sigma_2 = {\sigma_1}' N_2\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_2\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_2\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_2\left({\xi_4}', {\eta_4}'\right)
+{\sigma_2}' = \sigma_1 N_1\left({\xi_2}', {\eta_2}'\right) + \sigma_2 N_2\left({\xi_2}', {\eta_2}'\right) + \sigma_3 N_3\left({\xi_2}', {\eta_2}'\right) + \sigma_4 N_4\left({\xi_2}', {\eta_2}'\right)
 \end{equation}
 
 \begin{equation}
-\sigma_3 = {\sigma_1}' N_3\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_3\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_3\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_3\left({\xi_4}', {\eta_4}'\right)
+{\sigma_3}' = \sigma_1 N_1\left({\xi_3}', {\eta_3}'\right) + \sigma_2 N_2\left({\xi_3}', {\eta_3}'\right) + \sigma_3 N_3\left({\xi_3}', {\eta_3}'\right) + \sigma_4 N_4\left({\xi_3}', {\eta_3}'\right)
 \end{equation}
 
 \begin{equation}
-\sigma_4 = {\sigma_1}' N_4\left({\xi_1}', {\eta_1}'\right) + {\sigma_2}' N_4\left({\xi_2}', {\eta_2}'\right) + {\sigma_3}' N_4\left({\xi_3}', {\eta_3}'\right) + {\sigma_4}' N_4\left({\xi_4}', {\eta_4}'\right)
+{\sigma_4}' = \sigma_1 N_1\left({\xi_4}', {\eta_4}'\right) + \sigma_2 N_2\left({\xi_4}', {\eta_4}'\right) + \sigma_3 N_3\left({\xi_4}', {\eta_4}'\right) + \sigma_4 N_4\left({\xi_4}', {\eta_4}'\right)
 \end{equation}
 
-Same as stress, strain at nodes can be written as:
-
+Then we can form them as:
 \begin{equation}
-\epsilon_1 = {\epsilon_1}' N_1\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_1\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_1\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_1\left({\xi_4}', {\eta_4}'\right)
-\end{equation}
+\begin{pmatrix}
+{\sigma_1}' \\
+{\sigma_2}' \\
+{\sigma_3}' \\
+{\sigma_4}' \\
+\end{pmatrix} = \begin{pmatrix}
+ \sigma_1 N_1\left({\xi_1}', {\eta_1}'\right) & \sigma_2 N_2\left({\xi_1}', {\eta_1}'\right) &   \sigma_3 N_3\left({\xi_1}', {\eta_1}'\right)  &  \sigma_4 N_4\left({\xi_1}', {\eta_1}'\right)     \\[0.3em]
+ 
+ \sigma_1 N_1\left({\xi_2}', {\eta_2}'\right) & \sigma_2 N_2\left({\xi_2}', {\eta_2}'\right) & \sigma_3 N_3\left({\xi_2}', {\eta_2}'\right)  &  \sigma_4 N_4\left({\xi_2}', {\eta_2}'\right)            \\[0.3em]
+ 
+\sigma_1 N_1\left({\xi_3}', {\eta_3}'\right) & \sigma_2 N_2\left({\xi_3}', {\eta_3}'\right)  & \sigma_3 N_3\left({\xi_3}', {\eta_3}'\right) &  \sigma_4 N_4\left({\xi_3}', {\eta_3}'\right)      \\[0.3em]
 
-\begin{equation}
-\epsilon_2 = {\sigma_1}' N_2\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_2\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_2\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_2\left({\xi_4}', {\eta_4}'\right)
-\end{equation}
+\sigma_1 N_1\left({\xi_4}', {\eta_4}'\right) &  \sigma_2 N_2\left({\xi_4}', {\eta_4}'\right) &  \sigma_3 N_3\left({\xi_4}', {\eta_4}'\right) &   \sigma_4 N_4\left({\xi_4}', {\eta_4}'\right)                             
+\end{pmatrix} \begin{pmatrix}
+\sigma_1 \\
+\sigma_2 \\
+\sigma_3 \\
+\sigma_4 \\
+\end{pmatrix}
+\end{equation}	
 
-\begin{equation}
-\epsilon_3 = {\epsilon_1}' N_3\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_3\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_3\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_3\left({\xi_4}', {\eta_4}'\right)
-\end{equation}
 
-\begin{equation}
-\epsilon_4 = {\epsilon_1}' N_4\left({\xi_1}', {\eta_1}'\right) + {\epsilon_2}' N_4\left({\xi_2}', {\eta_2}'\right) + {\epsilon_3}' N_4\left({\xi_3}', {\eta_3}'\right) + {\epsilon_4}' N_4\left({\xi_4}', {\eta_4}'\right)
-\end{equation}
+
 
 
 
@@ -1241,7 +1249,7 @@ e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and evaluate the highest tolerance for each element type. The complete test of all element types is shown in Table \ref{tab: error}. It is obvious that only Tri3 shows a good performance and Quad4 has a relative good quality. It is necessary to investigate into what is wrong with the other element types. 
 
 \begin{tabular}{l*{5}{c}r} 
-	\caption{Unit testing for }\label{tab: error}
+		\label{tab: error}
 	Tolerance Parameter              & Tri3 & Tri6 & Quad4 & Quad8 & Tet4  & Tet10  \\
 	\hline
 	$e_{abs}=10^{-10}$; $e_{rel}=10^{-4}$ & Fail & Fail & Fail & Fail & Fail & Fail   \\
