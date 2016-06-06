@@ -1246,10 +1246,18 @@ The relative error is the absolute error relative to the actual value. It can be
 \begin{equation}
 e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 \end{equation} 
-It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and evaluate the highest tolerance for each element type. The complete test of all element types is shown in Table \ref{tab: error}. It is obvious that only Tri3 shows a good performance and Quad4 has a relative good quality. It is necessary to investigate into what is wrong with the other element types. 
+It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and compare the results of testing between elements. 
+In engineering field, Von Mises stress is usually investigated as a failure criterion to judge a design. Therefore we calculate here the von Mises stress of each elements. According to the research of P. M. Kurowski [\cite{VonMiese}] The Von Mises stress can be expressed by the principle stresses as:
+\begin{equation}
+\sigma_{vm} = \sqrt{\frac{1}{2}\left[\left(\sigma_1 - \sigma_2\right)^2 + \left(\sigma_2 - \sigma_3\right)^2 + \left(\sigma_3 - \sigma_1\right)^2\right]}
+\end{equation}
+The complete test of all the element types is shown in Table \ref{tab: DirectTesting} and Table \ref{tab: SRTesting}. It is obvious that Tri3 and Quad4 show a good performance by both algorithm. The other element types fail the test. It is necessary to investigate into what is wrong with the other element types. 
 
+\begin{table} 		
+	\caption{Unit testing of the result using calculation directly at nodes}
+	\label{tab: DirectTesting}
 \begin{tabular}{l*{5}{c}r} 
-		\label{tab: error}
+
 	Tolerance Parameter              & Tri3 & Tri6 & Quad4 & Quad8 & Tet4  & Tet10  \\
 	\hline
 	$e_{abs}=10^{-10}$; $e_{rel}=10^{-4}$ & Fail & Fail & Fail & Fail & Fail & Fail   \\
@@ -1257,9 +1265,24 @@ It is noteworthy that errors of approximation or rounding and truncation are int
 	$e_{abs}=10^{-10}$; $e_{rel}=10^{-3}$ & Pass & Fail & Pass & Fail &  Fail & Fail   \\
    \hline
 \end{tabular}
+\end{table}
+
+\begin{table} 		
+	\caption{Unit testing of the extrapolate result using stress recovery}
+	\label{tab: SRTesting}
+	\begin{tabular}{l*{5}{c}r} 
+		
+		Tolerance Parameter    & Tri3 & Tri6 & Quad4 & Quad8 & Tet4  & Tet10  \\
+		\hline
+		$e_{abs}=10^{-10}$; $e_{rel}=10^{-4}$ & Fail & Fail & Fail & Fail & Fail & Fail   \\
+		$e_{abs}=10^{-10}$; $e_{rel}=5\times10^{-4}$&  Pass& Fail & Fail & Fail & Fail &  Fail  \\
+		$e_{abs}=10^{-10}$; $e_{rel}=10^{-3}$ & Pass & Fail & Pass & Fail &  Fail & Fail   \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \section{The Patch Test}
-After testing the quality of each element type, we find out that Tri6, Quad8, Tet4, and Tet10 have some problems to fix. For fixing these problem, we need to know if the finite element program has the correct algorithmic procedure. It is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical results. \\
+After testing the quality of each element type, we find out that the Tri6, Quad8, Tet4, and Tet10 need to fix. For fixing these problem, we need to know if the finite element program has the correct algorithmic procedure. It is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical results. \\
 According to the theory of Carlos A. Felippa [\cite{Felippa}], the procedure of the displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
 \begin{equation}
 \frac{\mathrm d u}{\mathrm d x} = 1
@@ -1273,7 +1296,7 @@ and,
 \epsilon = \sum N_i \cdot \epsilon_{i}
 \end{equation}
 Here we have $\epsilon_i = 0$ and $\sum N_i = 1$, hence the strain and stress field are constant and equal 1. \\
-Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field can be viewed in Figure \ref{fig: PatchTest} from ANSYS. As expected, $\epsilon_{xx} = 1$. Thus, we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has the same constant strain field. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in the AMfe, the contour plot of strain is shown in ParaView as the right side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 1$. It proves that the displacement patch test has been passed. It is worth noting that the patch test has only two result: success or failure. There is no in-between state like "passing the patch test by 90 percent." Another element types namely Tri3, Quad4, Quad8, Tet4, and Tet10 have also passed the displacement patch test. Taking into account the limited space of this thesis, we are not listing the details here. From the patch test we can not find the reason why Quad8, Tri6, Tet4 and Tet10 did not passed the unit test. This is still an issue to discuss later.
+Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field can be viewed in Figure \ref{fig: PatchTest} from ANSYS. As expected, $\epsilon_{xx} = 1$. Thus, we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has the same constant strain field. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in the AMfe, the contour plot of strain is shown in ParaView as the right side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 1$. It proves that the displacement patch test has been passed. Another element types namely Tri6, Quad4, Quad8, Tet4, and, Tet10 have also the constant field. But there is still problematic with element Tri6, Quad8, Tet4, and Tet10, because all of these elements have the value of the constant strain 1.5 as shown in Figure \ref{fig: Tet4Patch}. It is necessary to investigate why all this element have the same strain, namely 1.5.  By debugging of the AMfe Code we can find that the strains at Gauss points are all 1.5. This proves that the stress recovery algorithm is correct. The problem exists at the algorithm of strain calculation. And all of these element except Tri3 and Quad4 have the same problem.   
 
 \begin{figure}
 	\begin{center}
@@ -1284,15 +1307,28 @@ Now we take Tri3 as an example in implementing the displacement patch test. We c
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=7cm,clip]{PatchTest.png} 		
+		\includegraphics[width=6cm,clip]{PatchTest.png} 		
 		\includegraphics[width=7cm,clip]{PatchParaView.pdf} 		
 		\caption{left: Contour plot of $\epsilon_{xx}$ from ANSYS (SMN: minimal value; SMX: maximal value); right: Contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: PatchTest}
 	\end{center}
 \end{figure}
 
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=6cm,clip]{Tet4Patch.pdf} 			
+		\caption{Patch Test of Tet4} \label{fig: Tet4Patch}
+	\end{center}
+\end{figure}
+
 \section{Convergence Analysis}
-We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem using another software Gmsh as Pre-Processing tool. The procedure of our convergence analysis is as follows: Firstly, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case that we do not have the analytical solution, thus the displacement result in this fine meshing will regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element Tet4 and Tet10 can be also tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure . 
-The displacement for each 2D element have been recorded in Table 
+We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem using another software Gmsh as Pre-Processing tool. The procedure of our convergence analysis is as follows: Firstly, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case that we do not have the analytical solution, thus the displacement result in this fine meshing will regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element Tet4 and Tet10 can be also tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure . The displacement for each 2D element have been recorded in Table \ref{tab: TriConvergence} and Table \ref{tab: QuadConvergence}. The displacement for 3D element are represented in Table \ref{tab: TetConvergence}. The same nodal displacement from a fine meshing in ANSYS are:
+\begin{equation*}
+2D: Ux = -0.0015045; Uy = 0.011738
+\end{equation*}
+The convergence plot of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order element (Tri6 and Tet10) have a relative fast rate of convergence than the lower order element (Tri3 and Tet4). This phenomenon is not that clear with quadrilateral element (Quad4 and Quad8). 
+\begin{equation*}
+3D: Ux = 9.47; Uy = 0; Uz = 0
+\end{equation*}
 
 \begin{figure}[htbp]
 	\begin{center}	
@@ -1308,22 +1344,85 @@ The displacement for each 2D element have been recorded in Table
 	\end{center}
 \end{figure}
 
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=7cm,clip]{TriConPlotUx.png}
+		\includegraphics[width=7cm,clip]{TriConPlotUy.png} 	 			
+		\caption{Convergence plot of Tri3 and Tri6} \label{fig: TriConPlot}
+	\end{center}
+\end{figure}
 
-\begin{tabular}{ c | c | c }
-	\hline			
-	DOFs & Ux & Uy \\
-	90 & -0.000873929 & 0.0068367 \\
-	292 & -0.00127231 & 0.00993406 \\
-	1038 & -0.00143843 & 0.0112263 \\
-	3898 & -0.00148735 &  0.0112263\\
-	4170 & -0.00148835 &  0.0116131\\
-	4698 & -0.00148919 &  0.0116189\\
-	5298 & -0.00149204 &  0.0116457\\
-	5842 & -0.00149269 &  0.0116505\\
-	14322 & -0.00149982 & 0.0117028\\
-	25634 & -0.00150168 & 0.0117171 \\
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=7cm,clip]{QuadConPlotUx.png}
+		\includegraphics[width=7cm,clip]{QuadConPlotUy.png} 	 			
+		\caption{Convergence plot of Quad4 and Quad8} \label{fig: QuadConPlot}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=9cm,clip]{TetConPlotUx.png}	 			
+		\caption{Convergence plot of Tet4 and Tet10} \label{fig: TetConPlot}
+	\end{center}
+\end{figure}
+
+\begin{table}[ht]
+		\caption{Convergence Analysis of triangular element}
+		\label{tab: TriConvergence}
+\begin{tabular}{ c | c | c | c | c | c} 	
+	DOFs & Tri3-Ux & Tri3-Uy & DOFs &Tri6-Ux & Tri6-Uy\\ \hline
+	90 & -0.000873929 & 0.0068367 & 62 & -0.00132675 & 0.00847992  \\ 
+	292 & -0.00127231 & 0.00993406 & 114 & -0.00149616 & 0.011506 \\
+	1038 & -0.00143843 & 0.0112263 & 138 & -0.00149623 & 0.011513  \\
+	3898 & -0.00148735 &  0.0112263&  292 & -0.001504 & 0.0117277 \\
+	4170 & -0.00148835 &  0.0116131&  1780 & -0.001504 & 0.0117383\\
+	4698 & -0.00148919 &  0.0116189& 4830 & -0.00150448 & 0.0117391  \\
+	5298 & -0.00149204 &  0.0116457& 8986 & -0.00150449 & 0.0117392 \\
+	5842 & -0.00149269 &  0.0116505&  12073 & -0.00150450 & 0.0117392\\
+	14322 & -0.00149982 & 0.0117028& 15609 & -0.00150451 & 0.0117393 \\
+	25634 & -0.00150168 & 0.0117171 & 19300 &  -0.00150453 &  0.0117393\\
 	\hline  
 \end{tabular}
+\end{table}
+
+
+\begin{table}[ht]
+	\caption{Convergence Analysis of quadrilateral element} \label{tab: QuadConvergence}
+	\begin{tabular}{ c | c | c | c | c | c} 	
+		DOFs & Quad4-Ux & Quad4-Uy & DOFs &Quad8-Ux & Quad8-Uy\\ \hline
+		48 & -0.00078276 & 0.00620667 & 142 & -0.00120593 & 0.00847992  \\ 
+		372 & -0.0014393 & 0.0112254 & 286 & -0.00139123& 0.0108697 \\
+		1332 & -0.00147509 & 0.0115086 & 466 & -0.00139228 & 0.0108725  \\
+		3374 & -0.00149431 &  0.0116894&  1090 & -0.00147418& 0.0115056 \\
+		4842 & -0.00149817 &  0.0116894&  2870 &-0.00149483 & 0.0116652\\
+		6228 & -0.00149945 &  0.0116992& 6450 &  -0.00149948 & 0.0117018  \\
+		8386 & -0.00150076 &   0.0117105& 10346 &  -0.00150103 & 0.0117032 \\
+		10232 & -0.00150123 &  0.0117123&  12342 & -0.00150163 & 0.0117056\\
+		15344 &-0.00150134 & 0.0117144& 15656 & -0.00150166 & 0.0117079 \\
+		20044 & -0.00150143 & 0.0117151 & 22344 &  -0.00150183 &  0.0117186\\
+		\hline  
+	\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+	\caption{Convergence Analysis of tetrahedral element} \label{tab: TetConvergence}
+	\begin{tabular}{ c | c | c | c | c | c | c} 	
+		DOFs & Tet4-Ux & Tet-Uy & Tet-Uz & DOFs & Tet4-Ux & Tet10-Uy \\ \hline
+		54 & 6.320 & 0 & 0 & 243 & 0  & 0 \\ 
+		243 & 6.372 & 0 & 0 & 579 & 0 & 0\\
+		1395 & 9.295 & 0 & 0 & 13857 & 0 & 0 \\
+		9315 & 9.36 &  0 &  0 & 36312& 0 & 0\\
+		24579 & 9.36 &  0 &  0 & 43521 & 0 & 0\\
+		34632 & 9.37 &  0 & 0 &  57537 & 0 & 0  \\
+		53307 & 9.37 &   0 & 0 &  60299 & 0 & 0 \\
+		64343 & 9.37 & 0 &  0 & 79683 & 0 & 0\\
+		76443 & 9.37 & 0 & 0 & 84322 & 0 & 0 \\
+		96567 & 9.37 & 0 & 0 &  101321 &  0& 0\\
+		\hline  
+	\end{tabular}
+\end{table}
+
 
 It is also necessary to check the convergence of internal energy. The internal energy can be derived as:
 \begin{equation}
@@ -1339,15 +1438,16 @@ It is also necessary to check the convergence of internal energy. The internal e
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type. The main motivation of complex model test is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox. Furthermore, the comparison between analogous elements (Quad4 and Quad8; Tri3 and Tri6; Tet4 and Tet10) are also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with..  
+The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type by both algorithm, namely direct evaluation at nodes and extrapolation by stress recovery. The main motivation of complex model test is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox(the result from both algorithm). Furthermore, the comparison between analogous elements (Quad4 and Quad8; Tri3 and Tri6; Tet4 and Tet10) are also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with..  
 In a sum, all of these element type in AMfe Toolbox shows the exact contour plot in compare with the ANSYS generating contour plot. For the bound of value, Tri3 and Quad4 in AMfe Toolbox have almost the same value as them in ANSYS. The other element type have more or less problems.
 
 The relation between the numbering of components in ParaView and the tensor direction follows this rule: 0-xx,  1-yy, 2-zz, 3-yy, 4-yz, 5-xz, 6-zz, 7-xz, 8-xy. 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Exx.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Exx_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Exx.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Exx_PD.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Exx_P.png} 	
 		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Exx}
 	\end{center}
 \end{figure}
@@ -1355,8 +1455,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Eyy.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Eyy_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Eyy.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Eyy_PD.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Eyy_P.png} 		
 		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Eyy}
 	\end{center}
 \end{figure}
@@ -1364,8 +1465,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Exy.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Exy_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Exy.png} 
+		\includegraphics[width=7cm,clip]{TTri3_Exy_PD.png} 		
+		\includegraphics[width=7cm,clip]{TTri3_Exy_P.png} 		
 		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Exy}
 	\end{center}
 \end{figure}
@@ -1373,8 +1475,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Sxx.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Sxx_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Sxx.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Sxx_PD.png} 		
+		\includegraphics[width=7cm,clip]{TTri3_Sxx_P.png} 		
 		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Sxx}
 	\end{center}
 \end{figure}
@@ -1382,8 +1485,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Syy.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Syy_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Syy.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Syy_PD.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Syy_P.png} 		
 		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Syy}
 	\end{center}
 \end{figure}
@@ -1391,8 +1495,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{TTri3_Sxy.png} 		
-		\includegraphics[width=13cm,clip]{TTri3_Sxy_P.png} 		
+		\includegraphics[width=11cm,clip]{TTri3_Sxy.png} 	
+		\includegraphics[width=7cm,clip]{TTri3_Sxy_PD.png} 		
+		\includegraphics[width=7cm,clip]{TTri3_Sxy_P.png} 		
 		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Sxy}
 	\end{center}
 \end{figure}
@@ -1400,8 +1505,8 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{Tri6_Exx.png} 		
-		\includegraphics[width=13cm,clip]{Tri6_Exx_P.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Exx.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Exx_P.png} 		
 		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Exx}
 	\end{center}
 \end{figure}
@@ -1409,8 +1514,8 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{Tri6_Eyy.png} 		
-		\includegraphics[width=13cm,clip]{Tri6_Eyy_P.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Eyy.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Eyy_P.png} 		
 		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Eyy}
 	\end{center}
 \end{figure}
@@ -1418,8 +1523,8 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{Tri6_Exy.png} 		
-		\includegraphics[width=13cm,clip]{Tri6_Exy_P.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Exy.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Exy_P.png} 		
 		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Exy}
 	\end{center}
 \end{figure}
@@ -1427,8 +1532,8 @@ The relation between the numbering of components in ParaView and the tensor dire
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=13cm,clip]{Tri6_Sxx.png} 		
-		\includegraphics[width=13cm,clip]{Tri6_Sxx_P.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Sxx.png} 		
+		\includegraphics[width=11cm,clip]{Tri6_Sxx_P.png} 		
 		\caption{Mesh with Tri6. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Sxx}
 	\end{center}
 \end{figure}

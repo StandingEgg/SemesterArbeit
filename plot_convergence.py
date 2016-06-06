@@ -42,23 +42,23 @@ Tet10_Ux = np.array([9.37, 9.37, 9.372, 9.378, 9.378, 9.378, 9.378, 9.378, 9.378
 # Create plots with pre-defined labels.
 # Alternatively, you can pass labels explicitly when calling `legend`.
 fig, ax = plt.subplots()
-# ax.plot(Tri3_dofs, Tri3_Ux, 'g-', label='Tri3 Ux')
-# ax.plot(Tri6_dofs, Tri6_Ux, 'b-', label='Tri6 Ux')
-# ax.plot(Quad4_dofs, Quad4_Ux, 'm-', label='Quad4 Ux')
-# ax.plot(Quad8_dofs, Quad8_Ux, 'k-', label='Quad8 Ux')
+#ax.plot(Tri3_dofs, Tri3_Ux, 'g-', label='Tri3 Ux')
+#ax.plot(Tri6_dofs, Tri6_Ux, 'b-', label='Tri6 Ux')
+#ax.plot(Quad4_dofs, Quad4_Ux, 'm-', label='Quad4 Ux')
+#ax.plot(Quad8_dofs, Quad8_Ux, 'k-', label='Quad8 Ux')
 
-ax.plot(Tri3_dofs, Tri3_Uy, 'g-', label='Tri3 Uy')
-ax.plot(Tri6_dofs, Tri6_Uy, 'b-', label='Tri6 Uy')
-ax.plot(Quad4_dofs, Quad4_Uy, 'm-', label='Quad4 Uy')
-ax.plot(Quad8_dofs, Quad8_Uy, 'k-', label='Quad8 Uy')
+#ax.plot(Tri3_dofs, Tri3_Uy, 'g-', label='Tri3 Uy')
+#ax.plot(Tri6_dofs, Tri6_Uy, 'b-', label='Tri6 Uy')
+#ax.plot(Quad4_dofs, Quad4_Uy, 'm-', label='Quad4 Uy')
+#ax.plot(Quad8_dofs, Quad8_Uy, 'k-', label='Quad8 Uy')
 
-# ax.plot(Tet4_dofs, Tet4_Ux, 'g-', label='Tet4 Ux')
-# ax.plot(Tet10_dofs, Tet10_Ux, 'b-', label='Tet10 Ux')
+#ax.plot(Tet4_dofs, Tet4_Ux, 'g-', label='Tet4 Ux')
+#ax.plot(Tet10_dofs, Tet10_Ux, 'b-', label='Tet10 Ux')
 
 # Now add the legend with some customizations.
 #legend = ax.legend(loc='lower right', shadow=True)
 
-legend = ax.legend(loc='upper right', shadow=True)
+legend = ax.legend(loc='lower right', shadow=True)
 
 
 # The frame is matplotlib.patches.Rectangle instance surrounding the legend.
@@ -66,9 +66,9 @@ frame = legend.get_frame()
 frame.set_facecolor('0.90')
 
 # pylab.xlim([-1000, 110000])
-#pylab.ylim([100,1000])
+pylab.ylim([0.55,1.1])
 plt.xlabel('DOFs [-]')
-plt.ylabel(r'Ux(amfe)/Ux(ansys) [-]')
+plt.ylabel(r'Uy(amfe)/Uy(ansys) [-]')
 # Set the fontsize
 # for label in legend.get_texts():
 #     label.set_fontsize('large')

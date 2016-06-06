@@ -61,6 +61,21 @@
       \field{title}{Numerical Methods}
       \field{year}{2010}
     \endentry
+    \entry{VonMiese}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=4f7a97acac5f2daab568f603e1f3ee36}{Kurowski}{K\bibinitperiod}{P.\bibnamedelimi M.}{P\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{4f7a97acac5f2daab568f603e1f3ee36}
+      \strng{fullhash}{4f7a97acac5f2daab568f603e1f3ee36}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2012}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Von Mises Stress failure criterion}
+      \field{year}{2012}
+    \endentry
     \entry{FiniteElement}{book}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=387922cc8a6c11c56c9aebbc268b77bf}{Wall}{W\bibinitperiod}{W.\bibnamedelimi A.}{W\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
