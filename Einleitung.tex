@@ -1407,18 +1407,18 @@ The convergence plot of 2D element are depicted in Figure \ref{fig: TriConPlot} 
 
 \begin{table}[ht]
 	\caption{Convergence Analysis of tetrahedral element} \label{tab: TetConvergence}
-	\begin{tabular}{ c | c | c | c | c | c | c} 	
-		DOFs & Tet4-Ux & Tet-Uy & Tet-Uz & DOFs & Tet4-Ux & Tet10-Uy \\ \hline
-		54 & 6.320 & 0 & 0 & 243 & 0  & 0 \\ 
-		243 & 6.372 & 0 & 0 & 579 & 0 & 0\\
-		1395 & 9.295 & 0 & 0 & 13857 & 0 & 0 \\
-		9315 & 9.36 &  0 &  0 & 36312& 0 & 0\\
-		24579 & 9.36 &  0 &  0 & 43521 & 0 & 0\\
-		34632 & 9.37 &  0 & 0 &  57537 & 0 & 0  \\
-		53307 & 9.37 &   0 & 0 &  60299 & 0 & 0 \\
-		64343 & 9.37 & 0 &  0 & 79683 & 0 & 0\\
-		76443 & 9.37 & 0 & 0 & 84322 & 0 & 0 \\
-		96567 & 9.37 & 0 & 0 &  101321 &  0& 0\\
+	\begin{tabular}{ c | c | c | c | c | c | c | c} 	
+		DOFs & Tet4-Ux & Tet4-Uy & Tet4-Uz & DOFs & Tet10-Ux & Tet10-Uy & Tet10-Uz\\ \hline
+		54 & 6.320 & 0 & 0 & 243 & 9.370& 0  & 0 \\ 
+		243 & 6.372 & 0 & 0 & 579 & 9.370&0 & 0\\
+		1395 & 9.295 & 0 & 0 & 13857 & 9.372&  0 & 0 \\
+		9315 & 9.360 &  0 &  0 & 36312&9.378 &0 & 0\\
+		24579 & 9.360 &  0 &  0 & 43521 & 9.378&0 & 0\\
+		34632 & 9.370 &  0 & 0 &  57537 & 9.378&0 & 0  \\
+		53307 & 9.370 &   0 & 0 &  60299 & 9.378&0 & 0 \\
+		64343 & 9.370 & 0 &  0 & 79683 & 9.378&0 & 0\\
+		76443 & 9.370 & 0 & 0 & 84322 & 9.378 &0 & 0 \\
+		96567 & 9.370 & 0 & 0 &  101321 & 9.378& 0& 0\\
 		\hline  
 	\end{tabular}
 \end{table}
@@ -1438,7 +1438,8 @@ It is also necessary to check the convergence of internal energy. The internal e
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type by both algorithm, namely direct evaluation at nodes and extrapolation by stress recovery. The main motivation of complex model test is to compare the strain and stress contour plot of each element type from ANSYS and AMfe Toolbox(the result from both algorithm). Furthermore, the comparison between analogous elements (Quad4 and Quad8; Tri3 and Tri6; Tet4 and Tet10) are also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with..  
+The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type by both algorithm, namely direct evaluation at nodes and extrapolation from Gauss points- stress recovery. The main motivation of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri3. From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. Figure \ref{fig: Tri6_Exx} - Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri6. The plots show that the solution by algorithm with stress recovery is relative close to the ANSYS solution, the algorithm without stress recovery has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. Figure \ref{fig: Quad4_Exx} - Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad4. We can observe that the plot by stress recovery is close to ANSYS plot. The deviation of plot of the both algorithm appears at some position as it shown in Plots with Tri6.  Figure \ref{fig: Quad8_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8. The comparison is similar as in plots meshing with Quad4. Figure \ref{fig: Tet4_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8.
+
 In a sum, all of these element type in AMfe Toolbox shows the exact contour plot in compare with the ANSYS generating contour plot. For the bound of value, Tri3 and Quad4 in AMfe Toolbox have almost the same value as them in ANSYS. The other element type have more or less problems.
 
 The relation between the numbering of components in ParaView and the tensor direction follows this rule: 0-xx,  1-yy, 2-zz, 3-yy, 4-yz, 5-xz, 6-zz, 7-xz, 8-xy. 
@@ -1458,7 +1459,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Exx.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Exx_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Exx_P.png} 	
-		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Exx}
+		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1468,7 +1469,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Eyy_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Eyy_P.png} 		
-		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Eyy}
+		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1478,7 +1479,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Exy.png} 
 		\includegraphics[width=7cm,clip]{TTri3_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Exy_P.png} 		
-		\caption{Mesh with Tri3. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Exy}
+		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1488,7 +1489,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Sxx_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Sxx_P.png} 		
-		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Sxx}
+		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1498,7 +1499,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Syy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Syy_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Syy_P.png} 		
-		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Syy}
+		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1508,7 +1509,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{TTri3_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Sxy_P.png} 		
-		\caption{Mesh with Tri3. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri3_Sxy}
+		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1518,7 +1519,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Exx.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exx_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Exx_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Exx}
+		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1528,7 +1529,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Eyy.png} 
 		\includegraphics[width=7cm,clip]{Tri6_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Eyy_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Eyy}
+		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1538,7 +1539,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exy_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exy_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Exy}
+		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1548,7 +1549,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Sxx_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Sxx_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Sxx}
+		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1558,7 +1559,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Syy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Syy_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Syy}
+		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1568,7 +1569,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tri6_Sxy.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Sxy_P.png} 		
-		\caption{Mesh with Tri6. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tri6_Sxy}
+		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1579,7 +1580,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Exx.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Exx_PD.png} 				
 		\includegraphics[width=7cm,clip]{Quad4_Exx_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Exx}
+		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1589,7 +1590,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad4_Eyy_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Eyy}
+		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1599,7 +1600,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad4_Exy_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Exy}
+		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1609,7 +1610,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Sxx.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad4_Sxx_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Sxx}
+		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1619,7 +1620,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Syy.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Syy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad4_Syy_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Syy}
+		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1629,7 +1630,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad4_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Sxy_PD.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Sxy_P.png} 		
-		\caption{Mesh with Quad4. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad4_Sxy}
+		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1639,7 +1640,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Exx.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Exx_PD.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Exx_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Exx}
+		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1649,7 +1650,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Eyy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Eyy_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Eyy}
+		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1659,7 +1660,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Exy.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Exy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Exy_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Exy}
+		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1669,7 +1670,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Sxx.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Sxx_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Sxx}
+		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1679,7 +1680,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Syy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad8_Syy_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Syy}
+		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1689,127 +1690,127 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Quad8_Sxy.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad8_Sxy_P.png} 		
-		\caption{Mesh with Quad8. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Quad8_Sxy}
+		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Exx.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Exx.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExxPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4ExxP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exx}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Eyy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4Eyy.png} 		
 		\includegraphics[width=7cm,clip]{Tet4EyyPD.png} 
 		\includegraphics[width=7cm,clip]{Tet4EyyP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Eyy}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Ezz.png} 
+		\includegraphics[width=13cm,clip]{Tet4Ezz.png} 
 		\includegraphics[width=7cm,clip]{Tet4EzzPD.png} 				
 		\includegraphics[width=7cm,clip]{Tet4EzzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{zz}$ from ANSYS; lower: contour plot of $\epsilon_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Ezz}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Ezz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Exy.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExyPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4ExyP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exy}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Eyz.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Eyz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4EyzPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4EyzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{yz}$ from ANSYS; lower: contour plot of $\epsilon_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Eyz}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Exz.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Exz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExzPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\epsilon_{xz}$ from ANSYS; lower: contour plot of $\epsilon_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Exz}
+		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Sxx.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxxPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxxP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxx}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Syy.png} 
+		\includegraphics[width=13cm,clip]{Tet4Syy.png} 
 		\includegraphics[width=7cm,clip]{Tet4SyyPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4SyyP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Syy}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Szz.png} 	
+		\includegraphics[width=13cm,clip]{Tet4Szz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SzzPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SzzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{zz}$ from ANSYS; lower: contour plot of $\sigma_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Szz}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Szz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Sxy.png} 		
+		\includegraphics[width=13cm,clip]{Tet4Sxy.png} 		
 		\includegraphics[width=7cm,clip]{Tet4SxyPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxyP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxy}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Syz.png} 
+		\includegraphics[width=13cm,clip]{Tet4Syz.png} 
 		\includegraphics[width=7cm,clip]{Tet4SyzPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4SyzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{yz}$ from ANSYS; lower: contour plot of $\sigma_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Syz}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=11cm,clip]{Tet4Sxz.png} 
+		\includegraphics[width=13cm,clip]{Tet4Sxz.png} 
 		\includegraphics[width=7cm,clip]{Tet4SxzPD.png} 		
 		\includegraphics[width=7cm,clip]{Tet4SxzP.png} 		
-		\caption{Mesh with Tet4. upper: contour plot of $\sigma_{xz}$ from ANSYS; lower: contour plot of $\sigma_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet4Sxz}
+		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1819,7 +1820,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Exx.png}
 		\includegraphics[width=7cm,clip]{Tet10_Exx_PD.png}  		
 		\includegraphics[width=7cm,clip]{Tet10_Exx_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xx}$ from ANSYS; lower: contour plot of $\epsilon_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exx}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1829,7 +1830,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Eyy.png} 	
 		\includegraphics[width=7.5cm,clip]{Tet10_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Eyy_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{yy}$ from ANSYS; lower: contour plot of $\epsilon_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Eyy}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1839,7 +1840,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Ezz.png} 
 		\includegraphics[width=7.5cm,clip]{Tet10_Ezz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Ezz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{zz}$ from ANSYS; lower: contour plot of $\epsilon_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Ezz}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Ezz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1849,7 +1850,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Exy_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xy}$ from ANSYS; lower: contour plot of $\epsilon_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exy}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1859,7 +1860,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Eyz.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Eyz_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Eyz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{yz}$ from ANSYS; lower: contour plot of $\epsilon_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Eyz}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1869,7 +1870,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Exz.png} 
 		\includegraphics[width=7cm,clip]{Tet10_Exz_PD.png} 			
 		\includegraphics[width=7cm,clip]{Tet10_Exz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\epsilon_{xz}$ from ANSYS; lower: contour plot of $\epsilon_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Exz}
+		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1879,7 +1880,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Tet10_Sxx_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xx}$ from ANSYS; lower: contour plot of $\sigma_{xx}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxx}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1889,7 +1890,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Syy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Tet10_Syy_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{yy}$ from ANSYS; lower: contour plot of $\sigma_{yy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Syy}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1899,7 +1900,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Szz.png} 
 		\includegraphics[width=7cm,clip]{Tet10_Szz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Szz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{zz}$ from ANSYS; lower: contour plot of $\sigma_{zz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Szz}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Szz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1909,7 +1910,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Sxy_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xy}$ from ANSYS; lower: contour plot of $\sigma_{xy}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxy}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1919,7 +1920,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Syz.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Syz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Syz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{yz}$ from ANSYS; lower: contour plot of $\sigma_{yz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Syz}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1929,7 +1930,7 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\includegraphics[width=11cm,clip]{Tet10_Sxz.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Sxz_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxz_P.png} 		
-		\caption{Mesh with Tet10. upper: contour plot of $\sigma_{xz}$ from ANSYS; lower: contour plot of $\sigma_{xz}$ calculated in AMfe, demonstrate in ParaView} \label{fig: Tet10_Sxz}
+		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxz}
 	\end{center}
 \end{figure}
 
