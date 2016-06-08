@@ -2233,15 +2233,21 @@
     <bcf:datasource type="file" datatype="bibtex">Books.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Johannes</bcf:citekey>
+    <bcf:citekey order="1">FiniteElement</bcf:citekey>
     <bcf:citekey order="2">FiniteElement</bcf:citekey>
-    <bcf:citekey order="3">NumericalMethod</bcf:citekey>
-    <bcf:citekey order="4">VonMiese</bcf:citekey>
-    <bcf:citekey order="5">Felippa</bcf:citekey>
-    <bcf:citekey order="6">FiniteElement</bcf:citekey>
-    <bcf:citekey order="7">bibid</bcf:citekey>
-    <bcf:citekey order="8">Johannes</bcf:citekey>
-    <bcf:citekey order="9">Felippa</bcf:citekey>
+    <bcf:citekey order="3">Felippa</bcf:citekey>
+    <bcf:citekey order="4">Johannes</bcf:citekey>
+    <bcf:citekey order="5">FiniteElement</bcf:citekey>
+    <bcf:citekey order="6">Felippa</bcf:citekey>
+    <bcf:citekey order="7">Felippa</bcf:citekey>
+    <bcf:citekey order="8">Felippa</bcf:citekey>
+    <bcf:citekey order="9">NumericalMethod</bcf:citekey>
+    <bcf:citekey order="10">VonMiese</bcf:citekey>
+    <bcf:citekey order="11">Felippa</bcf:citekey>
+    <bcf:citekey order="12">FiniteElement</bcf:citekey>
+    <bcf:citekey order="13">bibid</bcf:citekey>
+    <bcf:citekey order="14">Johannes</bcf:citekey>
+    <bcf:citekey order="15">Felippa</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="ynt" type="entry" sortscheme="ynt">
   <bcf:sorting>

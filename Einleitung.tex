@@ -3,10 +3,10 @@
 
 
 \section{Motivation} \label{sec:Einl:Motivation}
-The finite element method (FEM) is a numerical technique for finding approximate solutions to boundary value problems for partial differential equations. FEM contains linear FEM and non-linear FEM. 
+The Finite Element Method (FEM) is a numerical technique for finding approximate solutions to boundary value problems for partial differential equations. FEM contains linear FEM and non-linear FEM. 
 Linear analysis follows the equation $K\cdot D = F$, in which $K$ stands for stiffness matrix, $D$ stands for  displacement, and $F$ stands for force. It means that the correlation of force and displacement is linear. This relation between force and displacement is only valid for materials that have elastic linear property. But in real situation, elastic materials such as steel has also non- linear region. (see the Figure \ref{fig: nonlinear}). The property of steel is elastic linear up until yield point. Then the steel is yielding and becomes non-linear. Non-linear states include geometry non-linear and material non-linear. The example in Figure \ref{fig: nonlinear} describes a non-linear case and it also the main topic of this thesis. In the fields of engineering and science, FEM is a powerful tool in producing strength visualization and can help engineers to minimize weight, materials and costs. The accuracy of solution are only limited by the quality of model and by the available computational power.  Ever since the computational power has been improved enormously, the FEM software has offered a wide range of simulations of complex model designs and system analyses.  \newline
 AMfe is a nonlinear finite element code for structural application at the chair of applied mechanics in Technical University of Munich. AMfe Toolbox is developed in Python and Fortran. Python is a high-level, interpreted, and dynamically-typed programming language.  There are many numerical packages built on Python, such as Numpy, Scipy, Pandas. These packages provide high-performance and easy to use data structures, both of which match the FEM developing work. The fact that Python is a high-level programming language makes it less time-consuming to develop the code. However, Python is slow for repeated execution of low-level task. Each Python operation comes with a small type-checking overhead, and when many repeated small operations add up, the overhead becomes significant. For this reason, A part of the AMfe code is rewritten in Fortran. Fortran is a general-purpose and imperative programming language that is specially tailored for numeric computation and scientific computing. Therefore, the combination of Python and Fortran retains the advantages of both - the easy-to-develop nature of Python and the fast numeric computation in Fortran. The aim of AMfe Toolbox is to solve and analyse FEM problems, especially structural mechanical problems.
-The toolbox contains several modules with different functions to solve problems step by step. A simple structure of AMfe is depicted in Figure \ref{fig: Overview2}. Displacement, stress, and strain are three important factors in structural mechanical engineering. The function for calculating nodal displacements is completed in AMfe Toolbox, but functions for calculating stress and strain remain blank. Strain and stress calculations are important in structural mechanical analysis and geometric design. For this reason, functions for solving of stress and strain will be added to AMfe Toolbox. When strain and stress calculations are completed, the aim of research is then shifted to improving the accuracy of these results. In order to do so, stress recovery is an approach to extrapolate the element solution to nodal solution. The goal is to be as accurate as possible in the computed displacements while keeping the computational effort reasonable. When the most important functions are completed and running well, it is time to check if AMfe Toolbox exports the reasonable results. The results of stress and strain from AMfe Toolbox will be compared with a commercial FEM software - ANSYS. The comparison of each element type will be recorded and discussed. 
+The toolbox contains several modules with different functions to solve problems step by step. A simple structure of AMfe is depicted in Figure \ref{fig: Overview2}. Displacement, stress, and strain are three important factors in structural mechanical engineering. The function for calculating nodal displacements is completed in AMfe Toolbox, but functions for calculating nodal stress and strain remain blank. Strain and stress calculations are important in structural mechanical analysis and geometric design. For this reason, functions for solving of stress and strain will be added to AMfe Toolbox. When strain and stress calculations are completed, the aim of research is then shifted to improving the accuracy of these results. In order to do so, stress recovery is an approach to extrapolate the element solution to nodal solution. The goal is to be as accurate as possible in the computed displacements while keeping the computational effort reasonable. When the most important functions are completed and running well, it is time to check if AMfe Toolbox exports the reasonable results. The results of stress and strain from AMfe Toolbox will be compared with a commercial FEM software - ANSYS. The comparison of each element type will be recorded and discussed. 
 
 \begin{figure}
 	\begin{center}
@@ -27,7 +27,7 @@ The toolbox contains several modules with different functions to solve problems 
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=12cm,clip]{Overview2.pdf}			
-		\caption{Overview of AMfe structure} \label{fig: Overview2}
+		\caption{Overview of this essay structure} \label{fig: Overview2}
 	\end{center}
 \end{figure}
 
@@ -36,7 +36,7 @@ This study can be divided into three parts.  Figure \ref{fig: Overview} shows th
 \chapter{Numerical Aspect for Finite Element Formulation}
 \section{Shape Function}
 \subsection{Quadrilateral Elements}
-The goal of the AMfe Code in the structural mechanical field is to get the approximate solutions to position, displacement, stress, and strain. The approximation is dependent on the shape function $N$. The standard approach to define the shape functions is choosing them as simple polynomials that are associated to nodes. In one element, there are $n$ nodes and $n$ shape functions, in which the $i$-th shape function takes the value of 1 at the $i$-th node in reference coordinates, then the $j$-th shape function can be written like this: \\
+The goal of the AMfe Code in the structural mechanical field is to get the approximate solutions to position, displacement, stress, and strain. According to the Finite Element theory of W. A. Wall [\cite{FiniteElement} p.75], the approximation is dependent on the shape function $N$. The standard approach to define the shape functions is choosing them as simple polynomials that are associated to nodes. There are $n$ nodes and $n$ shape functions in one single element. The $i$-th shape function takes the value of 1 at the $i$-th node in reference coordinates, then the $j$-th shape function can be written like this: \\
 
 \begin{center}
 	if $j$ = $i$ then $N_j\left(\hat{\xi_i}\right) = 1$ \\
@@ -45,8 +45,8 @@ The goal of the AMfe Code in the structural mechanical field is to get the appro
 
 
 
-for $i$,$j$ = 1,...,n. \\
-In Figure \ref{fig: shape_func}, linear and quadratic shape functions are shown together with corresponding node positions. When referring to an element with three nodes, as shown in the right of Figure \ref{fig: shape_func}. For each shape functions, there are three restrictions:
+for $i$, $j$ = 1,...,n. \\
+In Figure \ref{fig: shape_func}, linear and quadratic shape functions are expressed together with corresponding node positions. When referring to an element with three nodes, as shown in the right of Figure \ref{fig: shape_func}, there are three restrictions for each shape functions:
 
 \begin{figure}
 	\begin{center}
@@ -64,17 +64,16 @@ For quadratic polynomial, the shape function has three coefficients, and it can 
 \begin{center}
 	$p_{quad}\left(\xi\right) = c_0 + c_1\xi + c_2\xi^2$
 \end{center}
-
-Lagrange polynomials are a general group of polynomials with the node undermentioned association property: a Lagrange polynomial $l_k^n-1$ (in one coordinate $\xi$) of order $n-1$ passes through $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ equals one $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node results in zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
+According to the work of W. A. Wall [\cite{FiniteElement} p. 75], Lagrange polynomials are a general group of polynomials with the node undermentioned association property: a Lagrange polynomial $l_k^n-1$ of order $n-1$ transits $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ equals one $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node equals zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
 
 \begin{center}
 	$l_k^{n-1} \left( \xi \right) = \prod_{j = 1, j \neq k}^{n} \frac{\xi - \bar{\xi^1}}{\bar{\xi^k - \bar{\xi^j}}} = \frac{\left(\xi - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \xi - \bar{\xi}^{k-1}\right) \left(\xi - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\xi -\bar{\xi}^n\right)}{\left(\bar{\xi}^k - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \bar{\xi}^k - \bar{\xi}^{k-1}\right) \left(\bar{\xi}^k - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\bar{\xi}^k -\bar{\xi}^n\right)}$ \\[4mm] \quad $k = 1,2....,n$
 \end{center}
-For instance, to calculate linear, i.e. order 1, Lagrange polynomials can be calculated by $n-1=1$ $\Rightarrow$ $n=2$. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ results in: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
+For instance, to calculate linear, i.e. order 1, Lagrange polynomials can be calculated by $n-1=1$ $\Rightarrow$ $n=2$. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ we can get the shape functions as: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
 Then the linear shape functions can be simply constructed as $N_1 =l_1^1 = 1/2\left(1-\xi\right)$ and $N_2 = l_2^1 = 1/2\left(1+\xi\right)$.
 
 \subsection{Triangular and Tetrahedral Elements}
-Triangular and tetrahedral elements have higher flexibility than that of quadrilateral and hexahedral elements in meshing complex geometries, thus the former is often preferred to the latter. The shape functions can be solved by an analogous method, but Triangular and tetrahedral elements are expressed in area and volume coordinates, respectively. Figure \ref{fig: tri&tet} shows the geometries and shape functions. These coordinates represent area and volume fractions, and visualization is given below:
+According to the work of Carlos A. Felippa [\cite{Felippa} p.79], triangular and tetrahedral elements have higher flexibility than that of quadrilateral and hexahedral elements in meshing complex geometries, thus the former is often preferred to the latter. The shape functions can be solved by an analogous method, but triangular and tetrahedral elements are expressed in area and volume coordinates, respectively. Figure \ref{fig: tri&tet} shows the geometries and shape functions. A visualization of the coordinates representing area and volume fractions is expressed below:
 \begin{center}
 	$L_1 = \frac{\text{area}P23}{\text{area}123}$, \quad $V_1 = \frac{\text{area}P234}{\text{area}1234}$ \\[4mm]
 	$\sum L_i = 1$ \quad\quad $\sum V_i = 1$
@@ -88,29 +87,7 @@ Triangular and tetrahedral elements have higher flexibility than that of quadril
 \end{figure}
 
 \section{Non-linear Element Formulation}
-\subsection{Discretization of the Displacement Field}
-After meshing the geometry, We discretize displacement field $u$ by inserting shape function $N$. Firstly, we introduce the nodal displacement $d^e$ to record displacements at each node of the considered element in each spatial direction.
-In elastic materials, It can be derived through the elastic constitutive equations that stress $\sigma$ are directly related to strain $\varepsilon$ at each point:
-\begin{equation}
-\sigma = E\varepsilon
-\end{equation}
-It follows that the stress calculation procedure begins with strain calculation, and that the accuracy of stresses depends on that of strains. In the following sections, we focus our attention on two-dimensional isoparametric elements, as the calculation of strains, stresses and axial forces in bar elements is strightforward. Suppose that we have solved the master stiffness equations. 
-\begin{equation}
-Ku = f
-\end{equation}
-for the node displacements $u$. To calculate strains and stresses we perform a loop over all defined elements. Let $\varepsilon$ be the element index of a specific two-dimensional isoparametric element encoun- tered during this loop, and $u(\varepsilon)$ the vector of computed element node displacements. The strains at any point in the element can be related to these displacements as 
-\begin{equation}
-\varepsilon = Bu(\varepsilon) 
-\end{equation}
-where $B$ is the strain-displacement matrix assembled with the x and y derivatives of the element shape functions evaluated at the point where we are calculating strains. The corresponding stresses are given by 
-\begin{equation}
-\sigma = E\varepsilon = EBu 
-\end{equation}
-In the applications it is of interest to evaluate and report these stresses at the element nodal points located on the corners and possibly midpoints of the element. These are called element nodal point stresses.
-It is important to realize that the stresses computed at the same nodal point from adjacent elements will not generally be the same, since stresses are not required to be continuous in displacement- assumed finite elements. This suggests some form of stress averaging can be used to improve the stress accuracy, and indeed this is part of the stress recovery technique further. The results from this averaging procedure are called nodal point stresses.
-
-\section{Non-linear Formulation}
-This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. The following section is based on the work of Johaness Rutzmoser[\cite{Johannes}] in non-linear formulation. In the first part of this introduction, we will pick a fictional 3D element with five nodes as our object of study. The coordinate system is based on three coordinate, namely $\xi_1$, $\xi_2$ ,and $\xi_3$. The shape function of this 3D element can be ordered in Voigt notation as follows:
+This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. The following section is based on the work of Johaness Rutzmoser [\cite{Johannes} p.1-5] in non-linear element formulation. In the first part of this introduction, we will pick a fictional 3D element with five nodes as our object of study. The coordinate system is based on three coordinate, namely $\xi_1$, $\xi_2$ ,and $\xi_3$. The shape function of this 3D element can be ordered in Voigt notation as follows:
 \begin{equation}
  \textbf{\textit{N}}\left(\xi\right) = \begin{pmatrix}
  N_1\left(\xi\right)           \\[0.3em]
@@ -270,11 +247,11 @@ The last step in determining the non-linear force and the tangential stiffness m
 
 
 \subsection{Gauss Integration}
-Numerical integration plays an important role in FEM. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$. A clear expression of Gauss integration is:
+Numerical integration plays an important role in FEM. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  According to the work of W. A. Wall [\cite{FiniteElement} p.73], a clear expression of Gauss integration is:
 \begin{equation}
 \int \limits_E {\textbf{\textit{f}}} \left(\boldsymbol{\xi}\right) \mathrm{d\boldsymbol{\xi_1}}\mathrm{d\boldsymbol{\xi_2}}\mathrm{d\boldsymbol{\xi_3}} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\boldsymbol{\xi_1^i}}\tilde{\boldsymbol{\xi_2^j}}\tilde{\boldsymbol{\xi_3^k}}\right)\cdot w_1^i w_2^j w_3^k
 \end{equation}
-In this expression, we used corresponding weights for each of the three spatial directions, which allows us to use Gauss points coordinates and weights tabulated for the one-dimensional case[\cite{FiniteElement}]. The locations and weights of these points can be expressed analytically in Table \ref{tab: Gauss table}.
+In this expression, the corresponding weights are applied for each of the three spatial directions, which is available to tak Gauss points coordinates and weights tabulated for the one-dimensional case. The locations and weights of these points can be expressed theoretically in Table \ref{tab: Gauss table}.
 	
 \begin{table}
 	\begin{center}
@@ -301,83 +278,72 @@ In this expression, we used corresponding weights for each of the three spatial 
 \end{table}
 
 \section{Stress Recovery}
-\subsection{Direct Calculation of Stress at nodes}
-This approach is direct to calculate the stress at nodes. An example in Figure \ref{fig: DirectCalculation} is good to describe the procedure of calculation. We have a quadrangle with quadratic shape function. Its four nodes are denoted as 1, 2, 3, 4. The shape functions of each node can be written in:
-
+\subsection{Extrapolation of Stress from Gauss points}
+Stress recovery is a technical to achieve an approximation of nodal stress by extrapolation of strain/stress from Gauss points. According to the research of Carlos A. Felippa [\cite{Felippa} section 28, p.5],  when referring to the direct calculation without stress recovery, the relative error are typically 10\% to 20\%, this is the main reason why we use stress recovery technical. An example in Figure \ref{fig: DirectCalculation} is good to describe the procedure of calculation. We have a quadrangle with quadratic shape function. Its four nodes are denoted as 1, 2, 3, 4. The Gauss points in this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$. The shape functions of each Gauss points can be written in: 
 \begin{equation}
-N_1 = \frac{1}{4}\times\left(1 - x\right) \times \left(1 - y \right) 
+{N_1}' \left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 - {\xi}'\right) \times \left(1 - {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-N_2 = \frac{1}{4}\times\left(1 + x\right) \times \left(1 - y \right) 
+{N_2}'\left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 + {\xi}'\right) \times \left(1 - {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-N_3 = \frac{1}{4}\times\left(1 + x\right) \times \left(1 + y \right) 
+{N_3}'\left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 + {\xi}'\right) \times \left(1 + {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-N_4 = \frac{1}{4}\times\left(1 - x\right) \times \left(1 + y \right) 
-\end{equation}  
-
-The Gauss points within this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$ We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. For calculating the stress at node  can follow this equation as:
-
+{N_4}' \left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 - {\xi}'\right) \times \left(1 + {\eta}' \right) 
+\end{equation}
+We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. The nodal stress components are calculated by a bilinear extrapolation based on the given values at Gauss points. We replacing the coordinates of nodal points into the shape functions of Gauss points for calculating the nodal stress, which can be derived as:   
 \begin{equation}
-{\sigma_1}' = \sigma_1 N_1\left({\xi_1}', {\eta_1}'\right) + \sigma_2 N_2\left({\xi_1}', {\eta_1}'\right) + \sigma_3 N_3\left({\xi_1}', {\eta_1}'\right) + \sigma_4 N_4\left({\xi_1}', {\eta_1}'\right)
+\sigma_1 = {\sigma_1}' {N_1}'\left(\xi_1, \eta_1\right) + {\sigma_2}' {N_2}'\left(\xi_2, \eta_2\right) + {\sigma_3}' {N_3}'\left(\xi_3, \eta_3\right) + {\sigma_4}' {N_4}' \left(\xi_4, \eta_4\right)
 \end{equation}
 
 \begin{equation}
-{\sigma_2}' = \sigma_1 N_1\left({\xi_2}', {\eta_2}'\right) + \sigma_2 N_2\left({\xi_2}', {\eta_2}'\right) + \sigma_3 N_3\left({\xi_2}', {\eta_2}'\right) + \sigma_4 N_4\left({\xi_2}', {\eta_2}'\right)
+\sigma_2 = {\sigma_1}' {N_1}'\left(\xi_1, \eta_1\right) + {\sigma_2}' {N_2}'\left(\xi_2, \eta_2\right) + {\sigma_3}' {N_3}'\left(\xi_3, \eta_3\right) + {\sigma_4}' {N_4}'\left(\xi_4, \eta_4\right)
 \end{equation}
 
 \begin{equation}
-{\sigma_3}' = \sigma_1 N_1\left({\xi_3}', {\eta_3}'\right) + \sigma_2 N_2\left({\xi_3}', {\eta_3}'\right) + \sigma_3 N_3\left({\xi_3}', {\eta_3}'\right) + \sigma_4 N_4\left({\xi_3}', {\eta_3}'\right)
+\sigma_3 = {\sigma_1}' {N_1}'\left(\xi_1, \eta_1\right) + {\sigma_2}' {N_2}'\left(\xi_2, \eta_2\right) + {\sigma_3}' {N_3}'\left( \xi_3, \eta_3\right) + {\sigma_4}' {N_4}'\left( \xi_4, \eta_4\right)
 \end{equation}
 
 \begin{equation}
-{\sigma_4}' = \sigma_1 N_1\left({\xi_4}', {\eta_4}'\right) + \sigma_2 N_2\left({\xi_4}', {\eta_4}'\right) + \sigma_3 N_3\left({\xi_4}', {\eta_4}'\right) + \sigma_4 N_4\left({\xi_4}', {\eta_4}'\right)
+\sigma_4 = {\sigma_1}' {N_1}'\left(\xi_1, \eta_1\right) + {\sigma_2}' {N_2}'\left(\xi_2, \eta_2\right) + {\sigma_3}' {N_3}'\left(\xi_3, \eta_3\right) + {\sigma_4}' {N_4}'\left(\xi_4, \eta_4\right)
 \end{equation}
 
 Then we can form them as:
 \begin{equation}
 \begin{pmatrix}
-{\sigma_1}' \\
-{\sigma_2}' \\
-{\sigma_3}' \\
-{\sigma_4}' \\
-\end{pmatrix} = \begin{pmatrix}
- \sigma_1 N_1\left({\xi_1}', {\eta_1}'\right) & \sigma_2 N_2\left({\xi_1}', {\eta_1}'\right) &   \sigma_3 N_3\left({\xi_1}', {\eta_1}'\right)  &  \sigma_4 N_4\left({\xi_1}', {\eta_1}'\right)     \\[0.3em]
- 
- \sigma_1 N_1\left({\xi_2}', {\eta_2}'\right) & \sigma_2 N_2\left({\xi_2}', {\eta_2}'\right) & \sigma_3 N_3\left({\xi_2}', {\eta_2}'\right)  &  \sigma_4 N_4\left({\xi_2}', {\eta_2}'\right)            \\[0.3em]
- 
-\sigma_1 N_1\left({\xi_3}', {\eta_3}'\right) & \sigma_2 N_2\left({\xi_3}', {\eta_3}'\right)  & \sigma_3 N_3\left({\xi_3}', {\eta_3}'\right) &  \sigma_4 N_4\left({\xi_3}', {\eta_3}'\right)      \\[0.3em]
-
-\sigma_1 N_1\left({\xi_4}', {\eta_4}'\right) &  \sigma_2 N_2\left({\xi_4}', {\eta_4}'\right) &  \sigma_3 N_3\left({\xi_4}', {\eta_4}'\right) &   \sigma_4 N_4\left({\xi_4}', {\eta_4}'\right)                             
-\end{pmatrix} \begin{pmatrix}
 \sigma_1 \\
 \sigma_2 \\
 \sigma_3 \\
 \sigma_4 \\
+\end{pmatrix} = \begin{pmatrix}
+ {N_1}'\left(\xi_1, \eta_1\right) &  {N_2}'\left(\xi_2, \eta_2\right) &    {N_3}'\left(\xi_3, \eta_3\right)  &  {N_4}'\left(\xi_4, \eta_4\right)     \\[0.3em]
+ 
+ {N_1}'\left(\xi_1, \eta_1\right) & {N_2}'\left(\xi_2, \eta_2\right) &  {N_3}'\left(\xi_3, \eta_3\right)  & {N_4}'\left(\xi_4, \eta_4\right)            \\[0.3em]
+ 
+ {N_1}'\left(\xi_1, \eta_1\right) & {N_2}' \left(\xi_2, \eta_2\right)  & {N_3}'\left(\xi_3, \eta_3\right) & {N_4}'\left(\xi_4, \eta_4\right)      \\[0.3em]
+
+{N_1}'\left(\xi_1, \eta_1\right) &  {N_2}'\left(\xi_2, \eta_4\right) &  {N_3}'\left(\xi_3, \eta_3\right) &  {N_4}'\left(\xi_4, \eta_4\right)                             
+\end{pmatrix} \begin{pmatrix}
+{\sigma_1}' \\
+{\sigma_2}' \\
+{\sigma_3}' \\
+{\sigma_4}' \\
 \end{pmatrix}
 \end{equation}	
-
-
-
-
-
 
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=8cm,clip]{DirectCalculation.pdf}			
-		\caption{quadrangle with four nodes}	\label{fig: DirectCalculation}
+		\caption{Quadrangle with four nodes}	\label{fig: DirectCalculation}
 	\end{center} 
 \end{figure}
 
-\subsection{Extrapolation from Gauss points}
-Excluding the direct method, there is a way to extrapolation the components of strain and stress from Gauss points. This method is also known as 'Stress Recovery'. Our goal is to implement this method with six types of element: Quad4, Quad8, Tri3, Tri6, Tet4, and Tet10. Furthermore, a comparison between calculation directly and extrapolation from Gauss points will be given in this thesis.  
-
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad4} \label{Quad4}
-Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom (DOFs) at each node: translations in the nodal x and y directions. The element has plasticity, creep, swelling, large deflection, and large strain capabilities.  The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. The components(strains, stresses) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$.and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}.
+Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes with two degrees of freedom (DOFs) at each node: translations in the nodal $x$ and $y$ directions. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.6], the components(strain, stress) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$, and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}, here we have the coordinate relation of components for Quad4:
 \begin{equation}
 k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
 k_i^E= k_i^G\sqrt{3}
@@ -419,43 +385,33 @@ k_i^E= k_i^G\sqrt{3}
 		\hline
 	\end{tabular}
 \end{table}		
-
-The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 to be a typical node. From Figure \ref{fig: Quad4_2} we can suggest:
+The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 to be a typical node. From Figure \ref{fig: Quad4_2} we can form:
 \begin{equation} \label{eq: Quad4_1}
 N_1^e = c_1L_{2-3}L_{3-4}
 \end{equation}
 The equation of edge 2-3 is $\xi - 1 = 0$. The equation of edge 3-4 is $\eta - 1 = 0$. Inserting in Equation (\ref{eq: Quad4_1}) results in:
-
 \begin{equation}
 N_1^e\left(\xi, \eta\right) = c_1 \left( \xi -1 \right) \left( \eta - 1\right) = c_1 \left(1 - \xi\right) \left( 1 - \eta \right)
 \end{equation}
 We evaluate the point at node 1 to find $c_1$ and the natural coordinates can be expressed as $\xi = \eta = -1$:
-
 \begin{equation}
 N_1^e \left(-1, -1 \right) = c_1 \times 2 \times 2 = 4c_1 = 1
 \end{equation}
-
 Therefore, $c_1 = \frac{1}{4}$ and the shape functions is
-
 \begin{equation}
 N_1^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 - \eta\right)
 \end{equation}
-
 We can use the same approach to calculate the other three nodes. Following this general expression, the shape functions of Node 2, 3 and 4 are demonstrated as:
-
 \begin{equation}
 N_2^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 - \eta\right)
 \end{equation}
-
 \begin{equation}
 N_3^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 + \eta\right)
 \end{equation}
-
 \begin{equation}
 N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
 \end{equation}
-
-When we have all the shape functions for Gauss element, we are able to extrapolate the components (stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to Table \ref{tab: Quad4} and  Figure \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the corner nodes in Gauss coordinate with the shape function of each Gauss points. Then we obtain:
+When we have all the shape functions for Gauss element, we are able to extrapolate the components (stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to Table \ref{tab: Quad4} and  Figure \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the coordinates of corner nodes into Gauss coordinate with the shape function of each Gauss points. Then we can get the relation between corner nodes and Gauss points as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -474,7 +430,7 @@ w_4 \\
 {w_4}' \\
 \end{pmatrix}
 \end{equation}	
-Here $w'$ means strains and stresses for our case. So the $w'$ part can be written as:
+Here $w'$ means strains and stresses in this paper. So the $w'$ part can be written as:
 \begin{equation}
 \begin{pmatrix}
 {w_1}' \\
@@ -504,8 +460,8 @@ Here $w'$ means strains and stresses for our case. So the $w'$ part can be writt
 \end{equation}
 
 \subsection{Quadrangle with quadratic shape function and eight nodes: Quad8}
-Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element.  We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1} \\
-The three types of shape functions are illustrated in Figure  for nodes 1, 5, and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here we summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}.
+Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element for extrapolation. We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1}. \\
+According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.8 ], the three types of shape functions are illustrated in Figure for nodes 1, 5, and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here we summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}.
 
 \begin{equation} \label{eq: Quad8_1}
 N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
@@ -518,15 +474,11 @@ N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi
 \begin{equation} \label{eq: Quad8_3}
 N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
 \end{equation}
-
 By applying the normalization conditions, the results are:
-
 \begin{equation*}
 c_1 = \frac{1}{4}, \quad c_5 = -\frac{1}{2}, c_9 = 1
 \end{equation*}
-
 By following this approach, all the shape functions can be calculated:
-
 \begin{equation}
 N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
 \end{equation}
@@ -562,7 +514,6 @@ N_8 = \frac{1}{2} \left(1 + \eta \right) \left( 1 - \eta \right)  \left( \xi - 1
 \begin{equation}
 N_9 = \left(1 + \xi \right) \left( 1 - \xi \right)  \left( 1 + \eta \right) \left(1 - \eta \right)
 \end{equation}
-
 Same as in Quad4, the extrapolation function can be expressed by inserting corner nodes in Gauss coordinate into the shape function of Gauss points:
 \begin{equation}
 \begin{pmatrix}
@@ -624,7 +575,7 @@ a_9 = -0.6666666
 \end{figure}
 
 \subsection{Triangle with three nodes: Tri3}
-Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
+Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
@@ -1238,16 +1189,16 @@ After building the model, numerical data can be exported as a node list and an e
 
 \chapter{Element Type Test}
 \section{Unit Testing with Python}
-Automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find reason for failed test. The element types to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. It is of interest to test strain and stress components. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The component from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element type in AMfe Toolbox. As a comparison, we need to define the absolute error and relative error in the test. Absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
+Automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. It is of interest to test the strain and stress components. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. Absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
 \begin{equation}
 e_{abs} = \|X_{actual} - X_{fem} \|
 \end{equation}
-The relative error is the absolute error relative to the actual value. It can be defined as:
+Relative error is the absolute error relative to the actual value. It can be defined as:
 \begin{equation}
 e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 \end{equation} 
-It is noteworthy that errors of approximation or rounding and truncation are introduced by using numerical methods or algorithms and computing with finite precision. Truncation error describes the errors, which occurs because some series (finite or infinite) is truncated to a fewer number of terms. Such errors are virtually algorithmic errors. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is to set the tolerance with different values and compare the results of testing between elements. 
-In engineering field, Von Mises stress is usually investigated as a failure criterion to judge a design. Therefore we calculate here the von Mises stress of each elements. According to the research of P. M. Kurowski [\cite{VonMiese}] The Von Mises stress can be expressed by the principle stresses as:
+It is noteworthy that errors of approximation or rounding and truncation are introduced by numerical methods or algorithms and computing with finite precision. Truncation error describes the error that occurs when some series (finite or infinite) is truncated to a fewer number of terms. Such error is virtually an algorithmic error. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is set the tolerance with different values and compare the results of testing between elements. 
+In the engineering field, Von Mises stress is usually regarded as a failure criterion to judge a design. Hence, here we calculate the von Mises stress of each elements. According to the research of P. M. Kurowski [\cite{VonMiese}] The Von Mises stress can be expressed by the principle stresses as:
 \begin{equation}
 \sigma_{vm} = \sqrt{\frac{1}{2}\left[\left(\sigma_1 - \sigma_2\right)^2 + \left(\sigma_2 - \sigma_3\right)^2 + \left(\sigma_3 - \sigma_1\right)^2\right]}
 \end{equation}
@@ -1282,8 +1233,8 @@ The complete test of all the element types is shown in Table \ref{tab: DirectTes
 \end{table}
 
 \section{The Patch Test}
-After testing the quality of each element type, we find out that the Tri6, Quad8, Tet4, and Tet10 need to fix. For fixing these problem, we need to know if the finite element program has the correct algorithmic procedure. It is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical results. \\
-According to the theory of Carlos A. Felippa [\cite{Felippa}], the procedure of the displacement patch test is as follows: create a simple geometry that consist of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies at exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
+After testing the quality of each element type, we find out that the Tri6, Quad8, Tet4, and Tet10 need to fix. In order to fix these problems, we need to know if the finite element program has the correct algorithmic procedure. This is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one to which we already know the correct numerical solutions. \\
+According to the theory of Carlos A. Felippa [\cite{Felippa}], the procedures of the displacement patch test are as follows: create a simple geometry that consists of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies to exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
 \begin{equation}
 \frac{\mathrm d u}{\mathrm d x} = 1
 \end{equation}
@@ -1296,7 +1247,7 @@ and,
 \epsilon = \sum N_i \cdot \epsilon_{i}
 \end{equation}
 Here we have $\epsilon_i = 0$ and $\sum N_i = 1$, hence the strain and stress field are constant and equal 1. \\
-Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field can be viewed in Figure \ref{fig: PatchTest} from ANSYS. As expected, $\epsilon_{xx} = 1$. Thus, we have built the model for a patch test successfully. Now it is time to check if AMfe Toolbox has the same constant strain field. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing of strain and strtess in the AMfe, the contour plot of strain is shown in ParaView as the right side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 1$. It proves that the displacement patch test has been passed. Another element types namely Tri6, Quad4, Quad8, Tet4, and, Tet10 have also the constant field. But there is still problematic with element Tri6, Quad8, Tet4, and Tet10, because all of these elements have the value of the constant strain 1.5 as shown in Figure \ref{fig: Tet4Patch}. It is necessary to investigate why all this element have the same strain, namely 1.5.  By debugging of the AMfe Code we can find that the strains at Gauss points are all 1.5. This proves that the stress recovery algorithm is correct. The problem exists at the algorithm of strain calculation. And all of these element except Tri3 and Quad4 have the same problem.   
+Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field from ANSYS can be viewed in Figure \ref{fig: PatchTest} . As expected, $\epsilon_{xx} = 1$. Thus, we have successfully built the model for a patch test. Now it is time to check whether AMfe Toolbox has the same constant strain field or not. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing strain and strtess in AMfe, the contour plot of strain in ParaView is shown as the picture on right-hand side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result $\epsilon_ {xx} = 1$. This proves that the displacement patch test has been passed. Other element types,  namely Tri6, Quad4, Quad8, Tet4, and Tet10, also have the constant field. However, the same process in  element Tri6, Quad8, Tet4, and Tet10 is still problematic because all of these elements have the value of 1.5 as the constant strain, as shown in Figure \ref{fig: Tet4Patch}. It is necessary to investigate why all these elements have the same strain, namely 1.5.  By debugging the AMfe Code we can find that the strains at Gauss points are all 1.5. This proves that the stress recovery algorithm is correct. The problem exists in the algorithm of strain calculation. Moreover, all of these element except Tri3 and Quad4 have the same problem.   
 
 \begin{figure}
 	\begin{center}
@@ -1321,11 +1272,12 @@ Now we take Tri3 as an example in implementing the displacement patch test. We c
 \end{figure}
 
 \section{Convergence Analysis}
-We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides an function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. Because of the technical restriction, we can only export the node, element and displacement lists from ANSYS and set all of them as input to AMfe Toolbox for solving strain and stress. We can not do the process conversely to solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. It is still a feasible plan for future research. On the other hand, we can analyse this problem using another software Gmsh as Pre-Processing tool. The procedure of our convergence analysis is as follows: Firstly, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case that we do not have the analytical solution, thus the displacement result in this fine meshing will regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element Tet4 and Tet10 can be also tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure . The displacement for each 2D element have been recorded in Table \ref{tab: TriConvergence} and Table \ref{tab: QuadConvergence}. The displacement for 3D element are represented in Table \ref{tab: TetConvergence}. The same nodal displacement from a fine meshing in ANSYS are:
+We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides a function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. On the one hand, because of the technical restriction, we can only export the node, element, and displacement lists from ANSYS and set all of them as input into AMfe Toolbox for solving strain and stress. As of now, we did not reverse the process and solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. However, it is still a feasible plan for future research. On the other hand, we can analyse this problem using another software, Gmsh, as Pre-Processing tool. The procedures of our convergence analysis are as follows: First, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case, we do not have the analytical solution, thus the displacement result in this fine meshing will be regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D elements, Tet4 and Tet10, can also be tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure .%这里漏了 
+The displacement for each of the 2D elements have been recorded in Table \ref{tab: TriConvergence} and Table \ref{tab: QuadConvergence}. The displacement for 3D elements are represented in Table \ref{tab: TetConvergence}. The same nodal displacement from a fine meshing in ANSYS are:
 \begin{equation*}
 2D: Ux = -0.0015045; Uy = 0.011738
 \end{equation*}
-The convergence plot of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order element (Tri6 and Tet10) have a relative fast rate of convergence than the lower order element (Tri3 and Tet4). This phenomenon is not that clear with quadrilateral element (Quad4 and Quad8). 
+The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order elements (Tri6 and Tet10) have a relatively faster rate of convergence than do the lower order elements (Tri3 and Tet4). This characteristic is not that discernable in quadrilateral element (Quad4 and Quad8). 
 \begin{equation*}
 3D: Ux = 9.47; Uy = 0; Uz = 0
 \end{equation*}
@@ -1424,26 +1376,21 @@ The convergence plot of 2D element are depicted in Figure \ref{fig: TriConPlot} 
 \end{table}
 
 
-It is also necessary to check the convergence of internal energy. The internal energy can be derived as:
+It is also import to check the convergence of Von Mises stress. Thus we implement the mesh refinements in a 2D/3D geometry with all types of element in ANSYS, then we export the data of node, element and displacement from ANSYS and import them into AMfe Toolbox.  The next step is to run the code to get the computing results for our convergence study: $\sigma_xx$, $\sigma_yy$, $\sigma_xy$.  For a general plane stress case with restrictions $\sigma_3 = 0$, $\sigma_{31} = \sigma_{23} = 0$, Von Mises stress can be derived as: 
 \begin{equation}
-\prod int = \frac{1}{2}\int_\Omega \sigma_{ij}^u\epsilon_{ij}^u \mathrm{d \Omega}
+\sigma_v = \sqrt{{\sigma_{11}}^2 - \sigma_{11}\sigma_{22} + {\sigma_{22}}^2 + 3 {\sigma_{12}}^2}
 \end{equation}
 
 \begin{figure}[htbp]
 	\begin{center}	
-		\includegraphics[width=10cm,clip]{convergence.pdf} 			
+		\includegraphics[width=9cm,clip]{convergence.pdf} 			
 		\caption{Convergence analysis} \label{fig: convergence}
 	\end{center}
 \end{figure}
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model using each element type by both algorithm, namely direct evaluation at nodes and extrapolation from Gauss points- stress recovery. The main motivation of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri3. From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. Figure \ref{fig: Tri6_Exx} - Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri6. The plots show that the solution by algorithm with stress recovery is relative close to the ANSYS solution, the algorithm without stress recovery has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. Figure \ref{fig: Quad4_Exx} - Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad4. We can observe that the plot by stress recovery is close to ANSYS plot. The deviation of plot of the both algorithm appears at some position as it shown in Plots with Tri6.  Figure \ref{fig: Quad8_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8. The comparison is similar as in plots meshing with Quad4. Figure \ref{fig: Tet4_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8.
-
-In a sum, all of these element type in AMfe Toolbox shows the exact contour plot in compare with the ANSYS generating contour plot. For the bound of value, Tri3 and Quad4 in AMfe Toolbox have almost the same value as them in ANSYS. The other element type have more or less problems.
-
-The relation between the numbering of components in ParaView and the tensor direction follows this rule: 0-xx,  1-yy, 2-zz, 3-yy, 4-yz, 5-xz, 6-zz, 7-xz, 8-xy. 
-
+The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate in AMfe by both algorithm, namely direct evaluation at nodes and extrapolation from Gauss points- stress recovery. The main objective of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. The results from AMfe Toolbox display in ParaView as a Post-Processing tool. It is worth noting that the order of components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import a same colormap for ANSYS and ParaView. However, there exists still a clear chromatic aberration between the plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} show an example to display the color difference. This issue could be fixed when we using an advanced ANSYS version. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri3. From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. Figure \ref{fig: Tri6_Exx} - Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri6. The plots show that the solution by algorithm with stress recovery is relative close to the ANSYS solution, the algorithm without stress recovery has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. Figure \ref{fig: Quad4_Exx} - Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad4. We can observe that the plot by stress recovery is close to ANSYS plot. The deviation of plot of the both algorithm appears at some position as it shown in Plots with Tri6.  Figure \ref{fig: Quad8_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8. The comparison is similar as in plots meshing with Quad4. Figure \ref{fig: Tet4_Exx} - Figure \ref{fig: Tet4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet4. The plots represents that there is no difference between the both algorithm in AMfe. The both solution of AMfe have a relative bad performance in shear strain/stress than normal strain/stress. Figure \ref{fig: Tet10_Exx} - Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet10. Tet10 has a same problem as Tet4, the solutions in shear components appear not good. The plots also show that the solutions with stress recovery has a better performance than the solutions algorithm without stress recovery. In generally, the algorithm without stress recovery has a bigger derivation in compare to the algorithm with stress recovery.  
 
 \begin{figure}[htbp]
 	\begin{center}
@@ -1933,8 +1880,9 @@ The relation between the numbering of components in ParaView and the tensor dire
 		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxz}
 	\end{center}
 \end{figure}
-
 \clearpage 
+
+
 
 % Testing with all element type and formulate a table
 % my_material  = KirchhoffMaterial()
