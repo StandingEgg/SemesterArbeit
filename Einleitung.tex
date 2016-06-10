@@ -575,16 +575,15 @@ a_9 = -0.6666666
 \end{figure}
 
 \subsection{Triangle with three nodes: Tri3}
-Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. The shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following method: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ are the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the obvious general formula is:
+Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.4-5], the shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following approach: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ stand for the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the general equation can be formed as:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
-To find $c_1$, evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1. The triangular coordinates of this node are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. Therefore $c_1 = 1$, using the same method, $c_2 = 1$, $c_3 = 1$. Thus the shape functions are:
+For finding $c_1$, we can evaluate $N_1^e\left(\xi_1, \xi_2, \xi_3\right)$ at node 1, which the triangular coordinates are $\xi_1$ =1, $\xi_2 = \xi_3 = 0$.  Hence the shape function of this node can be expressed as $N_1^e\left(1,0,0\right) = c_1 \times 1 = 1$. Therefore $c_1 = 1$, using the same approach, $c_2 = 1$, $c_3 = 1$. Thus the shape functions are:
 
 \begin{equation}
 N_1^e = L_1 , \quad N_2^e = L_2, \quad N_3^e = L_3
 \end{equation}
-
 By combining the shape function and corner coordinate in Gauss element from Table \ref{tab: Tri3}, the extrapolation of Tri3 can be written as:
 
 \begin{equation}
@@ -602,8 +601,7 @@ w_3 \\
 {w_3}' \\
 \end{pmatrix}
 \end{equation}
-
-Quantities that are closely related to the element geometry are best represented in triangular coordinates. However, quantities such as displacements, strains and stresses are often calculated in the Cartesian system. Thus, we need transformation equations through to make it possible to pass from one coordinate system to the other. Cartesian and triangular coordinates are linked by the following relation:
+According to the work of Carlos A. Felippa [\cite{Felippa} section 15 p.5-6], it is good to express the quantities in triangular coordinates when the type of element are formed by triangular. However, quantities such as displacements, strains and stresses are often calculated in the Cartesian coordinate system. Thus, the transformation functions from Cartesian coordinate system to the triangular coordinate system is necessary. The following equation shows the relation between this two systems:
 \begin{equation}
 \begin{pmatrix}
 1 \\
@@ -686,8 +684,8 @@ y \\
 \end{figure}
 
 \subsection{Second order triangle with six nodes: Tri6}
-Tri6 is a higher order 2D, 6 node element. This element is defined by 6 nodes having two degrees of freedom (DOFs) at each node: translation in the nodal x and y direction. The geometry of Tri6 is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case, namely, triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  Inspection reveals two types of nodes: corners(1, 2 and 3) and midside nodes(4, 5 and 6). In both cases, it is necessary to get the product of the two linear functions in the triangular coordinates because the shape function should be quadratic. These functions are illustrated in Figure \ref{fig: Tri6_2} for corner node 1 and midside node 4, respectively. \\
-For corner node 1, inspection of Figure \ref{fig: Tri6_2} at left hand side suggests trying
+Tri6 is a higher order 2D, 6 node element. This element is defined by 6 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The geometry of Tri6 is shown in Figure \ref{fig: Tri6_1}.  Two kinds of Gauss elements can be applied in this case, namely, triangle with three nodes and triangle with six nodes. Here we explain the case with six nodes.  According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.5-6], there are two types of nodes within Tri6: corners nodes(1, 2 and 3) and midside nodes(4, 5 and 6). In both cases, we calculate the product of the two linear functions in the triangular coordinates because the shape function should be quadratic. The both types of shape function are depicted in Figure \ref{fig: Tri6_2}. \\
+For corner node 1, we can derive the shape function, which refers to Figure \ref{fig: Tri6_2} at left hand side.
 \begin{equation} \label{eq: Tri6_N1}
 N_1^e = c_1L_{2-3}L_{4-6}
 \end{equation}
@@ -695,26 +693,24 @@ For calculating $N_1^e$ will take edge 2-5-3 and edge 4-6 into consideration. Th
 \begin{equation}
 L_{2-3}: \xi_1 = 0, \quad L_{4-6}: \xi_1 - \frac{1}{2} = 0
 \end{equation}
-Replacing the above functions into Equation \ref{eq: Tri6_N1}
+Inserting the above functions into Equation \ref{eq: Tri6_N1}:
 
 \begin{equation}
 N_1^e = c_1\xi_1 \left(\xi_1 - \frac{1}{2}\right)
 \end{equation}
-Same as in Tri3, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then the result $c_1 = 2$ can be achieved and finally: 
-
+Same as in Tri3, $N_1^e\left(1,0,0\right) = c_1 \times 1 \times \frac{1}{2} = 1$. Then the result $c_1 = 2$ can be achieved and the corresponding shape function can be expressed as: 
 \begin{equation}
 N_1^e = 2\xi_1\left(\xi_1 - \frac{1}{2}\right) = \xi_1 \left(2 \xi_1 -1 \right)
 \end{equation} 
-For midside node 4, observation of Figure \ref{fig: Tri6_2} suggests trying:
+For midside node 4, we can express the shape function by observation of Figure \ref{fig: Tri6_2}:
 \begin{equation}
 N_4^e = c_4L_{2-3}L_{1-3}
 \end{equation}
-The equations of edges $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore, $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. We evaluate this function at node 4 to find $c_4$, and its triangular coordinates are $\xi_1 = \xi_2 = \frac{1}{2}$, $\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$ and the shape function is:
-
+The equations of edges $L_{2-3}$ and $L_{1-3}$ are $\xi_1 = 0$ and $\xi_2 = 0$, respectively. Therefore, $N_4^e\left(\xi_1, \xi_2, \xi_3\right) = c_4\xi_1\xi_2$. We evaluate this function at node 4 to find $c_4$, and its triangular coordinates are $\xi_1 = \xi_2 = \frac{1}{2}$, $\xi_3 = 0$. Then $N_4^e\left(\frac{1}{2}, \frac{1}{2}, 0\right) = c_4 \times \frac{1}{2} \times \frac{1}{2} = 1$. Hence $c_4 = 4$ and the shape function can be formed as:
 \begin{equation}
 N_4^e = 4\xi_1\xi_2
 \end{equation}
-The rest of the shape function can be solved with by the same approach. They can be expressed as:
+The rest of the shape functions can be solved with by the same approach. They can be expressed as:
 \begin{equation}
 N_2^e = \xi_2\left(2\xi_2-1\right)
 \end{equation}
@@ -786,7 +782,7 @@ a_7 = +0.22222222 \\
 
 
 \subsection{Tetrahedron element with four nodes: Tet4}
-Tet4 is a higher order 3D 4-node solid element. The element is defined by 4 nodes having three degrees of freedom (DOFs) per node: translation in the nodal x, y and z directions. The geometry of Tet4 is shown in Figure \ref{fig: Tet4_1}. For the tetrahedron element, it is beneficial to use its own coordinate. The shape functions of Tet4 are:
+Tet4 is a higher order 3D 4-node solid element. The element is defined by 4 nodes with three degrees of freedom (DOFs) per node: translation in the nodal $x$, $y$ and $z$ directions. The geometry of Tet4 is shown in Figure \ref{fig: Tet4_1}. For the tetrahedron element, it is beneficial to use its own coordinate. The shape functions of Tet4 are:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -802,7 +798,7 @@ N_3 = L_3
 \begin{equation}
 N_4 = L_4
 \end{equation}
- We take a tetrahedron element with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can conclude four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. After inserting the corner points into shape function, the extrapolation of Tet4 is shown as:
+ We take a tetrahedron element with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can conclude four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. The procedure to calculate the extrapolation function of Tet4 is similar as Tri3, because they both use their own coordinate system. After inserting the corner points into shape function, the extrapolation of Tet4 is shown as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -857,7 +853,7 @@ a_2 = -0.309017 \\
 \end{table}		
 
 \subsection{Tetrahedron element with ten nodes: Tet10}
-Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes having three degrees of freedom (DOFs) per node: translation in the nodal x, y and z directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. We choose a tetrahedron with four nodes as internal Gauss element. The shape function of Tet10 is same as Tet4:
+Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes with three degrees of freedom (DOFs) per node: translation in the nodal $x$, $y$ and $z$ directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. According to the work of Carlos A. Felippa [\cite{Felippa} section 10 p.21], for Tet10 it is possible to choose different types of Gauss element, which contains 1, 4,6,14,15 and 24 integration points. We choose a tetrahedron with four nodes as internal Gauss element for this paper. The shape function of this type of Gauss element is same as the shape functions of Tet4:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -873,6 +869,7 @@ N_3 = L_3
 \begin{equation}
 N_4 = L_4
 \end{equation}
+\clearpage
 The relation between Gauss and natural coordinate of Tet10 has a similar basic frame as Tet4. The new appended six corner nodes are picked as midpoint of each edges. Table \ref{tab: Tet10} shows the details of Gauss and nodal coordinate system, respectively. Then the extrapolation of Tet10 can be formed as:
 \begin{equation}
 \begin{pmatrix}
@@ -946,7 +943,7 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In the previous section, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom(DOFs). In FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
+In the previous chapter, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom (DOFs). According the work of W. A. Wall [\cite{FiniteElement} p.62-64], in FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
 \begin{equation} \label{eq: k_1}
 k^{\left(1\right)} = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
@@ -968,9 +965,7 @@ k_{51}^{\left(2\right)} & k_{52}^{\left(2\right)} &  k_{53}^{\left(2\right)} &  
 k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  k_{64}^{\left(2\right)} & k_{65}^{\left(2\right)}  & k_{66}^{\left(2\right)}   \\[0.3em]
 \end{pmatrix} 
 \end{equation}	
-
 \clearpage
-
 Now we can assemble both stiffness matrix contribution, namely from Equation \ref{eq: k_1} and from Equation \ref{eq: k_2}, at the same degree of freedom.  The procedure of assembly is represented as follows:
 \begin{equation*}
 K = \begin{pmatrix}
@@ -1044,7 +1039,7 @@ f_5^{\left(2\right)} \\
 f_6^{\left(2\right)}  \\ 
 \end{pmatrix} 
 \end{equation}
-For strain and stress, we need to assemble the contribution at each node. An extra procedure after assembling of strain or stress is solving the average value by dividing the number of elements that share the same node. Because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
+For strain and stress, we need to assemble the contributions at each node. An extra procedure after assembling of strain or stress is solving the average value by dividing the number of elements that share the same node. Because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
 \begin{equation}
 \epsilon = \displaystyle\sum_{i=1}^{n} \frac{\epsilon_{i,raw}}{n}
 \\
@@ -1074,7 +1069,7 @@ For strain and stress, we need to assemble the contribution at each node. An ext
 \epsilon_{6xx}^{\left(2\right)}&\epsilon_{6yy}^{\left(2\right)}&\epsilon_{6zz}^{\left(2\right)}&2\epsilon_{6yz}^{\left(2\right)}&2\epsilon_{6xz}^{\left(2\right)}&2\epsilon_{6xy}^{\left(2\right)} \\
 \end{pmatrix} 
 \end{equation*}
-
+\\
 \begin{equation}
 \epsilon  =\begin{pmatrix}
 \epsilon_{1xx}^{\left(1\right)}&\epsilon_{1yy}^{\left(1\right)}&\epsilon_{1zz}^{\left(1\right)}&2\epsilon_{1yz}^{\left(1\right)}&2\epsilon_{1xz}^{\left(1\right)}&2\epsilon_{1xy}^{\left(1\right)} \\
@@ -1116,7 +1111,8 @@ For strain and stress, we need to assemble the contribution at each node. An ext
 \sigma_{6xx}^{\left(2\right)}&\sigma_{6yy}^{\left(2\right)}&\sigma_{6zz}^{\left(2\right)}&\sigma_{6yz}^{\left(2\right)}&\sigma_{6xz}^{\left(2\right)}&\sigma_{6xy}^{\left(2\right)} \\
 \end{pmatrix} 
 \end{equation*}
-
+\\
+\\
 \begin{equation}
 \sigma= \begin{pmatrix}
 \sigma_{1xx}^{\left(1\right)}&\sigma_{1yy}^{\left(1\right)}&\sigma_{1zz}^{\left(1\right)}&\sigma_{1yz}^{\left(1\right)}&\sigma_{1xz}^{\left(1\right)}&\sigma_{1xy}^{\left(1\right)} \\
@@ -1138,18 +1134,18 @@ For strain and stress, we need to assemble the contribution at each node. An ext
 
 \chapter{Programming Implementation}
 \section{Pre-Processing}
-The purpose of Pre-Processing is to build a numerical model and export data of a meshed geometry as two lists - node list and element list.  The two lists are ultimately imported into AMfe Toolbox. ANSYS Parametric Design Language (APDL) code is used to create a meshed geometry in ANSYS. A simple meshed geometry is shown in Figure \ref{fig: muster}. The steps for building model contains a series of related path. An example of such path is: 
+The purpose of Pre-Processing is to build a numerical model and export data of a meshed geometry as two lists: node list and element list.  The two lists are ultimately imported into AMfe Toolbox. ANSYS Parametric Design Language (APDL) code is used to create a meshed geometry in ANSYS. A simple meshed geometry is shown in Figure \ref{fig: muster}. The steps for building model contains a series of related path. An example of such path is: 
 
 \begin{center}
 	\large{\textbf{Geometry $\Rightarrow$ Element Type $\Rightarrow$ Material $\Rightarrow$ Mesh
 			$\Rightarrow$ Boundary Condition  }}
 \end{center}
 
-After building the model, numerical data can be exported as a node list and an element list. The node list contains coordinates of nodes. The element list consists of the attributes of each element and the index of each node that belongs to the element. The element attributes are assigned to the different parts of model by referring to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) ,and section ID number (SEC). According to the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured using regular expression and stored in AMfe Toolbox. For different kinds of data it is necessary to store in its specific data type. The coordinate of each node and the index of nodes from elements are stored as NumPy array. NumPy is the fundamental package for scientific computing using Python. The advantage of NumPy for storage of node and element information depends on its efficient multi-dimensional container of generic data. NumPy contains a powerful N-dimensional array object and sophisticated (broadcasting) functions. Moreover, it is possible to integrate Fortran code. General attributes of the element can be stored as an efficient form- Pandas DataFrames. Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects. 
+After building the model, numerical data can be exported as a node list and an element list. The node list contains coordinates of nodes. The element list consists of the attributes of each element and the index of each node that belongs to the element. The element attributes are assigned to the different parts of model by referring to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) ,and section ID number (SEC) [\cite{ANSYS}].. According to the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured using regular expression and stored in AMfe Toolbox. For different kinds of data it is necessary to store in its specific data type. The coordinate of each node and the index of nodes from elements are stored as NumPy array. NumPy is the fundamental package for scientific computing using Python. The advantage of NumPy for storage of node and element information depends on its efficient multi-dimensional container of generic data. According to the documentation of Numpy community [\cite{Numpy}], "NumPy contains a powerful N-dimensional array object and sophisticated (broadcasting) functions." Moreover, it is possible to integrate Fortran code. General attributes of the element can be stored as an efficient form- Pandas DataFrames. According to the documentation of Wes Mckinney and PyData Development Team [\cite{Pandas}], "Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects." 
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=10cm,clip]{muster.png} 			
+		\includegraphics[width=6cm,clip]{muster.png} 			
 		\caption{A simple meshed geometry} \label{fig: muster}
 	\end{center}
 \end{figure}
@@ -1189,7 +1185,7 @@ After building the model, numerical data can be exported as a node list and an e
 
 \chapter{Element Type Test}
 \section{Unit Testing with Python}
-Automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. It is of interest to test the strain and stress components. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. Absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
+According to the documentation of Fred L. Drake, Jr. [\cite{Python}], automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are: Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. We test the strain and stress components with all the element types. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. According to the work of Rao V. Dukkipati [\cite{NumericalMethod}], absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
 \begin{equation}
 e_{abs} = \|X_{actual} - X_{fem} \|
 \end{equation}
@@ -1197,12 +1193,20 @@ Relative error is the absolute error relative to the actual value. It can be def
 \begin{equation}
 e_{rel} = \frac{\|X_{actual} - X_{fem} \|}{X_{actual}}
 \end{equation} 
-It is noteworthy that errors of approximation or rounding and truncation are introduced by numerical methods or algorithms and computing with finite precision. Truncation error describes the error that occurs when some series (finite or infinite) is truncated to a fewer number of terms. Such error is virtually an algorithmic error. Roundoff error occurs because of the computing tool's inability to handle certain numbers [\cite{NumericalMethod}]. It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is set the tolerance with different values and compare the results of testing between elements. 
-In the engineering field, Von Mises stress is usually regarded as a failure criterion to judge a design. Hence, here we calculate the von Mises stress of each elements. According to the research of P. M. Kurowski [\cite{VonMiese}] The Von Mises stress can be expressed by the principle stresses as:
+As Rao V. Dukkipati [\cite{NumericalMethod}] has noted, "it is noteworthy that errors of approximation or rounding and truncation are introduced by numerical methods or algorithms and calculating with finite precision. Truncation error represents the error that occurs when some series is truncated to a fewer number of terms. Such error is virtually an algorithmic error. Roundoff error occurs because of the computing tool's inability to handle certain numbers." It is hard to set one tolerance standard for all engineering problems. The tolerance for error can vary in different situations. One thing we can do here is set the tolerance with different values and compare the results of testing between elements. 
+In the engineering field, Von Mises stress is usually regarded as a failure criterion to judge a design. Hence, here we calculate the von Mises stress in a 2D/3D model which is meshing with each element. According to the research of P. M. Kurowski [\cite{VonMiese}], the Von Mises stress can be expressed by the principle stresses as:
 \begin{equation}
 \sigma_{vm} = \sqrt{\frac{1}{2}\left[\left(\sigma_1 - \sigma_2\right)^2 + \left(\sigma_2 - \sigma_3\right)^2 + \left(\sigma_3 - \sigma_1\right)^2\right]}
 \end{equation}
+The 2D and 3D model for unit testing are build in a simple way. We create a rectangle for 2D elements and a cube for 3D elements. We apply only Dirichlet boundary condition on these model. Figure \ref{fig: PatchMuster} and Figure \ref{fig: UnitTest3D} illustrate the model for 2D and 3D element, respectively. 
 The complete test of all the element types is shown in Table \ref{tab: DirectTesting} and Table \ref{tab: SRTesting}. It is obvious that Tri3 and Quad4 show a good performance by both algorithm. The other element types fail the test. It is necessary to investigate into what is wrong with the other element types. 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=6cm,clip]{UnitTest3D.png} 			
+		\caption{A model for test of 3D elements} \label{fig: UnitTest3D}
+	\end{center}
+\end{figure}
 
 \begin{table} 		
 	\caption{Unit testing of the result using calculation directly at nodes}
@@ -1233,8 +1237,8 @@ The complete test of all the element types is shown in Table \ref{tab: DirectTes
 \end{table}
 
 \section{The Patch Test}
-After testing the quality of each element type, we find out that the Tri6, Quad8, Tet4, and Tet10 need to fix. In order to fix these problems, we need to know if the finite element program has the correct algorithmic procedure. This is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one to which we already know the correct numerical solutions. \\
-According to the theory of Carlos A. Felippa [\cite{Felippa}], the procedures of the displacement patch test are as follows: create a simple geometry that consists of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies to exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
+After testing the quality of each element type, we find out that the Tri6, Quad8, Tet4, and Tet10 are problematic and need to fix. In order to fix these problems, we need to know if the finite element program has the correct algorithmic procedure. This is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions to maintain a constant strain/stress field. This is to simplify a complex problem to a simple one to which we already know the correct numerical solutions. \\
+According to the theory of Carlos A. Felippa [\cite{Felippa} section 15 p.9-11], the procedures of the displacement patch test are as follows: create a simple geometry that consists of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason that the displacement field only applies to exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is to set the strain at every exterior node as 1, which is can be calculated by:
 \begin{equation}
 \frac{\mathrm d u}{\mathrm d x} = 1
 \end{equation}
@@ -1252,7 +1256,7 @@ Now we take Tri3 as an example in implementing the displacement patch test. We c
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=10cm,clip]{PatchMuster.pdf} 			
-		\caption{The displacement patch test with Tri6 element} \label{fig: PatchMuster}
+		\caption{A model for test of 2D elements} \label{fig: PatchMuster}
 	\end{center}
 \end{figure}
 
@@ -1266,33 +1270,35 @@ Now we take Tri3 as an example in implementing the displacement patch test. We c
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=6cm,clip]{Tet4Patch.pdf} 			
+		\includegraphics[width=8cm,clip]{Tet4Patch.pdf} 			
 		\caption{Patch Test of Tet4} \label{fig: Tet4Patch}
 	\end{center}
 \end{figure}
 
 \section{Convergence Analysis}
-We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides a function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. On the one hand, because of the technical restriction, we can only export the node, element, and displacement lists from ANSYS and set all of them as input into AMfe Toolbox for solving strain and stress. As of now, we did not reverse the process and solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. However, it is still a feasible plan for future research. On the other hand, we can analyse this problem using another software, Gmsh, as Pre-Processing tool. The procedures of our convergence analysis are as follows: First, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case, we do not have the analytical solution, thus the displacement result in this fine meshing will be regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D elements, Tet4 and Tet10, can also be tested using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure .%这里漏了 
+We can either decrease the element size or increase the polynomial degrees of the shape function to approach an exact solution. This process is denoted as convergence. A convergence analysis provides a function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. On the one hand, because of the technical restriction, we can only export the node, element, and displacement lists from ANSYS and set all of them as input into AMfe Toolbox for solving strain and stress. As of now, we did not reverse the process and solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. However, it is still a feasible plan for future research. On the other hand, we can analyse this problem using another software, Gmsh, as Pre-Processing tool. The procedures of our convergence analysis for investigating 2D elements are as follows: First, we create a 2D geometry in ANSYS and generate a fine meshing with Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case, we do not have the analytical solution, thus the displacement result in this fine meshing will be regarded as a referential solution. In next step, we create a same geometry in Gmsh and implement a mesh refinement with all the 2D element by decreasing the size of element. Then we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom(DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D elements, Tet4 and Tet10, can also be analysed using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure \ref{fig: Convergence3D}.
 The displacement for each of the 2D elements have been recorded in Table \ref{tab: TriConvergence} and Table \ref{tab: QuadConvergence}. The displacement for 3D elements are represented in Table \ref{tab: TetConvergence}. The same nodal displacement from a fine meshing in ANSYS are:
 \begin{equation*}
 2D: Ux = -0.0015045; Uy = 0.011738
 \end{equation*}
-The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order elements (Tri6 and Tet10) have a relatively faster rate of convergence than do the lower order elements (Tri3 and Tet4). This characteristic is not that discernable in quadrilateral element (Quad4 and Quad8). 
+
 \begin{equation*}
 3D: Ux = 9.47; Uy = 0; Uz = 0
 \end{equation*}
+The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order elements (Tri6 and Tet10) have a relatively faster rate of convergence than do the lower order elements (Tri3 and Tet4). This characteristic is not that discernable in quadrilateral element (Quad4 and Quad8). 
+
 
 \begin{figure}[htbp]
 	\begin{center}	
 		\includegraphics[width=10cm,clip]{Convergence2D.png} 			
-		\caption{2D model meshing with Tri3 for convergence analysis; P as observer point} \label{fig: Convergence2D}
+		\caption{2D model meshing with Tri3 for displacement convergence analysis; P as observer point} \label{fig: Convergence2D}
 	\end{center}
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{center}	
 		\includegraphics[width=14cm,clip]{Convergence3D.png} 			
-		\caption{3D model meshing with Tet4 for convergence analysis; P as observer point} \label{fig: Convergence3D}
+		\caption{3D model meshing with Tet4 for displacement convergence analysis; P as observer point} \label{fig: Convergence3D}
 	\end{center}
 \end{figure}
 
@@ -1374,8 +1380,6 @@ The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot}
 		\hline  
 	\end{tabular}
 \end{table}
-
-
 It is also import to check the convergence of Von Mises stress. Thus we implement the mesh refinements in a 2D/3D geometry with all types of element in ANSYS, then we export the data of node, element and displacement from ANSYS and import them into AMfe Toolbox.  The next step is to run the code to get the computing results for our convergence study: $\sigma_xx$, $\sigma_yy$, $\sigma_xy$.  For a general plane stress case with restrictions $\sigma_3 = 0$, $\sigma_{31} = \sigma_{23} = 0$, Von Mises stress can be derived as: 
 \begin{equation}
 \sigma_v = \sqrt{{\sigma_{11}}^2 - \sigma_{11}\sigma_{22} + {\sigma_{22}}^2 + 3 {\sigma_{12}}^2}
@@ -1882,17 +1886,11 @@ The patch test is only applicable to the simple models, it is meaningful how the
 \end{figure}
 \clearpage 
 
-
+\chapter{Conclusion}
+\section{Summary}
+Referring to the implementation and investigation of Stress-Recovery-Algorithms in Finite Element Toolbox AMfe, we can summarize that the Stress-Recovery-Algorithms improves the accuracy of strain and stress, when the model are meshed with AMfe 2D element (Tri6, Quad4, and Quad8) and 3D element (Tet4 and Tet10). When the Stress-Recovery-Algorithms compares with the algorithms, which evaluates the stress direct at nodes, we can ascertain that the solution of the latter algorithms has a  
 
 % Testing with all element type and formulate a table
-% my_material  = KirchhoffMaterial()
-% ParaView Numbering and vorher introduction
+% my_material  = KirchhoffMaterial()	
 % 不同单元之间也可以进行比较
 
-
-% 可以去比较用直接用节点求解的应力应变和用高斯点外推求得的应力应变的差别
-
-\cite[p. 18]{bibid}
-Interelement Averaging can be as future research ..
-And I can talk about why i choose extrapolation, why not direct evaluation!
-\cite[p. 1-10]{Johannes} \cite{Felippa}

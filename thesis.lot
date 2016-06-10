@@ -12,8 +12,8 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Node list exported from ANSYS\relax }}{39}{table.caption.142}
 \contentsline {table}{\numberline {3.2}{\ignorespaces Element list exported from ANSYS\relax }}{39}{table.caption.143}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Unit testing of the result using calculation directly at nodes\relax }}{42}{table.caption.149}
-\contentsline {table}{\numberline {4.2}{\ignorespaces Unit testing of the extrapolate result using stress recovery\relax }}{43}{table.caption.150}
-\contentsline {table}{\numberline {4.3}{\ignorespaces Convergence Analysis of triangular element\relax }}{49}{table.caption.164}
-\contentsline {table}{\numberline {4.4}{\ignorespaces Convergence Analysis of quadrilateral element\relax }}{50}{table.caption.165}
-\contentsline {table}{\numberline {4.5}{\ignorespaces Convergence Analysis of tetrahedral element\relax }}{51}{table.caption.166}
+\contentsline {table}{\numberline {4.1}{\ignorespaces Unit testing of the result using calculation directly at nodes\relax }}{43}{table.caption.150}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Unit testing of the extrapolate result using stress recovery\relax }}{44}{table.caption.151}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Convergence Analysis of triangular element\relax }}{50}{table.caption.165}
+\contentsline {table}{\numberline {4.4}{\ignorespaces Convergence Analysis of quadrilateral element\relax }}{51}{table.caption.166}
+\contentsline {table}{\numberline {4.5}{\ignorespaces Convergence Analysis of tetrahedral element\relax }}{52}{table.caption.167}

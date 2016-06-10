@@ -23,7 +23,7 @@
 \contentsline {section}{\numberline {3.1}Pre-Processing}{37}{section.140}
 \contentsline {chapter}{\numberline {4}Element Type Test}{41}{chapter.144}
 \contentsline {section}{\numberline {4.1}Unit Testing with Python}{41}{section.145}
-\contentsline {section}{\numberline {4.2}The Patch Test}{42}{section.151}
-\contentsline {section}{\numberline {4.3}Convergence Analysis}{43}{section.158}
-\contentsline {section}{\numberline {4.4}Complex Model Test}{45}{section.169}
-\contentsline {chapter}{References}{101}{chapter*.219}
+\contentsline {section}{\numberline {4.2}The Patch Test}{42}{section.152}
+\contentsline {section}{\numberline {4.3}Convergence Analysis}{44}{section.159}
+\contentsline {section}{\numberline {4.4}Complex Model Test}{45}{section.170}
+\contentsline {chapter}{References}{101}{chapter*.220}

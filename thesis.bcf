@@ -2241,13 +2241,20 @@
     <bcf:citekey order="6">Felippa</bcf:citekey>
     <bcf:citekey order="7">Felippa</bcf:citekey>
     <bcf:citekey order="8">Felippa</bcf:citekey>
-    <bcf:citekey order="9">NumericalMethod</bcf:citekey>
-    <bcf:citekey order="10">VonMiese</bcf:citekey>
+    <bcf:citekey order="9">Felippa</bcf:citekey>
+    <bcf:citekey order="10">Felippa</bcf:citekey>
     <bcf:citekey order="11">Felippa</bcf:citekey>
-    <bcf:citekey order="12">FiniteElement</bcf:citekey>
-    <bcf:citekey order="13">bibid</bcf:citekey>
-    <bcf:citekey order="14">Johannes</bcf:citekey>
-    <bcf:citekey order="15">Felippa</bcf:citekey>
+    <bcf:citekey order="12">Felippa</bcf:citekey>
+    <bcf:citekey order="13">FiniteElement</bcf:citekey>
+    <bcf:citekey order="14">ANSYS</bcf:citekey>
+    <bcf:citekey order="15">Numpy</bcf:citekey>
+    <bcf:citekey order="16">Pandas</bcf:citekey>
+    <bcf:citekey order="17">Python</bcf:citekey>
+    <bcf:citekey order="18">NumericalMethod</bcf:citekey>
+    <bcf:citekey order="19">NumericalMethod</bcf:citekey>
+    <bcf:citekey order="20">VonMiese</bcf:citekey>
+    <bcf:citekey order="21">Felippa</bcf:citekey>
+    <bcf:citekey order="22">FiniteElement</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="ynt" type="entry" sortscheme="ynt">
   <bcf:sorting>

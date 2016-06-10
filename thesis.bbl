@@ -61,6 +61,30 @@
       \field{title}{Numerical Methods}
       \field{year}{2010}
     \endentry
+    \entry{ANSYS}{manual}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=2075b8889c8acd7f768b12421269d890}{ANSYS}{A\bibinitperiod}{Inc}{I\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Canonsburg, PA 15317}%
+      }
+      \list{organization}{1}{%
+        {ANSYS, Inc}%
+      }
+      \strng{namehash}{2075b8889c8acd7f768b12421269d890}
+      \strng{fullhash}{2075b8889c8acd7f768b12421269d890}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2011}
+      \field{labelmonth}{11}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Release 14.0}
+      \field{month}{11}
+      \field{title}{ANSYS Parametric Design Language Guide}
+      \field{year}{2011}
+    \endentry
     \entry{VonMiese}{book}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=4f7a97acac5f2daab568f603e1f3ee36}{Kurowski}{K\bibinitperiod}{P.\bibnamedelimi M.}{P\bibinitperiod\bibinitdelim M\bibinitperiod}{}{}{}{}}%
@@ -97,6 +121,69 @@
       \field{edition}{9}
       \field{title}{Finite Element}
       \field{year}{2014}
+    \endentry
+    \entry{Python}{manual}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=abcc03398a8451df17a8b46d8d70a2a9}{Fred\bibnamedelimb L.\bibnamedelimi Drake}{F\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim D\bibinitperiod}{Jr.}{J\bibinitperiod}{}{}{}{}}%
+      }
+      \list{organization}{1}{%
+        {Python Software Foundation}%
+      }
+      \strng{namehash}{abcc03398a8451df17a8b46d8d70a2a9}
+      \strng{fullhash}{abcc03398a8451df17a8b46d8d70a2a9}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2016}
+      \field{labelmonth}{06}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3.51}
+      \field{month}{06}
+      \field{title}{The Python Language Reference}
+      \field{year}{2016}
+    \endentry
+    \entry{Pandas}{manual}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=04f134cd2b0784580cc04fd149d2eb69}{Mckinney}{M\bibinitperiod}{Wes}{W\bibinitperiod}{}{}{}{}}%
+      }
+      \list{organization}{1}{%
+        {PyData Development Team}%
+      }
+      \strng{namehash}{04f134cd2b0784580cc04fd149d2eb69}
+      \strng{fullhash}{04f134cd2b0784580cc04fd149d2eb69}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2016}
+      \field{labelmonth}{05}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Release 0.18.1}
+      \field{month}{05}
+      \field{title}{Pandas: powerful Python data analysis toolkit}
+      \field{year}{2016}
+    \endentry
+    \entry{Numpy}{manual}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=55f00e1daa52b7cb5c5bc865e89dbc79}{Numpy}{N\bibinitperiod}{}{}{}{}{}{}}%
+      }
+      \list{organization}{1}{%
+        {Numpy community}%
+      }
+      \strng{namehash}{55f00e1daa52b7cb5c5bc865e89dbc79}
+      \strng{fullhash}{55f00e1daa52b7cb5c5bc865e89dbc79}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2016}
+      \field{labelmonth}{05}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Release 1.11.0}
+      \field{month}{05}
+      \field{title}{Numpy User Guide}
+      \field{year}{2016}
     \endentry
     \entry{Johannes}{unpublished}{}
       \name{author}{1}{}{%
