@@ -78,13 +78,14 @@ According to the work of Carlos A. Felippa [\cite{Felippa} p.79], triangular and
 	$L_1 = \frac{\text{area}P23}{\text{area}123}$, \quad $V_1 = \frac{\text{area}P234}{\text{area}1234}$ \\[4mm]
 	$\sum L_i = 1$ \quad\quad $\sum V_i = 1$
 \end{center}
-
+\clearpage
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=11cm,clip]{Tri&Tet.pdf}			
 		\caption{triangular and tetradral elemnets.} \label{fig: tri&tet}
 	\end{center}
 \end{figure}
+
 
 \section{Non-linear Element Formulation}
 This section provides an introduction to the most common model and simulation technique for both 2D and 3D solid bodies in Non-Finite-Element-Method. The following section is based on the work of Johaness Rutzmoser [\cite{Johannes} p.1-5] in non-linear element formulation. In the first part of this introduction, we will pick a fictional 3D element with five nodes as our object of study. The coordinate system is based on three coordinate, namely $\xi_1$, $\xi_2$ ,and $\xi_3$. The shape function of this 3D element can be ordered in Voigt notation as follows:
@@ -244,9 +245,6 @@ The last step in determining the non-linear force and the tangential stiffness m
 \begin{equation}
 \int {\textbf{\textit{f}}}\left(x\right) \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \boldsymbol{\xi}}{\partial \boldsymbol{\xi}} \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \Omega}{\partial \boldsymbol{\xi}} \mathrm{d}\boldsymbol{\xi} = \int {\textbf{\textit{f}}}\left(x\right) det \left(\frac{\partial X}{\partial \boldsymbol{\xi}}\right) \mathrm{d}\boldsymbol{\xi}
 \end{equation}
-
-
-\subsection{Gauss Integration}
 Numerical integration plays an important role in FEM. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  According to the work of W. A. Wall [\cite{FiniteElement} p.73], a clear expression of Gauss integration is:
 \begin{equation}
 \int \limits_E {\textbf{\textit{f}}} \left(\boldsymbol{\xi}\right) \mathrm{d\boldsymbol{\xi_1}}\mathrm{d\boldsymbol{\xi_2}}\mathrm{d\boldsymbol{\xi_3}} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\boldsymbol{\xi_1^i}}\tilde{\boldsymbol{\xi_2^j}}\tilde{\boldsymbol{\xi_3^k}}\right)\cdot w_1^i w_2^j w_3^k
@@ -844,7 +842,7 @@ a_2 = -0.309017 \\
 		Gauss node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4' \\ \hline
 		1'\centering& $\alpha$& $\beta$& $\beta$& $\beta$& 1& 0& 0& 0  \\
 		2'\centering&$\beta$ & $\alpha$& $\beta$& $\beta$& 0& 1& 0& 0 \\
-		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 0& 1\\
+		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 1& 0\\
 		4'\centering& $\beta$& $\beta$& $\beta$& $\alpha$& 0& 0& 0& 1\\
 		\hline
 		$\alpha$ = 0.58541020; $\beta$ = 0.13819660&&&&&&&&\\
@@ -906,7 +904,6 @@ a_1 = +1.927051 \\
 a_2 = -0.309017 \\
 a_3 = +0.809017
 \end{align*}
-
 \begin{table}
 	\centering
 	\caption{Coordinate system of Tet10} \label{tab: Tet10}
@@ -927,7 +924,7 @@ a_3 = +0.809017
 		Gauss node\centering& L1& L2& L3& L4& L1'& L2'& L3'& L4' \\ \hline
 		1'\centering& $\alpha$& $\beta$& $\beta$& $\beta$& 1& 0& 0& 0  \\
 		2'\centering&$\beta$ & $\alpha$& $\beta$& $\beta$& 0& 1& 0& 0 \\
-		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 0& 1\\
+		3'\centering& $\beta$& $\beta$& $\alpha$& $\beta$& 0& 0& 1& 0\\
 		4'\centering& $\beta$& $\beta$& $\beta$& $\alpha$& 0& 0& 0& 1\\
 		\hline
 		$\alpha$ = 0.58541020; $\beta$ = 0.13819660&&&&&&&&\\
@@ -943,7 +940,7 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In the previous chapter, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom (DOFs). According the work of W. A. Wall [\cite{FiniteElement} p.62-64], in FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D an object as an example, which is meshed by two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
+In the previous chapter, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom (DOFs). According the work of W. A. Wall [\cite{FiniteElement} p.62-64], in FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D model as an example, which is meshed with two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
 \begin{equation} \label{eq: k_1}
 k^{\left(1\right)} = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
@@ -965,7 +962,6 @@ k_{51}^{\left(2\right)} & k_{52}^{\left(2\right)} &  k_{53}^{\left(2\right)} &  
 k_{61}^{\left(2\right)} & k_{62}^{\left(2\right)} &  k_{63}^{\left(2\right)} &  k_{64}^{\left(2\right)} & k_{65}^{\left(2\right)}  & k_{66}^{\left(2\right)}   \\[0.3em]
 \end{pmatrix} 
 \end{equation}	
-\clearpage
 Now we can assemble both stiffness matrix contribution, namely from Equation \ref{eq: k_1} and from Equation \ref{eq: k_2}, at the same degree of freedom.  The procedure of assembly is represented as follows:
 \begin{equation*}
 K = \begin{pmatrix}
@@ -1039,7 +1035,7 @@ f_5^{\left(2\right)} \\
 f_6^{\left(2\right)}  \\ 
 \end{pmatrix} 
 \end{equation}
-For strain and stress, we need to assemble the contributions at each node. An extra procedure after assembling of strain or stress is solving the average value by dividing the number of elements that share the same node. Because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
+For strain and stress, we need to assemble the contributions at each node. According to the work of Carlos A. Felippa [\cite{Felippa} section 28 p.6], an extra procedure after assembling strain or stress is calculating the average value by dividing the number of elements that share the same node, because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
 \begin{equation}
 \epsilon = \displaystyle\sum_{i=1}^{n} \frac{\epsilon_{i,raw}}{n}
 \\
@@ -1132,8 +1128,8 @@ For strain and stress, we need to assemble the contributions at each node. An ex
 \end{pmatrix} 
 \end{equation}
 
-\chapter{Programming Implementation}
-\section{Pre-Processing}
+\chapter{Programming Implementation and Investigation}
+\section{Pre-Processing with ANSYS}
 The purpose of Pre-Processing is to build a numerical model and export data of a meshed geometry as two lists: node list and element list.  The two lists are ultimately imported into AMfe Toolbox. ANSYS Parametric Design Language (APDL) code is used to create a meshed geometry in ANSYS. A simple meshed geometry is shown in Figure \ref{fig: muster}. The steps for building model contains a series of related path. An example of such path is: 
 
 \begin{center}
@@ -1141,7 +1137,7 @@ The purpose of Pre-Processing is to build a numerical model and export data of a
 			$\Rightarrow$ Boundary Condition  }}
 \end{center}
 
-After building the model, numerical data can be exported as a node list and an element list. The node list contains coordinates of nodes. The element list consists of the attributes of each element and the index of each node that belongs to the element. The element attributes are assigned to the different parts of model by referring to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) ,and section ID number (SEC) [\cite{ANSYS}].. According to the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured using regular expression and stored in AMfe Toolbox. For different kinds of data it is necessary to store in its specific data type. The coordinate of each node and the index of nodes from elements are stored as NumPy array. NumPy is the fundamental package for scientific computing using Python. The advantage of NumPy for storage of node and element information depends on its efficient multi-dimensional container of generic data. According to the documentation of Numpy community [\cite{Numpy}], "NumPy contains a powerful N-dimensional array object and sophisticated (broadcasting) functions." Moreover, it is possible to integrate Fortran code. General attributes of the element can be stored as an efficient form- Pandas DataFrames. According to the documentation of Wes Mckinney and PyData Development Team [\cite{Pandas}], "Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects." 
+After building the model, numerical data can be exported as a node list and an element list. The node list contains coordinates of nodes. The element list consists of the attributes of each element and the index of each node that belongs to the element. The element attributes are assigned to the different parts of model by referring to the appropriate entries in the element list. The pointers are simply a set of reference numbers that include  the element index (ELEM), material number (MAT), element type number (TYP), real constant set number (REAL), a coordinate system number (ESY) ,and section ID number (SEC) [\cite{ANSYS}]. According to the example in Figure \ref{fig: muster}, both lists are depicted in Table \ref{tab: node_list} and Table \ref{tab: element_list}. The numerical information of both lists are captured using regular expression and stored in AMfe Toolbox. For different kinds of data it is necessary to store in its specific data type. The coordinate of each node and the index of nodes from elements are stored as NumPy array. NumPy is the fundamental package for scientific computing using Python. The advantage of NumPy for storage of node and element information depends on its efficient multi-dimensional container of generic data. According to the documentation of Numpy community [\cite{Numpy}], "NumPy contains a powerful N-dimensional array object and sophisticated (broadcasting) functions." Moreover, it is possible to integrate Fortran code. General attributes of the element can be stored as an efficient form- Pandas DataFrames. According to the documentation of Wes Mckinney and PyData Development Team [\cite{Pandas}], "Pandas is a powerful data analysis toolkit, which provides fast, flexible, and expressive data structures designed to make working with relational or labeled data both easy and intuitive. Pandas DataFrames is a two-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. This format can be thought of as a dictionary-like container for Series objects." We can calculate the nodal strain and stress from the Pre-Processing data from ANSYS by using the Stress-Recovery-Algorithms. In addition, the solutions of nodal strain and stress from ANSYS and the corresponding solutions from AMfe are comparable, because the Pre-Processing data for both solutions are identical.
 
 \begin{figure}
 	\begin{center}
@@ -1183,9 +1179,8 @@ After building the model, numerical data can be exported as a node list and an e
 	\end{center}	
 \end{table}
 
-\chapter{Element Type Test}
 \section{Unit Testing with Python}
-According to the documentation of Fred L. Drake, Jr. [\cite{Python}], automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. We test the strain and stress components with all the element types. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. According to the work of Rao V. Dukkipati [\cite{NumericalMethod}], absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
+According to the documentation of Fred L. Drake, Jr. [\cite{Python}], automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. We test the strain and stress components with all the element types. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The results of components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. According to the work of Rao V. Dukkipati [\cite{NumericalMethod}], absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
 \begin{equation}
 e_{abs} = \|X_{actual} - X_{fem} \|
 \end{equation}
@@ -1285,7 +1280,7 @@ The displacement for each of the 2D element types has been recorded in Table \re
 \begin{equation*}
 3D: Ux = 9.47; Uy = 0; Uz = 0
 \end{equation*}
-The convergence plots of 2D element types are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element types. All the element types show a good convergence to the exact solution. The higher order element types (Tri6 and Tet10) have a relatively higher convergence rate than the lower order element types (Tri3 and Tet4) do. This characteristic is not that discernible in quadrilateral element types (Quad4 and Quad8). 
+The convergence plots of 2D element types are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element types. All the element types show a good convergence to the exact solution. The higher order element types (Tri6 and Tet10) have a relatively higher convergence rate than that of the lower order element types (Tri3 and Tet4). This characteristic is not that discernible in quadrilateral element types (Quad4 and Quad8). 
 
 \begin{figure}[htbp]
 	\begin{center}	
@@ -1304,7 +1299,7 @@ The convergence plots of 2D element types are depicted in Figure \ref{fig: TriCo
 
 \begin{figure}[htbp]
 	\begin{center}	
-		\includegraphics[width=14cm,clip]{Convergence3D.png} 			
+		\includegraphics[width=14cm,clip]{Convergence3D1.png} 			
 		\caption{3D model meshing with Tet4 for displacement convergence analysis; P as observer point} \label{fig: Convergence3D}
 	\end{center}
 \end{figure}
@@ -1313,7 +1308,7 @@ The convergence plots of 2D element types are depicted in Figure \ref{fig: TriCo
 	\begin{center}	
 		\includegraphics[width=7cm,clip]{TriConPlotUx.png}
 		\includegraphics[width=7cm,clip]{TriConPlotUy.png} 	 			
-		\caption{Convergence plot of Tri3 and Tri6} \label{fig: TriConPlot}
+		\caption{Displacement convergence plot of Tri3 and Tri6} \label{fig: TriConPlot}
 	\end{center}
 \end{figure}
 
@@ -1321,14 +1316,14 @@ The convergence plots of 2D element types are depicted in Figure \ref{fig: TriCo
 	\begin{center}	
 		\includegraphics[width=7cm,clip]{QuadConPlotUx.png}
 		\includegraphics[width=7cm,clip]{QuadConPlotUy.png} 	 			
-		\caption{Convergence plot of Quad4 and Quad8} \label{fig: QuadConPlot}
+		\caption{Displacement convergence plot of Quad4 and Quad8} \label{fig: QuadConPlot}
 	\end{center}
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{center}	
 		\includegraphics[width=9cm,clip]{TetConPlotUx.png}	 			
-		\caption{Convergence plot of Tet4 and Tet10} \label{fig: TetConPlot}
+		\caption{Displacement convergence plot of Tet4 and Tet10} \label{fig: TetConPlot}
 	\end{center}
 \end{figure}
 
@@ -1391,11 +1386,11 @@ It is also important to check the convergence of Von Mises stress. Thus we refin
 \begin{equation}
 \sigma_v = \sqrt{\frac{1}{2}\left[\left(\sigma_{11}-\sigma_{22}\right)^2 + \left(\sigma_{22}-\sigma_{33}\right)^2 + \left(\sigma_{33}-\sigma_{11}\right)^2 + 6\left({\sigma_{12}}^2 + {\sigma_{23}}^2 + {\sigma_{31}}^2 \right) \right]}
 \end{equation}
-For a general plane stress case with restrictions $\sigma_3 = 0$, $\sigma_{31} = \sigma_{23} = 0$, we can simplify the Von Mises equation as:
+For a general plane stress case with restrictions $\sigma_3 = 0$ and $\sigma_{31} = \sigma_{23} = 0$, we can simplify the Von Mises equation as:
 \begin{equation}
 \sigma_v = \sqrt{{\sigma_{11}}^2 - \sigma_{11}\sigma_{22} + {\sigma_{22}}^2 + 3 {\sigma_{12}}^2}
 \end{equation}
-The 2D model is built as shown in Figure \ref{fig: twoDmodel} and the 3D model is built as shown in Figure \ref{fig: threeDmodel}. Table \ref{tab: 2DConvergence} shows the test data of convergence analysis for all element types. Figure \ref{fig: ConPlot} illustrate the relation between the DOFs of mesh and the Von Mises stress of the observer point, which is denoted C in 2D model and is denoted D in 3D model. The three plots in Figure \ref{fig: ConPlot} show that all the element types converges to the exact solution and the elements with higher order (Tri6, Quad8, and Tet10) converges faster than the the one with lower order (Tri3, Quad4, and Tet4). When we compare the two 2D element Tri3 and Quad4, we can find the Quad4 has a higher convergence rate than Tri3. 
+The 2D model is built as is shown in Figure \ref{fig: twoDmodel} and the 3D model is built as is shown in Figure \ref{fig: threeDmodel}. Table \ref{tab: 2DConvergence} shows the test data of convergence analysis for all element types. Figure \ref{fig: ConPlot} illustrates the relation between the DOFs of mesh and the Von Mises stress of the observer point, which is denoted C in 2D model and is denoted D in 3D model. The three plots in Figure \ref{fig: ConPlot} show that all the element types converge to the exact solution and the element types with higher order (Tri6, Quad8, and Tet10) converge faster than the ones with lower order (Tri3, Quad4, and Tet4) do. When we compare the two 2D element Tri3 and Quad4, we can find the Quad4 has a higher convergence rate than Tri3. 
 
 \begin{figure}[htbp]
 	\begin{center}	
@@ -1444,20 +1439,20 @@ The 2D model is built as shown in Figure \ref{fig: twoDmodel} and the 3D model i
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate in AMfe by both algorithm, namely, direct evaluation at nodes and extrapolation from Gauss points, namely, Stress-Recovery-Algorithms. The main objective of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. The results from AMfe Toolbox display in ParaView as a Post-Processing tool. It is worth noting that the order of components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import a same color map for ANSYS and ParaView. However, there exists still a clear chromatic aberration between the contour plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} shows an example to display the color difference. This issue may be fixed when we using an advanced ANSYS version, because ANSYS 12.0, which we use in this paper, can only offers a 7-bit color in color map. 
+The patch test is only applicable to the simple models. It is meaningful to know how these element types behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate the nodal stress in AMfe by using Direct-Evaluation-Algorithms and Stress-Recovery-Algorithms. The main objective of the complex model test is to compare the strain and stress contour plots of each element type in ANSYS and in AMfe Toolbox by using algorithms. Furthermore, the comparison between the two algorithms is also significant for our research. The results from AMfe Toolbox are displayed in ParaView as a Post-Processing tool. It is worth noting that the order of the components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import an identical color map for ANSYS and ParaView. However, a clear chromatic aberration still exists between the contour plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} is an example displaying the color difference. This issue may be fixed when we using an advanced version of ANSYS, because ANSYS 12.0, which we used in this paper, can only offer a 7-bit color in color map. 
 
-Figure \ref{fig: Tri3_Exx} to Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri3 and the contour plot from ANSYS is meshed with element PLANE42(triangular option). According to the documentation of ANSYS [\cite{APDL}], "PLANE42 is used for 2D modeling of solid structures. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions."
-From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. 
+Figure \ref{fig: Tri3_Exx} to Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all directions. The contour plots from AMfe are meshed with element type Tri3 and the contour plots from ANSYS are meshed with element PLANE42 (triangular option). According to the documentation of ANSYS [\cite{APDL}], "PLANE42 is used for 2D modeling of solid structures. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions."
+By comparing the plots from AMfe and ANSYS, we can find that there is no difference between the two algorithms in AMfe. The solutions of all components from AMfe are very similar to the corresponding solutions from ANSYS. 
 
-Figure \ref{fig: Tri6_Exx} to Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri6 and the contour plot from ANSYS is meshed with element PLANE2. According to the documentation of ANSYS [\cite{APDL}], "PLANE2 is a 6-node triangular element. The element is defined by six nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions." The plots show that the solution with Stress-Recovery-Algorithms is relative close to the ANSYS solution, the algorithm without Stress-Recovery-Algorithm has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. 
+Figure \ref{fig: Tri6_Exx} to Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri6 and the contour plots from ANSYS are meshed with element PLANE2. According to the documentation of ANSYS [\cite{APDL}], "PLANE2 is a 6-node triangular element. The element is defined by six nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions." The plots show that the AMfe solutions from Stress-Recovery-Algorithms are relatively closer to the ANSYS solutions than that of Direct-Evaluation-Algorithms, which has higher extreme values of strain and stress than ANSYS solution at corner points and the inner side of circle. 
 
-Figure \ref{fig: Quad4_Exx} to Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Quad4 and the contour plot from ANSYS is meshed with element PLANE42 (quadrangle option). We can observe from the plots that the solution by Stress-Recovery-Algorithms is close to ANSYS solution. The deviation of results of the both algorithms appear at some position as it shown in Plots with Tri6.  
+Figure \ref{fig: Quad4_Exx} to Figure \ref{fig: Quad4_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Quad4 and the contour plots from ANSYS are meshed with element PLANE42 (quadrangle option). We can observe from the plots that the AMfe solutions from Stress-Recovery-Algorithms is close to ANSYS solutions. The deviation of results from Direct-Evaluation-Algorithms appears at same locations as that of Tri6 and the values of results in the middle range appear closer to the ANSYS than the values at the ends do.
 
-Figure \ref{fig: Quad8_Exx} to Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Quad8 and the contour plot from ANSYS is meshed with element PLANE82. According to the documentation of ANSYS [\cite{APDL}], "Plane82 is a higher order version of the 2D, four node element (PLANE82). It provides more accurate results for mixed (quadrilateral-triangular) automatic meshes and can tolerate irregular shapes without as much loss of accuracy. The 8-node element is defined by eight nodes having two degrees of freedom at each node: translations in nodal $x$ and $y$ directions." The comparison is similar as the result, which is meshed with Quad4. 
+Figure \ref{fig: Quad8_Exx} to Figure \ref{fig: Quad8_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Quad8 and the contour plots from ANSYS are meshed with element PLANE82. According to the documentation of ANSYS [\cite{APDL}], "Plane82 is a higher order version of the 2D, four node element (PLANE82). It provides more accurate results for mixed (quadrilateral-triangular) automatic meshes and can tolerate irregular shapes without as much loss of accuracy. The 8-node element is defined by eight nodes having two degrees of freedom at each node: translations in nodal $x$ and $y$ directions." Both comparison between the AMfe solution from the two algorithms and the ANSYS solution and the comparison between the solutions from the two algorithms are similar to those comparisons of Quad4. 
 
-Figure \ref{fig: Tet4_Exx} to Figure \ref{fig: Tet4_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tet4 and the contour plot from ANSYS is meshed with element SOLID45. According to the documentation of ANSYS [\cite{APDL}], "SOLID45 is used for the 3D modeling of solid structures. The element is defined by eight nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." The plots represents that there is no difference between the both algorithm in AMfe. The both solution of AMfe have a relative bad performance in shear strain/stress than normal strain/stress. 
+Figure \ref{fig: Tet4_Exx} to Figure \ref{fig: Tet4_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Tet4 and the contour plots from ANSYS are meshed with element SOLID45. According to the documentation of ANSYS [\cite{APDL}], "SOLID45 is used for the 3D modeling of solid structures. The element is defined by eight nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." The plots demonstrate that there is no difference between the two algorithms from AMfe. The two solutions from AMfe have a relative bad performance in shear strain/stress than normal strain/stress. 
 
-Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tet10 and the contour plot from ANSYS is meshed with element SOLID187 (tetrahedron option). According to the documentation of ANSYS [\cite{APDL}], "SOLID187 element is a higher order 3D, 10-node element. SOLID187 has a quadratic displacement behavior and is well suited to modeling irregular meshes. The element is defined by 10 nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." Tet10 has a same problem as Tet4, the solutions in shear components appear not good. The plots also show that the solutions with Stress-Recovery-Algorithms has a better performance than the solutions  without Stress-Recovery-Algorithm. 
+Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tet10 and the contour plot from ANSYS is meshed with element SOLID187 (tetrahedron option). According to the documentation of ANSYS [\cite{APDL}], "SOLID187 element is a higher order 3D, 10-node element. SOLID187 has a quadratic displacement behavior and is well suited to modeling irregular meshes. The element is defined by 10 nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." Tet10 has a similar problem as Tet4 and the solutions in shear components appear not good. The plots also show that the solutions from Stress-Recovery-Algorithms performs better than the solutions from Direct-Evaluation-Algorithm. 
 
 \begin{figure}
 	\begin{center}
@@ -1951,17 +1946,17 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 
 \chapter{Conclusion}
 \section{Summary}
-There are two algorithms to get the approximation of nodal stress, one is Direct-Evaluation-Algorithms and the other one is Stress-Recovery-Algorithms. The latter one is based on an extrapolation from the Gauss points to the corner nodes. According to different element types, it is necessary to choose the suitable coordinate systems. For quadrilateral elements, the Cartesian coordinate system is appropriate to choose. For triangular and tetrahedral elements, their own coordinate system is more appropriate for the calculation. The type of Gauss element for each element types is also available for selection. We take the selection as follows: 2$\times$2 quadrilateral element with four Gauss points for Quad4; 3$\times$3 quadrilateral element with nine Gauss points for Quad8; triangular element with three Gauss points for Tri3; triangular element with six Gauss points for Tri6; tetrahedral element with four Gauss points for Tet4 and Tet10. The step after extrapolation of stress from Gauss points is to solve the average value at each node by dividing the number of elements that share the same node. And then the nodal stress is finally 'recovered'. 
+There are two algorithms for calculating the approximation of nodal stress: one is called Direct-Evaluation-Algorithms and the other one is called Stress-Recovery-Algorithms. The latter is based on an extrapolation from the Gauss points to the corner nodes. According to the different element types, it is necessary to choose the suitable the coordinate systems. For quadrilateral elements, the Cartesian coordinate system is an appropriate choice. For triangular and tetrahedral elements, their own coordinate system is more appropriate for the calculation. The type of Gauss element for each element types is also available for selection. We make the selection as follows: 2$\times$2 quadrilateral element with four Gauss points for Quad4; 3$\times$3 quadrilateral element with nine Gauss points for Quad8; triangular element with three Gauss points for Tri3; triangular element with six Gauss points for Tri6; and tetrahedral element with four Gauss points for Tet4 and Tet10. The step after extrapolation of stress from Gauss points is to calculate the average value at each node by dividing the number of elements that share the same node. Then, the nodal stress is finally 'recovered'. 
 
-In the implementation part of this thesis, we export the Pre-Processing data from ANSYS modeling and import into AMfe Toolbox for calculation. Then the solutions by Stress-Recovery-Algorithms and Direct-Evaluation-Algorithms are compared to the ANSYS solution. An unit testing for calculating the Von Mises stress shows that only Tri3 and Quad4 have an acceptable accuracy of Von Mises stress. Thus we do the displacement patch test for each element by the both algorithms. This results of the patch test show that all the element types by both algorithms have passed the patch test and Tri6, Quad8, Tet4, and Tet10 get the constant strain value as 1.5, which expect to 1. And the reason for this issue has been found out by debugging the code. The Pre-calculated strain at Gauss points is 1.5, when the modelling are meshed with Tri6, Quad8, Tet4, and Tet10. Hence the nodal strain after extrapolation is also 1.5. This proves that the Stress-Recovery-Algorithms works well. In addition, the convergence analysis for displacement and Von Mises stress are also checked. The results of displacements convergence analysis represents that all the element types converges to the exact solution. The higher order elements (Tri6 and Tet10) have a relatively higher convergence rate than the lower order elements (Tri3 and Tet4) and this characteristic is not that discernible with quadrilateral elements. The results of Von Mises stress convergence analysis represents that all the element types converges to the exact solution and the elements with higher order (Tri6, Quad8, and Tet10) converges faster than the one with lower order (Tri3, Quad4, and Tet4). The results also show that the Quad4 has a higher convergence rate than Tri3. The last test is to observe the performance of all the element types in a relative complex model. We can not only compare the strain/stress contour plots between the solution by Direct-Evaluation-Algorithms and the solution by Stress-Recovery-Algorithms, but also the strain/stress contour plots between the solution from ANSYS and the solution from AMfe by the both algorithms. The comparison among these three solution express that there is no difference between the solution by the both algorithms for Tri3 and Tet4, and the  solution by Stress-Recovery-Algotithms has a better performance than the solution by Direct-Evaluation-Algorithms for the other element types (Tri6, Quad4, Quad8, and Tet10). The issue by Direct-Evaluation-Algorithms is the deviation at the value around the extreme values, namely the value around maximum and minimum value. The values at the middle part appear rather closer to the ANSYS solution. In summary, Stress-Recovery-Algorithms improves the accuracy of nodal stress for Tri6, Quad4, Quad8, and Tet10 with respect to the Direct-Evaluation-Algorithms.  
+In the implementation part of this thesis, we export the Pre-Processing data from ANSYS modeling and import the above data into AMfe Toolbox for calculation. Then the solutions by Stress-Recovery-Algorithms and Direct-Evaluation-Algorithms are compared to the ANSYS solutions. A unit testing for calculating the Von Mises stress shows that only Tri3 and Quad4 have an acceptable accuracy of Von Mises stress values. Thus, we implement the displacement patch test for each element using both algorithms. All the element types using both algorithms have passed the patch test and Tri6, Quad8, Tet4, and Tet10 obtain the constant strain value of 1.5, which is expected to be 1. And the reason behind this issue has been found by debugging the code. The Pre-calculated strain at Gauss points is 1.5 when the modelling are meshed with Tri6, Quad8, Tet4, and Tet10. Hence, the nodal strain after extrapolation is also 1.5. This proves that the Stress-Recovery-Algorithms works well. In addition, the convergence analyses for displacement and Von Mises stress are also tested. The results of the displacement convergence analyses represent that all the element types converge to their exact solutions. The higher order elements (Tri6 and Tet10) have a relatively higher convergence rate than that of the lower order elements (Tri3 and Tet4). This characteristic is not that discernible in quadrilateral element types (Quad4 and Quad8). The results of Von Mises stress convergence analysis represent that all the element types converge to the exact solutions and the elements with higher order (Tri6, Quad8, and Tet10) converge faster than the ones with lower order (Tri3, Quad4, and Tet4). The results also show that the Quad4 has a higher convergence rate than that of Tri3. The last test is to observe the performance of all the element types in a relatively complex model. We can compare not only the strain/stress contour plots between the solutions from Direct-Evaluation-Algorithms and the solutions from Stress-Recovery-Algorithms, but also the strain/stress contour plots between the solution from ANSYS and the solution from AMfe by the both algorithms. The comparisons among these three solution show that there is no difference between the solution by the both algorithms for Tri3 and Tet4, and the solutions from Stress-Recovery-Algotithms perform better than the solutions from Direct-Evaluation-Algorithms for the other element types (Tri6, Quad4, Quad8, and Tet10). The issue accompanying Direct-Evaluation-Algorithms is the deviation at the value around the extreme values. The values in the middle range appear closer to the ANSYS than the values at the ends do. In summary, Stress-Recovery-Algorithms provide higher accuracy in nodal stress for Tri6, Quad4, Quad8, and Tet10 than Direct-Evaluation-Algorithms do.  
 
 
 \section{Recommendation}
-According to the work of Carlos A. Felippa [\cite{Felippa} section 28 p.6], there are two method to calculate the averaged nodal stress after stress recovery. One is the approach, which we apply in this paper, unweighted averaging for the nodal stress. The other one is weighted averaging for the nodal stress, which allocates the weights to the contributions of element sharing the same node. Stress components, element types could affect the weights for selection.
+According to the work of Carlos A. Felippa [\cite{Felippa} section 28 p.6], there are two methods in calculating the average nodal stress after stress recovery. One is the approach of unweighted averaging for the nodal stress, which we apply in this paper. The other is weighted averaging for the nodal stress, which allocates the weights to the contributions of element sharing the same node. Stress components and element types could affect their weights in selection.
 
-According to the patch test in this paper, we find the issue with the strain at Gauss points with element types Tri6, Quad8, Tet4, and Tet10. Therefore, an investigation for the calculation of strain at Gauss points with these mentioned problematic element types is meaningful to improve the accuracy of nodal strain and stress. 
+According to the patch test in this paper, we found that the strains at Gauss points with element types Tri6, Quad8, Tet4, and Tet10 are problematic. Therefore, an investigation into the calculation of strain at Gauss points with these above mentioned element types is meaningful in improving the accuracy of nodal strain and stress. 
 
-We discuss in this thesis only about the case of extrapolation from one type of Gauss element. A comparison and discuss of the nodal stress between the extrapolation by using different types of Gauss element would be helpful for the further Stress-Recovery-Algorithms. 
+ In this thesis, we only discuss the case of extrapolation from one type of Gauss element. A comparison and discussion of the nodal stress among the extrapolation by using different types of Gauss element would be helpful for the further development of Stress-Recovery-Algorithms. 
 
 % Testing with all element type and formulate a table
 % my_material  = KirchhoffMaterial()	

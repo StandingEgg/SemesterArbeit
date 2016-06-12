@@ -3,19 +3,18 @@
 \select@language {english}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Gauss-Legendre points and weights\relax }}{14}{table.caption.46}
-\contentsline {table}{\numberline {2.2}{\ignorespaces Natural Coordinate of Quad4\relax }}{19}{table.caption.64}
-\contentsline {table}{\numberline {2.3}{\ignorespaces Natural Coordinate of Tri3\relax }}{24}{table.caption.98}
-\contentsline {table}{\numberline {2.4}{\ignorespaces Tetrahedral Coordinate of Tet4\relax }}{30}{table.caption.121}
-\contentsline {table}{\numberline {2.5}{\ignorespaces Coordinate system of Tet10\relax }}{32}{table.caption.128}
+\contentsline {table}{\numberline {2.1}{\ignorespaces Gauss-Legendre points and weights\relax }}{14}{table.caption.45}
+\contentsline {table}{\numberline {2.2}{\ignorespaces Natural Coordinate of Quad4\relax }}{19}{table.caption.63}
+\contentsline {table}{\numberline {2.3}{\ignorespaces Natural Coordinate of Tri3\relax }}{24}{table.caption.97}
+\contentsline {table}{\numberline {2.4}{\ignorespaces Tetrahedral Coordinate of Tet4\relax }}{30}{table.caption.120}
+\contentsline {table}{\numberline {2.5}{\ignorespaces Coordinate system of Tet10\relax }}{32}{table.caption.127}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Node list exported from ANSYS\relax }}{43}{table.caption.142}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Element list exported from ANSYS\relax }}{43}{table.caption.143}
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Unit testing of the result using Direct-Evaluation-Algorithms\relax }}{47}{table.caption.150}
-\contentsline {table}{\numberline {4.2}{\ignorespaces Unit testing of the extrapolate result using Stress-Recovery-Algorithms\relax }}{48}{table.caption.151}
-\contentsline {table}{\numberline {4.3}{\ignorespaces Convergence analysis of displacement for triangular element\relax }}{57}{table.caption.166}
-\contentsline {table}{\numberline {4.4}{\ignorespaces Convergence analysis of displacement for quadrilateral element\relax }}{58}{table.caption.167}
-\contentsline {table}{\numberline {4.5}{\ignorespaces Convergence analysis of displacement for tetrahedral element\relax }}{59}{table.caption.168}
-\contentsline {table}{\numberline {4.6}{\ignorespaces Convergence analysis of Von Mises stress\relax }}{60}{table.caption.173}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Node list exported from ANSYS\relax }}{41}{table.caption.141}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Element list exported from ANSYS\relax }}{41}{table.caption.142}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Unit testing of the result using Direct-Evaluation-Algorithms\relax }}{43}{table.caption.148}
+\contentsline {table}{\numberline {3.4}{\ignorespaces Unit testing of the extrapolate result using Stress-Recovery-Algorithms\relax }}{44}{table.caption.149}
+\contentsline {table}{\numberline {3.5}{\ignorespaces Convergence analysis of displacement for triangular element\relax }}{52}{table.caption.164}
+\contentsline {table}{\numberline {3.6}{\ignorespaces Convergence analysis of displacement for quadrilateral element\relax }}{53}{table.caption.165}
+\contentsline {table}{\numberline {3.7}{\ignorespaces Convergence analysis of displacement for tetrahedral element\relax }}{55}{table.caption.166}
+\contentsline {table}{\numberline {3.8}{\ignorespaces Convergence analysis of Von Mises stress\relax }}{56}{table.caption.171}
 \addvspace {10\p@ }
