@@ -2,7 +2,7 @@
 \defcounter {refsection}{0}\relax 
 \select@language {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Stress-strain curve for steel\relax }}{2}{figure.caption.7}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Stress-Strain curve for steel\relax }}{2}{figure.caption.7}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Flow chart of structure\relax }}{3}{figure.caption.9}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces Overview of this essay structure\relax }}{4}{figure.caption.10}
 \addvspace {10\p@ }
@@ -34,10 +34,10 @@
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Convergence plot of Tri3 and Tri6\relax }}{53}{figure.caption.163}
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Convergence plot of Quad4 and Quad8\relax }}{54}{figure.caption.164}
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Convergence plot of Tet4 and Tet10\relax }}{54}{figure.caption.165}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Convergence analysis of Von Mises stress in a 2D model\relax }}{58}{figure.caption.171}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Left: Top view of the tank; Right: the 1/16 model of the tank, point D is regarded as the observer point for analysis\relax }}{58}{figure.caption.172}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Convergence analysis of Von Mises stress, the analytical solutions are 2147.43$N/mm^2$ for 2D model and 68.94$N/mm^2$ for 3D model\relax }}{60}{figure.caption.174}
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Chromatic aberration between ParaView and ANSYS\relax }}{60}{figure.caption.176}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Convergence analysis of Von Mises stress in a 2D model\relax }}{55}{figure.caption.171}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Left: Top view of the tank; Right: the 1/16 model of the tank, point D is regarded as the observer point for analysis\relax }}{55}{figure.caption.172}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Convergence analysis of Von Mises stress, the analytical solutions are 2147.43$N/mm^2$ for 2D model and 68.94$N/mm^2$ for 3D model\relax }}{56}{figure.caption.174}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Chromatic aberration between ParaView and ANSYS\relax }}{56}{figure.caption.176}
 \contentsline {figure}{\numberline {4.15}{\ignorespaces Mesh with Tri3, upper: contour plot of $\epsilon _{xx}$ in ANSYS; lower left: contour plot of $\epsilon _{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon _{xx}$ calculated with stress recovery in AMfe\relax }}{61}{figure.caption.177}
 \contentsline {figure}{\numberline {4.16}{\ignorespaces Mesh with Tri3, upper: contour plot of $\epsilon _{yy}$ in ANSYS; lower left: contour plot of $\epsilon _{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon _{yy}$ calculated with stress recovery in AMfe\relax }}{62}{figure.caption.178}
 \contentsline {figure}{\numberline {4.17}{\ignorespaces Mesh with Tri3, upper: contour plot of $\epsilon _{xy}$ in ANSYS; lower left: contour plot of $\epsilon _{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon _{xy}$ calculated with stress recovery in AMfe\relax }}{63}{figure.caption.179}

@@ -9,12 +9,12 @@
 \BOOKMARK [2][-]{subsection.44}{Gauss Integration}{section.17}% 9
 \BOOKMARK [1][-]{section.47}{Stress Recovery}{chapter.11}% 10
 \BOOKMARK [2][-]{subsection.48}{Extrapolation of Stress from Gauss points}{section.47}% 11
-\BOOKMARK [2][-]{subsection.59}{Quadrangle with quadratic shape function and eight nodes: Quad4}{section.47}% 12
-\BOOKMARK [2][-]{subsection.75}{Quadrangle with quadratic shape function and eight nodes: Quad8}{section.47}% 13
-\BOOKMARK [2][-]{subsection.91}{Triangle with three nodes: Tri3}{section.47}% 14
-\BOOKMARK [2][-]{subsection.100}{Second order triangle with six nodes: Tri6}{section.47}% 15
-\BOOKMARK [2][-]{subsection.114}{Tetrahedron element with four nodes: Tet4}{section.47}% 16
-\BOOKMARK [2][-]{subsection.122}{Tetrahedron element with ten nodes: Tet10}{section.47}% 17
+\BOOKMARK [2][-]{subsection.59}{Quadrilateral element with four nodes: Quad4}{section.47}% 12
+\BOOKMARK [2][-]{subsection.75}{Quadrilateral element with eight nodes: Quad8}{section.47}% 13
+\BOOKMARK [2][-]{subsection.91}{Triangular element with three nodes: Tri3}{section.47}% 14
+\BOOKMARK [2][-]{subsection.100}{Triangular element with six nodes: Tri6}{section.47}% 15
+\BOOKMARK [2][-]{subsection.114}{Tetrahedral element with four nodes: Tet4}{section.47}% 16
+\BOOKMARK [2][-]{subsection.122}{Tetrahedral element with ten nodes: Tet10}{section.47}% 17
 \BOOKMARK [1][-]{section.130}{Assembly}{chapter.11}% 18
 \BOOKMARK [0][-]{chapter.139}{Programming Implementation}{}% 19
 \BOOKMARK [1][-]{section.140}{Pre-Processing}{chapter.139}% 20
@@ -25,4 +25,5 @@
 \BOOKMARK [1][-]{section.175}{Complex Model Test}{chapter.144}% 25
 \BOOKMARK [0][-]{chapter.225}{Conclusion}{}% 26
 \BOOKMARK [1][-]{section.226}{Summary}{chapter.225}% 27
-\BOOKMARK [0][-]{chapter*.227}{References}{}% 28
+\BOOKMARK [1][-]{section.227}{Recommendation}{chapter.225}% 28
+\BOOKMARK [0][-]{chapter*.228}{References}{}% 29
