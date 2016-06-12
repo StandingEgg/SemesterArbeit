@@ -1287,6 +1287,13 @@ The displacement for each of the 2D elements have been recorded in Table \ref{ta
 \end{equation*}
 The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot} and Figure \ref{fig: QuadConPlot}. And Figure \ref{fig: TetConPlot} shows the convergence performance of 3D element. All the element types show a good convergence to the exact solution. The higher order elements (Tri6 and Tet10) have a relatively faster rate of convergence than do the lower order elements (Tri3 and Tet4). This characteristic is not that discernable in quadrilateral element (Quad4 and Quad8). 
 
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=9cm,clip]{convergence.pdf} 			
+		\caption{Convergence analysis} \label{fig: convergence}
+	\end{center}
+\end{figure}
+
 
 \begin{figure}[htbp]
 	\begin{center}	
@@ -1326,7 +1333,7 @@ The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot}
 \end{figure}
 
 \begin{table}[ht]
-		\caption{Convergence Analysis of triangular element}
+		\caption{Convergence analysis of displacement for triangular element}
 		\label{tab: TriConvergence}
 \begin{tabular}{ c | c | c | c | c | c} 	
 	DOFs & Tri3-Ux & Tri3-Uy & DOFs &Tri6-Ux & Tri6-Uy\\ \hline
@@ -1346,7 +1353,7 @@ The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot}
 
 
 \begin{table}[ht]
-	\caption{Convergence Analysis of quadrilateral element} \label{tab: QuadConvergence}
+	\caption{Convergence analysis of displacement for quadrilateral element} \label{tab: QuadConvergence}
 	\begin{tabular}{ c | c | c | c | c | c} 	
 		DOFs & Quad4-Ux & Quad4-Uy & DOFs &Quad8-Ux & Quad8-Uy\\ \hline
 		48 & -0.00078276 & 0.00620667 & 142 & -0.00120593 & 0.00847992  \\ 
@@ -1364,7 +1371,7 @@ The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot}
 \end{table}
 
 \begin{table}[ht]
-	\caption{Convergence Analysis of tetrahedral element} \label{tab: TetConvergence}
+	\caption{Convergence analysis of displacement for tetrahedral element} \label{tab: TetConvergence}
 	\begin{tabular}{ c | c | c | c | c | c | c | c} 	
 		DOFs & Tet4-Ux & Tet4-Uy & Tet4-Uz & DOFs & Tet10-Ux & Tet10-Uy & Tet10-Uz\\ \hline
 		54 & 6.320 & 0 & 0 & 243 & 9.370& 0  & 0 \\ 
@@ -1380,21 +1387,65 @@ The convergence plots of 2D element are depicted in Figure \ref{fig: TriConPlot}
 		\hline  
 	\end{tabular}
 \end{table}
-It is also import to check the convergence of Von Mises stress. Thus we implement the mesh refinements in a 2D/3D geometry with all types of element in ANSYS, then we export the data of node, element and displacement from ANSYS and import them into AMfe Toolbox.  The next step is to run the code to get the computing results for our convergence study: $\sigma_xx$, $\sigma_yy$, $\sigma_xy$.  For a general plane stress case with restrictions $\sigma_3 = 0$, $\sigma_{31} = \sigma_{23} = 0$, Von Mises stress can be derived as: 
+It is also import to check the convergence of Von Mises stress. Thus we implement the mesh refinements in a 2D/3D geometry with all types of element in ANSYS, then we export the data of node, element and displacement from ANSYS and import them into AMfe Toolbox. The next step is to run the code to get the computing results for our convergence study. $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$ are for 2D convergence analysis and $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$, $\sigma_{xy}$, $\sigma_{yz}$, $\sigma_{xz}$ are for 3D convergence analysis.   Then we can use these values to calculate the Von Mises stress: 
+\begin{equation}
+\sigma_v = \sqrt{\frac{1}{2}\left[\left(\sigma_{11}-\sigma_{22}\right)^2 + \left(\sigma_{22}-\sigma_{33}\right)^2 + \left(\sigma_{33}-\sigma_{11}\right)^2 + 6\left({\sigma_{12}}^2 + {\sigma_{23}}^2 + {\sigma_{31}}^2 \right) \right]}
+\end{equation}
+For a general plane stress case with restrictions $\sigma_3 = 0$, $\sigma_{31} = \sigma_{23} = 0$, we can simplify the Von Mises equation as:
 \begin{equation}
 \sigma_v = \sqrt{{\sigma_{11}}^2 - \sigma_{11}\sigma_{22} + {\sigma_{22}}^2 + 3 {\sigma_{12}}^2}
 \end{equation}
+The 2D model is built as shown in Figure \ref{fig: twoDmodel} and the 3D model is built as shown in Figure \ref{fig: threeDmodel}. Table \ref{tab: 2DConvergence} shows the test data of convergence analysis for all element types. Figure \ref{fig: ConPlot} illustrate the relation between the DOFs of mesh and the Von Mises stress of the observer point, which is denoted C in 2D model and is denoted D in 3D model. The three plots in Figure \ref{fig: ConPlot} show that all the element types converges to the exact solution and the elements with higher order(Tri6, Quad8, and Tet10) converges faster than the the one with lower order(Tri3, Quad4, and Tet4). When we compare the two 2D element Tri3 and Quad4, we can find the Quad4 has a higher convergence rate than Tri3. 
 
 \begin{figure}[htbp]
 	\begin{center}	
-		\includegraphics[width=9cm,clip]{convergence.pdf} 			
-		\caption{Convergence analysis} \label{fig: convergence}
+		\includegraphics[width=9cm,clip]{twoDmodel.png} 			
+		\caption{Convergence analysis of Von Mises stress in a 2D model} \label{fig: twoDmodel}
+	\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=7cm,clip]{threeDmodel1.png} 
+	    \includegraphics[width=7cm,clip]{threeDmodel2.png} 			
+		\caption{Left: Top view of the tank; Right: the 1/16 model of the tank, point D is regarded as the observer point for analysis} \label{fig: threeDmodel}
+	\end{center}
+\end{figure}
+
+\begin{table}[ht]
+	\caption{Convergence analysis of Von Mises stress} \label{tab: 2DConvergence}
+	\begin{tabular}{ c | c | c | c | c | c | c | c | c| c |c |c } 	
+		DOFs & Tri3 & DOFs & Tri6 & DOFs & Quad4 & DOFs & Quad8 &DOFs&Tet4&DOFs&Tet10 \\ \hline
+		870 & 1812.47 & 3132 & 2106.11 & 854 & 1979.22& 2372  & 2109.74 &1101&90.07&588&71.33 \\ 
+		2682 & 1952.20 & 10058 & 2127.91 & 2320 & 2074.70&6314 & 2126.62&1725 & 86.24 & 906 & 70.41\\
+		4172 & 1981.88 & 15892 &2130.58 & 3448 & 2096.34&  9890 & 2129.87& 3039 & 73.73 & 1352 & 69.53\\
+		5788 & 2009.47 &  22286 &2133.51 & 4882& 2104.64 &13648 & 2135.88&4440 & 72.34 &  2258 &  69.39\\
+		9354 & 2030.88 &  36028 &2138.76 & 7856 & 2112.48&18340 & 2134.44&5652 & 70.57 &  3396 & 69.21\\
+		10952 & 2039.58 &  42344 &2139.34&  9128 & 2113.38&22036 & 2136.23 &6366 & 70.21 &  4351 & 69.16 \\
+		15490 & 2055.98 &   49044 &2137.02&  12310 & 2118.76&25724 & 2137.70& 10461 & 69.52 & 5243 & 69.13\\
+		27332 & 2073.44 & 60214 &2136.87& 21060 & 2122.70&35096 & 2134.58 & 12342& 69.87& 11721&  69.13\\
+		33770 &  2082.39& - & -  & 26384&2127.35&-&-&-&-&-&-\\
+		45032 & 2106.63 & - & - & 29056&2128.73&-&-&-&-&-&-\\
+		68943 & 2124.15 & - & - &  32548& 2128.16&-&-&-&-&-&-\\
+		- & - & - & - &  36750& 2128.62&-&-&-&-&-&-\\
+		\hline  
+	\end{tabular}
+\end{table}
+
+
+\begin{figure}[htbp]
+	\begin{center}	
+		\includegraphics[width=7cm,clip]{triCon.png} 
+		\includegraphics[width=7cm,clip]{quadCon.png} 	
+        \includegraphics[width=7cm,clip]{tetCon.png} 			
+		\caption{Convergence analysis of Von Mises stress, the analytical solutions are 2147.43$N/mm^2$ for 2D model and 68.94$N/mm^2$ for 3D model} \label{fig: ConPlot}
 	\end{center}
 \end{figure}
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate in AMfe by both algorithm, namely direct evaluation at nodes and extrapolation from Gauss points- stress recovery. The main objective of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. The results from AMfe Toolbox display in ParaView as a Post-Processing tool. It is worth noting that the order of components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import a same colormap for ANSYS and ParaView. However, there exists still a clear chromatic aberration between the plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} show an example to display the color difference. This issue could be fixed when we using an advanced ANSYS version. Figure \ref{fig: Tri3_Exx} - Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri3. From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. Figure \ref{fig: Tri6_Exx} - Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tri6. The plots show that the solution by algorithm with stress recovery is relative close to the ANSYS solution, the algorithm without stress recovery has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. Figure \ref{fig: Quad4_Exx} - Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad4. We can observe that the plot by stress recovery is close to ANSYS plot. The deviation of plot of the both algorithm appears at some position as it shown in Plots with Tri6.  Figure \ref{fig: Quad8_Exx} - Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8. The comparison is similar as in plots meshing with Quad4. Figure \ref{fig: Tet4_Exx} - Figure \ref{fig: Tet4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet4. The plots represents that there is no difference between the both algorithm in AMfe. The both solution of AMfe have a relative bad performance in shear strain/stress than normal strain/stress. Figure \ref{fig: Tet10_Exx} - Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet10. Tet10 has a same problem as Tet4, the solutions in shear components appear not good. The plots also show that the solutions with stress recovery has a better performance than the solutions algorithm without stress recovery. In generally, the algorithm without stress recovery has a bigger derivation in compare to the algorithm with stress recovery.  
+The patch test is only applicable to the simple models, it is meaningful how these element type behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate in AMfe by both algorithm, namely, direct evaluation at nodes and extrapolation from Gauss points, namely, Stress-Recovery-Algorithms. The main objective of complex model test is to compare the strain and stress contour plot of each element type in ANSYS and in AMfe Toolbox with both algorithm. Furthermore, the comparison between the two algorithm is also significant for our research. The results from AMfe Toolbox display in ParaView as a Post-Processing tool. It is worth noting that the order of components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import a same color map for ANSYS and ParaView. However, there exists still a clear chromatic aberration between the contour plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} shows an example to display the color difference. This issue may be fixed when we using an advanced ANSYS version, because ANSYS 12.0, which we use in this paper, can only offers a 7-bit color in color map. Figure \ref{fig: Tri3_Exx} to Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri3 and the contour plot from ANSYS is meshed with element PLANE42(triangular option). According to the documentation of ANSYS 
+From the comparison we can find that there is no difference between the both algorithm in AMfe. The results of all components are very similar to the ANSYS solution. Figure \ref{fig: Tri6_Exx} to Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri6 and the contour plot from ANSYS is meshed with element PLANE2 The plots show that the solution by algorithm with stress recovery is relative close to the ANSYS solution, the algorithm without stress recovery has a higher strain and stress than ANSYS solution at corner points and the inner side of circle. Figure \ref{fig: Quad4_Exx} to Figure \ref{fig: Quad4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad4. We can observe that the plot by stress recovery is close to ANSYS plot. The deviation of plot of the both algorithm appears at some position as it shown in Plots with Tri6.  Figure \ref{fig: Quad8_Exx} to Figure \ref{fig: Quad8_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Quad8. The comparison is similar as in plots meshing with Quad4. Figure \ref{fig: Tet4_Exx} to Figure \ref{fig: Tet4_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet4. The plots represents that there is no difference between the both algorithm in AMfe. The both solution of AMfe have a relative bad performance in shear strain/stress than normal strain/stress. Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction, which is meshed with Tet10. Tet10 has a same problem as Tet4, the solutions in shear components appear not good. The plots also show that the solutions with stress recovery has a better performance than the solutions algorithm without stress recovery. In generally, the algorithm without stress recovery has a bigger derivation in compare to the algorithm with stress recovery.  
 
 \begin{figure}[htbp]
 	\begin{center}
