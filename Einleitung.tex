@@ -4,9 +4,10 @@
 
 \section{Motivation} \label{sec:Einl:Motivation}
 The Finite Element Method (FEM) is a numerical technique for finding approximate solutions to boundary value problems for partial differential equations. FEM contains linear FEM and non-linear FEM. 
-Linear analysis follows the equation $K\cdot D = F$, in which $K$ stands for stiffness matrix, $D$ stands for  displacement, and $F$ stands for force. It means that the correlation of force and displacement is linear. This relation between force and displacement is only valid for materials that have elastic linear property. But in real situation, elastic materials such as steel has also non- linear region. (see the Figure \ref{fig: nonlinear}). The property of steel is elastic linear up until yield point. Then the steel is yielding and becomes non-linear. Non-linear states include geometry non-linear and material non-linear. The example in Figure \ref{fig: nonlinear} describes a non-linear case and it also the main topic of this thesis. In the fields of engineering and science, FEM is a powerful tool in producing strength visualization and can help engineers to minimize weight, materials and costs. The accuracy of solution are only limited by the quality of model and by the available computational power.  Ever since the computational power has been improved enormously, the FEM software has offered a wide range of simulations of complex model designs and system analyses.  \newline
-AMfe is a nonlinear finite element code for structural application at the chair of applied mechanics in Technical University of Munich. AMfe Toolbox is developed in Python and Fortran. Python is a high-level, interpreted, and dynamically-typed programming language.  There are many numerical packages built on Python, such as Numpy, Scipy, Pandas. These packages provide high-performance and easy to use data structures, both of which match the FEM developing work. The fact that Python is a high-level programming language makes it less time-consuming to develop the code. However, Python is slow for repeated execution of low-level task. Each Python operation comes with a small type-checking overhead, and when many repeated small operations add up, the overhead becomes significant. For this reason, A part of the AMfe code is rewritten in Fortran. Fortran is a general-purpose and imperative programming language that is specially tailored for numeric computation and scientific computing. Therefore, the combination of Python and Fortran retains the advantages of both - the easy-to-develop nature of Python and the fast numeric computation in Fortran. The aim of AMfe Toolbox is to solve and analyse FEM problems, especially structural mechanical problems.
-The toolbox contains several modules with different functions to solve problems step by step. A simple structure of AMfe is depicted in Figure \ref{fig: Overview2}. Displacement, stress, and strain are three important factors in structural mechanical engineering. The function for calculating nodal displacements is completed in AMfe Toolbox, but functions for calculating nodal stress and strain remain blank. Strain and stress calculations are important in structural mechanical analysis and geometric design. For this reason, functions for solving of stress and strain will be added to AMfe Toolbox. When strain and stress calculations are completed, the aim of research is then shifted to improving the accuracy of these results. In order to do so, stress recovery is an approach to extrapolate the element solution to nodal solution. The goal is to be as accurate as possible in the computed displacements while keeping the computational effort reasonable. When the most important functions are completed and running well, it is time to check if AMfe Toolbox exports the reasonable results. The results of stress and strain from AMfe Toolbox will be compared with a commercial FEM software - ANSYS. The comparison of each element type will be recorded and discussed. 
+Linear analysis follows the equation $K\cdot D = F$, in which $K$ stands for stiffness matrix, $D$ stands for  displacement, and $F$ stands for force. It means that the correlation of force and displacement is linear. This relation between force and displacement is only valid for materials that have elastic linear property. But in real situation, elastic materials such as steel has also non- linear region (see the Figure \ref{fig: nonlinear}). The property of steel is elastic linear up until yield point. Then the steel is yielding and becomes non-linear. Non-linear states include geometry non-linear and material non-linear. The example in Figure \ref{fig: nonlinear} describes a non-linear case and it also the main topic of this thesis. According to the introduction of Tirupathi R. et al. [\cite{FEintro}], in the fields of engineering and science, FEM is a powerful tool in producing strength visualization and can help engineers to minimize weight, materials and costs. The accuracy of solution are only limited by the quality of model and by the available computational power.  Ever since the computational power has been improved enormously, the FEM software has offered a wide range of simulations of complex model designs and system analyses.  \newline
+AMfe is a nonlinear finite element code for structural application at the chair of applied mechanics in Technical University of Munich. AMfe Toolbox is developed in Python and Fortran. Python is a high-level, interpreted, and dynamically-typed programming language.  There are many numerical packages built on Python, such as Numpy, Scipy, Pandas. These packages provide high-performance and easy-to-use data structures, both of which match the FEM developing work. The fact that Python is a high-level programming language makes it less time-consuming to develop the code. However, Python is slow for repeated execution of low-level task. Each Python operation comes with a small type-checking overhead, and when many repeated small operations add up, the overhead becomes significant. For this reason, A part of the AMfe code is rewritten in Fortran. Fortran is a general-purpose and imperative programming language that is specially tailored for numeric computation and scientific computing. Therefore, the combination of Python and Fortran retains the advantages of both easy-to-develop nature of Python and fast numeric computation in Fortran. The aim of AMfe Toolbox is to solve and analyse FEM problems, especially structural mechanical problems.
+The toolbox contains several modules with different functions to solve problems step by step. A simple structure of AMfe is depicted in Figure \ref{fig: Overview2}. Displacement, stress, and strain are three important factors in structural mechanical engineering. The function for calculating nodal displacements is completed in AMfe Toolbox, but functions for calculating nodal stress and strain remain blank. Strain and stress calculations are important in structural mechanical analysis and geometric design. For this reason, functions for solving of nodal stress and strain will be added to AMfe Toolbox. When the strain and stress at Gauss points are completed, the aim of research is then extrapolate them to corner nodes and  shifted to improving the accuracy of these results. In order to do so, we can develop the Stress-Recovery-Algorithms, which is an approach to extrapolate the element solution to nodal solution. When the functions for computing of the nodal strain and stress are completed, it is time to check if AMfe Toolbox exports the reasonable results. The results of nodal stress and strain from AMfe Toolbox will be compared with the results from a commercial FEM software-ANSYS. In addition, a further comparison and discussion will be investigated between the results from Stress-Recovery-Algorithms and the results from Direct-Evaluation-Algorithms, which directly evaluates the stress at nodes. This comparison between this two algorithms will show us the impact of Stress-Recovery-Algorithms on the element types: Tri3, Tri6, Quad4, Quad8, Tet4, and Tet10.
+
 
 \begin{figure}
 	\begin{center}
@@ -19,19 +20,21 @@ The toolbox contains several modules with different functions to solve problems 
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=12cm,clip]{Overview.pdf}			
-		\caption{Flow chart of structure} \label{fig: Overview}
-	\end{center}
-\end{figure}
-
-\begin{figure}
-	\begin{center}
 		\includegraphics[width=12cm,clip]{Overview2.pdf}			
 		\caption{Overview of this essay structure} \label{fig: Overview2}
 	\end{center}
 \end{figure}
 
-This study can be divided into three parts.  Figure \ref{fig: Overview} shows the structural flow chart in this study. The first part is marked with a green box. The main function for this part is to export the data of a meshed geometry using ANSYS Parametric Design Language(APDL) code and import the data into the AMfe Toolbox. This procedure, which is called Pre-Processing, is the first step in solving a problem in Finite Element Analysis. This step also ensures the analyses from both ANSYS and AMfe Toolbox have the same set of elements and nodes. The processing step comes next, which is marked with a yellow box. AMfe Toolbox has several modules with different functions. These modules combined provides all calculation functions needed for processing. This study is focusing on calculating stress and strain. The last part marked by blue is to check the accuracy of strain and stress using different types of elements.
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=12cm,clip]{Overview.pdf}			
+		\caption{Flow chart of structure} \label{fig: Overview}
+	\end{center}
+\end{figure}
+
+
+
+This study can be divided into three parts.  Figure \ref{fig: Overview} shows the structural flow chart in this study. The first part is marked with a green box. The main function for this part is to export the data of a meshed geometry using ANSYS Parametric Design Language (APDL) code and import them into the AMfe Toolbox. This procedure, which is called Pre-Processing, is the first step in solving a problem in Finite Element Analysis. This step also ensures the analyses from both ANSYS and AMfe Toolbox have the same set of elements and nodes. The processing step comes next, which is marked with a yellow box. AMfe Toolbox has several modules with different functions. These modules combined provides all calculation functions needed for processing. This study is focusing on calculating stress and strain. The last part marked by blue is to check the accuracy of the nodal strain and stress, which the model is meshed with different element types in AMfe Toolbox.
 
 \chapter{Numerical Aspect for Finite Element Formulation}
 \section{Shape Function}
@@ -46,7 +49,7 @@ The goal of the AMfe Code in the structural mechanical field is to get the appro
 
 
 for $i$, $j$ = 1,...,n. \\
-In Figure \ref{fig: shape_func}, linear and quadratic shape functions are expressed together with corresponding node positions. When referring to an element with three nodes, as shown in the right of Figure \ref{fig: shape_func}, there are three restrictions for each shape functions:
+In Figure \ref{fig: shape_func}, linear and quadratic shape functions are expressed together with corresponding node positions. When referring to an element with three nodes, as shown in the right of Figure \ref{fig: shape_func}, there are three restrictions for each shape function:
 
 \begin{figure}
 	\begin{center}
@@ -64,16 +67,16 @@ For quadratic polynomial, the shape function has three coefficients, and it can 
 \begin{center}
 	$p_{quad}\left(\xi\right) = c_0 + c_1\xi + c_2\xi^2$
 \end{center}
-According to the work of W. A. Wall [\cite{FiniteElement} p. 75], Lagrange polynomials are a general group of polynomials with the node undermentioned association property: a Lagrange polynomial $l_k^n-1$ of order $n-1$ transits $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ equals one $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node equals zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
+According to the work of W. A. Wall [\cite{FiniteElement} p.75] and the work of Atkinson, Kendell A. [\cite{Lagrange}], Lagrange polynomials are a general group of polynomials with the node undermentioned association property: a Lagrange polynomial $l_k^n-1$ of order $n-1$ transits $n$ nodes with coordinates $\bar{\xi^j}\left(j = 1,...,n\right)$ of which the single node $k$ equals one $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=1\right)$ and every other node equals zero $\left(l_k^{n-1} \left(\bar{\xi^k}\right)=0  \quad \text{for all} \quad j \neq k\right)$ .
 
 \begin{center}
 	$l_k^{n-1} \left( \xi \right) = \prod_{j = 1, j \neq k}^{n} \frac{\xi - \bar{\xi^1}}{\bar{\xi^k - \bar{\xi^j}}} = \frac{\left(\xi - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \xi - \bar{\xi}^{k-1}\right) \left(\xi - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\xi -\bar{\xi}^n\right)}{\left(\bar{\xi}^k - \bar{\xi}^1\right)\cdot\cdot\cdot \left( \bar{\xi}^k - \bar{\xi}^{k-1}\right) \left(\bar{\xi}^k - \bar{\xi}^{k+1}\right)\cdot\cdot\cdot \left(\bar{\xi}^k -\bar{\xi}^n\right)}$ \\[4mm] \quad $k = 1,2....,n$
 \end{center}
-For instance, to calculate linear, i.e. order 1, Lagrange polynomials can be calculated by $n-1=1$ $\Rightarrow$ $n=2$. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ we can get the shape functions as: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
+As an instance to calculate linear shape functions, Lagrange polynomials can be obtained by $n-1=1$ $\Rightarrow$ $n=2$. Using $\bar{\xi}^1 = -1$ and $\bar{\xi}^2 = +1$ we can get the shape functions as: $l_1^1\left(\xi\right) = -1/2\left(\xi - 1\right)$ and $l_2^1\left(\xi\right) = 1/2\left(\xi + 1\right)$.
 Then the linear shape functions can be simply constructed as $N_1 =l_1^1 = 1/2\left(1-\xi\right)$ and $N_2 = l_2^1 = 1/2\left(1+\xi\right)$.
 
 \subsection{Triangular and Tetrahedral Elements}
-According to the work of Carlos A. Felippa [\cite{Felippa} p.79], triangular and tetrahedral elements have higher flexibility than that of quadrilateral and hexahedral elements in meshing complex geometries, thus the former is often preferred to the latter. The shape functions can be solved by an analogous method, but triangular and tetrahedral elements are expressed in area and volume coordinates, respectively. Figure \ref{fig: tri&tet} shows the geometries and shape functions. A visualization of the coordinates representing area and volume fractions is expressed below:
+According to the work of Carlos A. Felippa [\cite{Felippa} p.79], triangular and tetrahedral elements have higher flexibility than that of quadrilateral and hexahedral elements in meshing complex geometries, thus the former is often preferred to the latter. The shape functions can be solved by an analogous method, but triangular and tetrahedral elements are expressed in area and volume coordinates, respectively. Figure \ref{fig: tri&tet} shows the geometries and shape functions of the triangular and tetrahedral element. A visualization of the coordinates representing area and volume fractions is expressed below:
 \begin{center}
 	$L_1 = \frac{\text{area}P23}{\text{area}123}$, \quad $V_1 = \frac{\text{area}P234}{\text{area}1234}$ \\[4mm]
 	$\sum L_i = 1$ \quad\quad $\sum V_i = 1$
@@ -82,7 +85,7 @@ According to the work of Carlos A. Felippa [\cite{Felippa} p.79], triangular and
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=11cm,clip]{Tri&Tet.pdf}			
-		\caption{triangular and tetradral elemnets.} \label{fig: tri&tet}
+		\caption{Geometries and shape functions of triangular and tetradral elemnets.} \label{fig: tri&tet}
 	\end{center}
 \end{figure}
 
@@ -104,11 +107,11 @@ We can denote the coordinate of this element as vector $\textbf{\textit{X}}^e$. 
 X_1 & Y_1 & Z_1           \\[0.3em]
 X_2 & Y_2 & Z_2             \\[0.3em]
 X_3 & Y_3 & Z_3           \\[0.3em]
-X_4 & Y_4 & Z_5          \\[0.3em]
-X_5 & Y_5 & Z_6                            
+X_4 & Y_4 & Z_4          \\[0.3em]
+X_5 & Y_5 & Z_5                            
 \end{pmatrix}
 \end{equation}	
-The coordinates $\textbf{\textit{X}}$ of this element in the initial configuration relies on the local coordinate of the element $\xi$ and the shape function $\textbf{\textit{N}}$. It can be described as:
+The coordinates $\textbf{\textit{X}}$ of this element in the initial configuration relies on the local coordinate of the element $\xi$ and the shape function $\textbf{\textit{N}}$. Thus, $\textbf{\textit{X}}$ can be formed as:
 \begin{equation}
 \textbf{\textit{X}}  \left(\xi\right) = \begin{pmatrix}
 X \\
@@ -126,7 +129,7 @@ N_4 \\
 N_5 
 \end{pmatrix}
 \end{equation} 
-The displacements $\textbf{\textit{u}}$ at any points of the element are interpolated from the nodal coordinate, in the same manner that was completed for the coordinate  $\textbf{\textit{X}}$ above. Then the displacement field can be shown as:
+The displacements $\textbf{\textit{u}}$ at any points of the element are interpolated from the nodal coordinate and it can be constructed in the same manner as  $\textbf{\textit{X}}$ above. Then the displacement field can be shown as:
 \begin{equation}
 \textbf{\textit{u}}\left(\xi\right) = \begin{pmatrix}
 u_x\left(\xi\right) \\
@@ -144,11 +147,11 @@ N_4 \\
 N_5 
 \end{pmatrix}
 \end{equation}
-This approach is called the isoparametric concept, which makes it possible to present  the parameters at any given point within an element. The magnitude of parameters at a one of such points can be calculated through both the known values of parameters and shape functions at each node. An example of displacements can be formed like this:
+This approach is called the isoparametric concept, which makes it possible to present  the parameters at any given point within an element. The magnitude of parameters at a one of such points can be calculated through both the known values of parameters and shape functions at each node. For calculating the derivative of a parameter, we can firstly calculate the derivative of the shape functions for this parameter. As an instance, the derivative of the displacement can be formed as: 
 \begin{equation}
 \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}
 \end{equation}
-The deviation of a parameter can be passed to the shape function. Through this approach, we can define a new term $\tilde{\textbf{\textit{B}}_0} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}}$. The expansion of $\tilde{\textbf{\textit{B}}_0}$ can be derived as:
+The derivative of a parameter can be passed to the shape function. Through this approach, we can define a new term $\tilde{\textbf{\textit{B}}_0} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}}$. The expansion of $\tilde{\textbf{\textit{B}}_0}$ can be derived as:
 \begin{equation} \label{eq: B_0}
 \frac{\partial \textbf{\textit{N}}}{\partial \textbf{\textit{X}}} = \tilde{\textbf{\textit{B}}_0} = \begin{pmatrix}
 \frac{\partial N_1}{\partial X} & \frac{\partial N_1}{\partial Y} & \frac{\partial N_1}{\partial Z} \\
@@ -177,20 +180,20 @@ The deformation gradient $\textbf{\textit{F}}$ describes the mapping of an infin
 \begin{equation} \label{eq: E_eq}
 \textbf{\textit{E}} = \frac{1}{2} \left(\textbf{\textit{F}}^T \textbf{\textit{F}} - \textbf{\textit{I}}\right)
 \end{equation}
-The transient matrix $\textbf{\textit{H}}$ can be expressed in more details as:
+The transient matrix $\textbf{\textit{H}}$ can be expressed in more detail as:
 \begin{equation} \label{eq: Help_matrix}
 \textbf{\textit{H}} = \frac{\partial \textbf{\textit{u}}}{\partial \textbf{\textit{X}}} = \frac{\partial \textbf{\textit{u}}}{\partial \boldsymbol{\xi}} \frac{\partial \boldsymbol{\xi}}{\partial \textbf{\textit{X}}} = \left(\textbf{\textit{u}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}} \left[ \left(\textbf{\textit{X}}^e\right)^T \frac{\partial \textbf{\textit{N}}}{\partial \boldsymbol{\xi}}\right]^{-1}
 \end{equation}
- When we have result for strain $\textbf{\textit{E}}$, It is possible to calculate stress $\textbf{\textit{S}}$. One simply constitutive equation between stress $\textbf{\textit{S}}$ (2. Piola-Kirchhoff-Stress tensor) and $\textbf{\textit{E}}$ (Green-Lagrange-Strain tensor) can be formulated as:
+ When we have result for strain $\textbf{\textit{E}}$, it is possible to calculate stress $\textbf{\textit{S}}$. One simply constitutive equation between stress $\textbf{\textit{S}}$ (2. Piola-Kirchhoff-Stress tensor) and $\textbf{\textit{E}}$ (Green-Lagrange-Strain tensor) can be formulated as:
 \begin{equation}
 \textbf{\textit{S}} = \textbf{\textit{C}} : \textbf{\textit{E}}
 \end{equation}
-The value of stress is subsequently transferred into the degrees of freedom(DOFs) at each nodes. The principle for stress calculation can be formulated as follows:\\
+The value of stress is subsequently transferred into the degrees of freedom (DOFs) at each node. The principle for stress calculation can be formulated as follows:
 In the Total Lagrange approach, the principle of virtual work represents that the internal strain energy $\delta \textbf{\textit{W}}_{int} = \int \boldsymbol{\sigma} : \delta \boldsymbol{\epsilon} \mathrm{d}\Omega_0 = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0$ equals the external energy $\delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{nl}^v$, which is caused by external nodal force. The complete equation can be expressed as:
 \begin{equation} \label{eq: W}
 \delta \textbf{\textit{W}} = \delta \textbf{\textit{W}}_{ext} = \left(\delta \textbf{\textit{u}}^{e,v}\right)^T \textbf{\textit{f}}_{int}^v = \int \textbf{\textit{S}} : \delta \textbf{\textit{E}} \mathrm{d}\Omega_0 = \int \left( \delta \textbf{\textit{E}}^v\right)^T \textbf{\textit{S}}^v \mathrm{\Omega_0}
 \end{equation}
-The internal deformation energy can be computed by matrix-vector-product in voigt-notation or direct product of two matrix with notation (:). Now, we evaluate the variation of Green-Lagrange strain tensor $\delta \textbf{\textit{E}}$. From equation \ref{eq: E_eq}, it is obvious that the variation of tensor $\delta \textbf{\textit{E}}$ is determined by the variation of deformation gradient. According to above equation \ref{eq: Help_matrix}, the variation of deformation gradient can be transformed into:
+The internal deformation energy can be computed by matrix-vector-product in voigt-notation or direct product of two matrix with notation (:). Now, we evaluate the variation of Green-Lagrange strain tensor $\delta \textbf{\textit{E}}$. From Equation \ref{eq: E_eq}, it is obvious that the variation of tensor $\delta \textbf{\textit{E}}$ is determined by the variation of deformation gradient. According to above Equation \ref{eq: Help_matrix}, the variation of deformation gradient can be transformed into:
 \begin{equation}
 \delta \textbf{\textit{F}} = \delta \textbf{\textit{H}} = \left(\delta \textbf{\textit{u}}^e\right)^T \frac{\delta \textbf{\textit{N}}}{\delta \textbf{\textit{X}}} = \left(\delta \textbf{\textit{u}}^e\right)^T \tilde{\textbf{\textit{B}}_0}
 \end{equation}
@@ -213,11 +216,11 @@ The non-linear internal force of element concerning the coordinate of node can b
 \begin{equation} \label{K}
 \frac{\partial \textbf{\textit{f}}_{int}^v}{\partial \textbf{\textit{u}}^{e,v}} = \textbf{\textit{K}} = \int \frac{\partial \textbf{\textit{B}}_0^T}{\partial \textbf{\textit{u}}^{e,v}} \textbf{\textit{S}}^v \mathrm{d}\Omega_0 + \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \textbf{\textit{K}}_{geo} + \textbf{\textit{K}}_{mat}
 \end{equation}
-Stiffness matrix can be divided into two terms, one of the terms is the material stiffness matrix $\textbf{\textit{K}}_{amt}$, which is shown as:
+Stiffness matrix can be divided into two terms, one of the terms is the material stiffness matrix $\textbf{\textit{K}}_{mat}$, which is shown as:
 \begin{equation}
 \textbf{\textit{K}}_{mat} = \int \textbf{\textit{B}}_0^T \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{u}}^{e,v}}\mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T\frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v} \frac{\partial \textbf{\textit{E}}^v}{\partial \textbf{\textit{u}}^{e,v}} \mathrm{d}\Omega_0 = \int \textbf{\textit{B}}_0^T \textbf{\textit{C}}^{SE} \textbf{\textit{B}}_0 \mathrm{d}\Omega_0
 \end{equation}
-The derivative of stress in respect to strain is considered as Tangent-Modulus $\textbf{\textit{C}}^{SE} = \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v}$ by constitutive equation. The derivative of strain is $\textbf{\textit{B}}_0$ as determined in equation \ref{eq: E_eq}. \\
+The derivative of stress in respect to strain is considered as Tangent-Modulus $\textbf{\textit{C}}^{SE} = \frac{\partial \textbf{\textit{S}}^v}{\partial \textbf{\textit{E}}^v}$ by constitutive equation. The derivative of strain is $\textbf{\textit{B}}_0$ as determined in Equation \ref{eq: E_eq}. \\
 The other term, the geometrical stiffness matrix, is much more complex to derive. In short, based on the relation between deformation gradient and continuum mechanics $\textbf{\textit{P}} = \textbf{\textit{S}}\textbf{\textit{F}}^T$, the internal energy from Equation \ref{eq: W} is reformulated into:  
 \begin{equation}
 \delta \textbf{\textit{W}} = \textbf{\textit{u}}^e : \textbf{\textit{f}}_{int} = \int \delta \textbf{\textit{F}}^T : \textbf{\textit{P}} \mathrm{d}\Omega_0 = \int \delta \textbf{\textit{F}}_{ij} \textbf{\textit{P}}_{ji} \mathrm{d}\Omega_0
@@ -229,11 +232,11 @@ The variation of deformation gradient can be written as $\delta \textbf{\textit{
 \begin{equation}
 \textbf{\textit{f}}_{int} = \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{P}} \mathrm{d}\Omega_0
 \end{equation}
-The tangential stiffness matrix is determined by variation of the force vector, which is determined by the velocity of nodal displacement $\dot{\textbf{\textit{u}}}^e$. Because Jacobian Matrix is relatively complex to build, the derivative of internal force $\dot{\textbf{\textit{f}}}_{int}$in time is as follows:
+The tangential stiffness matrix is determined by the variation of the force vector, which is determined by the velocity of nodal displacement $\dot{\textbf{\textit{u}}}^e$. Because Jacobian Matrix is relatively complex to build, the derivative of internal force $\dot{\textbf{\textit{f}}}_{int}$in time is as follows:
 \begin{equation} \label{eq: f_int}
 \dot{\textbf{\textit{f}}_{int}} = \int \tilde{\textbf{\textit{B}}_0} \dot{\textbf{\textit{S}}} \textbf{\textit{F}}^T \mathrm{d}\Omega_0 + \int \tilde{\textbf{\textit{B}}_0} \textbf{\textit{S}} \dot{\textbf{\textit{F}}^T} \mathrm{d}\Omega_0
 \end{equation}
-The first term corresponds to material stiffness because the time derivative of second Piola-Kirchhoff-Stress tensor is time-dependent part. And the second term conresponds to geometrical stiffness, as is shown in equation \ref{K}. Because the time derivative $\dot {\textbf{\textit{F}}}$ equals $\dot{\textbf{\textit{u}}^e}^T \tilde{\textbf{\textit{B}}_0}$, Equation \ref{eq: f_int} can be transformed as:
+The first term corresponds to material stiffness because the time derivative of second Piola-Kirchhoff-Stress tensor is time-dependent part. And the second term conresponds to geometrical stiffness, as is shown in Equation \ref{K}. On account of the time derivative $\dot {\textbf{\textit{F}}}$ equals $\dot{\textbf{\textit{u}}^e}^T \tilde{\textbf{\textit{B}}_0}$, Equation \ref{eq: f_int} can be transformed as:
 \begin{equation}
 \dot{\textbf{\textit{f}}}_{int,geo} = \int \tilde{\textbf{\textit{B}}}_0 \textbf{\textit{S}} \tilde{\textbf{\textit{B}}}_0 \mathrm{\Omega_0} \dot{\textbf{\textit{u}}}^e
 \end{equation}
@@ -245,7 +248,7 @@ The last step in determining the non-linear force and the tangential stiffness m
 \begin{equation}
 \int {\textbf{\textit{f}}}\left(x\right) \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \boldsymbol{\xi}}{\partial \boldsymbol{\xi}} \mathrm{d}\Omega = \int {\textbf{\textit{f}}}\left(x\right) \frac{\partial \Omega}{\partial \boldsymbol{\xi}} \mathrm{d}\boldsymbol{\xi} = \int {\textbf{\textit{f}}}\left(x\right) det \left(\frac{\partial X}{\partial \boldsymbol{\xi}}\right) \mathrm{d}\boldsymbol{\xi}
 \end{equation}
-Numerical integration plays an important role in FEM. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  According to the work of W. A. Wall [\cite{FiniteElement} p.73], a clear expression of Gauss integration is:
+We can find from the above formulation of FEM that the numerical integration plays an important role. Here we introduce Gauss integration in solving the FEM problems. Gauss integration is an efficient approach compared to other numerical integration approaches. It integrates a function $\textbf{\textit{f}}(\boldsymbol{\xi})$ on the spatial domain $\Omega$ by replacing a summation of certain function values at the so-called Gauss points $\tilde{\boldsymbol{\xi}}$ that are each multiplied by a scalar (weight) $\boldsymbol{\omega}$.  According to the work of W. A. Wall [\cite{FiniteElement} p.73], a clear expression of Gauss integration is:
 \begin{equation}
 \int \limits_E {\textbf{\textit{f}}} \left(\boldsymbol{\xi}\right) \mathrm{d\boldsymbol{\xi_1}}\mathrm{d\boldsymbol{\xi_2}}\mathrm{d\boldsymbol{\xi_3}} = \displaystyle\sum_{i=1}^{numgp_1}\displaystyle\sum_{j=1}^{numgp_2} \displaystyle\sum_{k=1}^{numgp_3} f\left(\tilde{\boldsymbol{\xi_1^i}}\tilde{\boldsymbol{\xi_2^j}}\tilde{\boldsymbol{\xi_3^k}}\right)\cdot w_1^i w_2^j w_3^k
 \end{equation}
@@ -277,21 +280,21 @@ In this expression, the corresponding weights are applied for each of the three 
 
 \section{Stress Recovery}
 \subsection{Extrapolation of Stress from Gauss points}
-Stress recovery is an approach to achieve an approximation of nodal stress by extrapolation of stress from Gauss points. This method is regarded as advanced technique with respect to the method, which direct evaluates the stress at nodes. In this paper, we name the latter method as Direct-Evaluation-Algorithms. According to the research of Carlos A. Felippa [\cite{Felippa} section 28, p.5],  when referring to the Direct-Evaluation-Algorithms, the relative error are typically 10\% to 20\%, this is the main reason why we use the Stress-Recovery-Algorithms. An example in Figure \ref{fig: DirectCalculation} is good to describe the procedure of calculation. We have a quadrangle with quadratic shape function. Its four nodes are denoted as 1, 2, 3, 4. The Gauss points in this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$. The shape functions of each Gauss points can be written in: 
+Stress recovery is an approach to achieve an approximation of nodal stress by extrapolation of stress from Gauss points. This method is regarded as advanced technique with respect to the method, which direct evaluates the stress at nodes. In this paper, we name the latter method as Direct-Evaluation-Algorithms. According to the research of Carlos A. Felippa [\cite{Felippa} section 28, p.5],  when referring to the Direct-Evaluation-Algorithms, the relative error are typically 10\% to 20\%, this is the main reason why we develop the Stress-Recovery-Algorithms. An example in Figure \ref{fig: DirectCalculation} is good to describe the following calculations. We have a quadrangle with quadratic shape function. Its four nodes are denoted as 1, 2, 3, 4. The Gauss points in this element are denoted as $1'$, $2'$, $3'$, $4'$. The position of each Gauss points are ${\xi_i}'$, ${\eta_i}'$ $\left(i = 1, 2, 3, 4\right)$. The shape functions of each Gauss point can be written in: 
 \begin{equation}
-{N_1}' \left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 - {\xi}'\right) \times \left(1 - {\eta}' \right) 
+{N_1}' \left(\xi',\eta'\right) = \frac{1}{4}\cdot\left(1 - {\xi}'\right) \cdot \left(1 - {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-{N_2}'\left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 + {\xi}'\right) \times \left(1 - {\eta}' \right) 
+{N_2}'\left(\xi',\eta'\right) = \frac{1}{4}\cdot\left(1 + {\xi}'\right) \cdot \left(1 - {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-{N_3}'\left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 + {\xi}'\right) \times \left(1 + {\eta}' \right) 
+{N_3}'\left(\xi',\eta'\right) = \frac{1}{4}\cdot\left(1 + {\xi}'\right) \cdot \left(1 + {\eta}' \right) 
 \end{equation}  
 
 \begin{equation}
-{N_4}' \left(\xi',\eta'\right) = \frac{1}{4}\times\left(1 - {\xi}'\right) \times \left(1 + {\eta}' \right) 
+{N_4}' \left(\xi',\eta'\right) = \frac{1}{4}\cdot\left(1 - {\xi}'\right) \cdot \left(1 + {\eta}' \right) 
 \end{equation}
 We assume that the stress at Gauss points have been already calculated out in previous step and they can written as ${\sigma_1}'$, ${\sigma_2}'$, ${\sigma_3}'$, ${\sigma_4}'$. The nodal stress components are calculated by a bilinear extrapolation based on the given values at Gauss points. We replacing the coordinates of nodal points into the shape functions of Gauss points for calculating the nodal stress, which can be derived as:   
 \begin{equation}
@@ -341,7 +344,7 @@ Then we can form them as:
 \end{figure}
 
 \subsection{Quadrilateral element with four nodes: Quad4} \label{Quad4}
-Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes with two degrees of freedom (DOFs) at each node: translations in the nodal $x$ and $y$ directions. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.6], the components(strain, stress) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$, and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}, here we have the coordinate relation of components for Quad4:
+Quad4 is used for 2D modelling of solid structure. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes with two degrees of freedom (DOFs) at each node: translations in the nodal $x$ and $y$ directions. The normal Gauss integration rule for element stiffness evaluation is 2 $\times$ 2, as is illustrated in Figure \ref{fig: Quad4_1}. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.6], the components(strain, stress) are calculated at the Gauss points and are identified as $k_1^G$, $k_2^G$, $k_3^G$ ,and $k_4^G$ in Figure \ref{fig: Quad4_1}. Point $k_i^G$ is closest to node $k_i^E$, and other Gauss point numbering follows element node numbering in the same counterclockwise manner. The natural coordinates of these points are listed in Table \ref{tab: Quad4}. The components are calculated at these Gauss points, at which strain and stress attain best approximated solutions. Then each strain and stress component is transported to the corner nodes $k_1^E$ through $k_4^E$ by a bilinear extrapolation based on the computed values at $k_1^G$ through $k_4^E$. To understand the extrapolation procedure more clearly, we should consider the region bounded by the Gauss points as an internal Gauss element. This interpretation is depicted in Figure \ref{fig: Quad4_1}. The external element is denoted by (E). The internal Gauss element, denoted by (G), is also a four-node quadrilateral. The coordinate of node for element and Gauss element can be represented as $k_i^G$ and $k_i^E$, respectively. The natural coordinates are denoted by $\xi$ and $\eta$, and the internal Gauss coordinates are denoted by $\xi^{\prime}$ and $\eta^{\prime}$.  Both coordinates follow the simple relations from Gauss-Legendre quadrature in Table \ref{tab: Quad4}, here we have the coordinate relation of components for Quad4:
 \begin{equation}
 k_i^G = \frac{k_i^E}{\sqrt{3}},\quad
 k_i^E= k_i^G\sqrt{3}
@@ -361,29 +364,22 @@ k_i^E= k_i^G\sqrt{3}
 	\end{center} 
 \end{figure}
 
-\begin{figure}[h]
-	\begin{center}
-		\includegraphics[width=8cm,clip]{Quad4_basic.pdf}			
-		\caption{Equation of side opposite corner 1 for Quad4.} \label{fig: Quad4_basic}
-	\end{center} 
-\end{figure}
-
 \begin{table}
 	\centering
-	\caption{Natural Coordinate of Quad4}
+	\caption{Element coordinate and Gauss element coordinate for Quad4}
 	\label{tab: Quad4}
 	\begin{tabular}{p{1cm}ccccp{1cm}cccc}			
 		\hline
 		Corner node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$& Gauss node\centering& $\xi$& $\eta$& $\xi'$& $\eta'$ \\
 		\hline
-		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& +1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
-		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& +1/$\sqrt{3}$& +1/$\sqrt{3}$& +1& -1 \\
+		1\centering& -1& -1& $-\sqrt{3}$& $-\sqrt{3}$& 1'\centering& -1/$\sqrt{3}$& -1/$\sqrt{3}$& -1& -1 \\
+		2\centering& +1& -1& $+\sqrt{3}$& $-\sqrt{3}$& 2'\centering& +1/$\sqrt{3}$& -1/$\sqrt{3}$& +1& -1 \\
 		3\centering& +1& +1& $+\sqrt{3}$& $+\sqrt{3}$& 3'\centering& +1/$\sqrt{3}$& +1/$\sqrt{3}$& +1& +1\\
 		4\centering& -1& +1& $-\sqrt{3}$& $+\sqrt{3}$& 4'\centering& -1/$\sqrt{3}$& +1/$\sqrt{3}$& -1& +1\\
 		\hline
 	\end{tabular}
 \end{table}		
-The element geometry and natural coordinates are shown in Figure \ref{fig: Quad4_basic}. There is only one type of node and associated shape function. We consider node 1 to be a typical node. From Figure \ref{fig: Quad4_2} we can form:
+The element geometry and natural coordinate are shown in Figure \ref{fig: Quad4_1}. There is only one type of node and associated shape function. We consider node 1 to be a typical node. From Figure \ref{fig: Quad4_2} we can form:
 \begin{equation} \label{eq: Quad4_1}
 N_1^e = c_1L_{2-3}L_{3-4}
 \end{equation}
@@ -409,7 +405,7 @@ N_3^e = \frac{1}{4} \left(1 + \xi\right) \left( 1 + \eta\right)
 \begin{equation}
 N_4^e = \frac{1}{4} \left(1 - \xi\right) \left( 1 + \eta\right)
 \end{equation}
-When we have all the shape functions for Gauss element, we are able to extrapolate the components (stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to Table \ref{tab: Quad4} and  Figure \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the coordinates of corner nodes into Gauss coordinate with the shape function of each Gauss points. Then we can get the relation between corner nodes and Gauss points as:
+When we have all the shape functions for Gauss element, we are able to extrapolate the components (stress, strain, etc) from Gauss points $k_i^G$ to corner nodes $k_i^E$. According to Table \ref{tab: Quad4} and  Figure \ref{fig: Quad4_1}, we have the corner nodes in Gauss coordinate: $k_1^E(-\sqrt{3}, -\sqrt{3})$ , $k_2^E(\sqrt{3}, -\sqrt{3})$, $k_3^E(\sqrt{3}, \sqrt{3})$, $k_4^E(-\sqrt{3}, \sqrt{3})$. The extrapolation process is to replace all the coordinates of corner nodes into Gauss coordinate with the shape function of each Gauss points. Then we can get the relation between corner nodes and Gauss points as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -442,7 +438,7 @@ Here $w'$ means strains and stresses in this paper. So the $w'$ part can be writ
 \epsilon_{4xx} & \epsilon_{4yy} & \epsilon_{4zz} & 2\epsilon_{4yz} & 2\epsilon_{4xz} & 2\epsilon_{4xy}   \\
 \end{pmatrix}
 \end{equation}
-
+Or,
 \begin{equation}
 \begin{pmatrix}
 {w_1}' \\
@@ -458,8 +454,8 @@ Here $w'$ means strains and stresses in this paper. So the $w'$ part can be writ
 \end{equation}
 
 \subsection{Quadrilateral element with eight nodes: Quad8}
-Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The element may be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element for extrapolation. We can chose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner midpoint, and, center nodes, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1}. \\
-According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.8 ], the three types of shape functions are illustrated in Figure for nodes 1, 5, and 9, respectively. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Here we summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}.
+Quad8 is a higher order 2D, 8 node element. This element is defined by 8 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The element can be used as a plane element (plane stress, plane strain) or as an axisymmetric element. For Quad8, we can choose different types of Gauss element for extrapolation. We can choose from four, eight or nine nodes Gauss element as quadrilateral elements. In this paper, we use the Gauss element with nine nodes. The nine-nodes quadrilateral Gauss element has three types of shape functions, which are associated with corner points, midpoint, and center points, respectively. The element coordinate and Gauss element coordinate are illustrated in Figure \ref{fig: Quad8_1}. \\
+According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.8 ], we can summarize the calculation for three typical types, represented by nodes 1, 5 and 9. The three types are illustrated in Figure \ref{fig: Quad8_2}. The procedure for calculating shape function has been clearly expressed in Section \ref{Quad4}. Hence, the shape functions of Quad8 can be formed as:
 
 \begin{equation} \label{eq: Quad8_1}
 N_1^e = c_1 L_{2-3}L_{3-4}L_{5-7} L_{6-8} = c_1 \left(\xi - 1\right) \left(\eta -1\right) \xi \eta
@@ -473,10 +469,8 @@ N_5^e = c_5L_{2-3} L_{1-4} L_{6-8} L_{3-4} = c_5 \left(\xi -1 \right) \left( \xi
 N_9^e = c_9L_{1-2} L_{2-3} L_{3-4} L_{4-1} = c_9 \left(\xi -1 \right) \left( \eta - 1\right) \left(\xi + 1\right) \left( \eta + 1\right) = c_9 \left(1-\xi^2\right) \left(1 - \eta^2\right)
 \end{equation}
 By applying the normalization conditions, the results are:
-\begin{equation*}
-c_1 = \frac{1}{4}, \quad c_5 = -\frac{1}{2}, c_9 = 1
-\end{equation*}
-By following this approach, all the shape functions can be calculated:
+$c_1 = \frac{1}{4}$, $\quad c_5 = -\frac{1}{2}$,  and $c_9 = 1$. \\
+By following this approach, all the shape functions can be calculated as:
 \begin{equation}
 N_1 = \frac{1}{4} \left(\xi - 1\right) \left( \eta -1 \right) \cdot\xi \cdot\eta
 \end{equation}
@@ -568,12 +562,12 @@ a_9 = -0.6666666
 		\includegraphics[width=6cm,clip]{Quad8_2.pdf} 
 		\includegraphics[width=6cm,clip]{Quad8_3.pdf}	
 		\includegraphics[width=6cm,clip]{Quad8_4.pdf}
-		\caption{Equation of side opposite corner 1 for Quad8.} \label{fig: Quad8_2}	
+		\caption{Three types of shape functions for Quad8.} \label{fig: Quad8_2}	
 	\end{center} 
 \end{figure}
 
 \subsection{Triangular element with three nodes: Tri3}
-Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.4-5], the shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following approach: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ stand for the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$ and $k = 3$. Hence the general equation can be formed as:
+Tri3 is used for 2D modelling of solid structure. This element is defined by 3 nodes with two degrees of freedom (DOFs) at each node: translation in the nodal $x$ and $y$ direction. The geometry of a 3-node triangle, as is shown in Figure \ref{fig: Tri3_1}, is specified by the location of its three corner nodes on the $\left\{x, y\right\}$ plane. The shape functions for triangular element has a different form, in comparison to quadrilateral elements. The triangular element has its own coordinates, named the triangular coordinates. According to the work of Carlos A. Felippa [\cite{Felippa} section 18, p.4-5], the shape functions based on this coordinate can be formed as: $N_i = \xi_i$ for $i = 1, 2, 3.$ The shape function can be derived from the following approach: the equation of the triangle edge corresponding to node $i$ is $L_{j-k} = \xi_i = 0$, in which $j$ and $k$ stand for the cyclic permutations of $i$. See Figure \ref{fig: Tri3_2} for $i = 1$, $j=2$, and $k = 3$. Hence, the general equation can be formed as:
 \begin{equation}
 N_i^e = c_iL_i
 \end{equation}
@@ -599,7 +593,7 @@ w_3 \\
 {w_3}' \\
 \end{pmatrix}
 \end{equation}
-According to the work of Carlos A. Felippa [\cite{Felippa} section 15 p.5-6], it is good to express the quantities in triangular coordinates when the type of element are formed by triangular. However, quantities such as displacements, strains and stresses are often calculated in the Cartesian coordinate system. Thus, the transformation functions from Cartesian coordinate system to the triangular coordinate system is necessary. The following equation shows the relation between this two systems:
+According to the work of Carlos A. Felippa [\cite{Felippa} section 15, p.5-6], it is good to express the quantities in triangular coordinates when the type of element are formed by triangular. However, quantities such as displacements, strains and stresses are often calculated in the Cartesian coordinate system. Thus, the transformation functions from Cartesian coordinate system to the triangular coordinate system is necessary. The following equations show the relation between these two coordinate systems:
 \begin{equation}
 \begin{pmatrix}
 1 \\
@@ -773,7 +767,7 @@ a_7 = +0.22222222 \\
 	\begin{center}
 		\includegraphics[width=6cm,clip]{Tri6_2.pdf}		
 		\includegraphics[width=6cm,clip]{Tri6_3.pdf}		
-		\caption{Equation of side opposite corner 1 for Tri6.} \label{fig: Tri6_2}
+		\caption{Two types of shape functions for Tri6.} \label{fig: Tri6_2}
 		
 	\end{center} 
 \end{figure}
@@ -796,7 +790,7 @@ N_3 = L_3
 \begin{equation}
 N_4 = L_4
 \end{equation}
- We take a tetrahedron element with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can conclude four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $(j=1.927051, k=-0.309017)$. The procedure to calculate the extrapolation function of Tet4 is similar as Tri3, because they both use their own coordinate system. After inserting the corner points into shape function, the extrapolation of Tet4 is shown as:
+ We take a tetrahedron element with four nodes as Gauss element for Gauss integration. The relation between Gauss and nodal coordinate are represented in Table \ref{tab: Tet4}. From this table, we can conclude four corner nodes in Gauss coordinate: $k_1^E(j, k, k, k)$, $k_2^E(k, j, k, k)$, $k_3^E(k, k, j, k)$, $k_4^E(k, k, k, j)$ $[j=1.927051, k=-0.309017]$. The procedure to calculate the extrapolation function of Tet4 is similar as that of Tri3, because they both use their own coordinate system. After inserting the corner points into shape functions, the extrapolation of Tet4 is shown as:
 \begin{equation}
 \begin{pmatrix}
 w_1 \\
@@ -851,7 +845,7 @@ a_2 = -0.309017 \\
 \end{table}		
 
 \subsection{Tetrahedral element with ten nodes: Tet10}
-Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes with three degrees of freedom (DOFs) per node: translation in the nodal $x$, $y$ and $z$ directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. According to the work of Carlos A. Felippa [\cite{Felippa} section 10 p.21], for Tet10 it is possible to choose different types of Gauss element, which contains 1, 4,6,14,15 and 24 integration points. We choose a tetrahedron with four nodes as internal Gauss element for this paper. The shape function of this type of Gauss element is same as the shape functions of Tet4:
+Tet10 is a higher order 3D 10-node solid element. The element is defined by 10 nodes with three degrees of freedom (DOFs) per node: translation in the nodal $x$, $y$ and $z$ directions. The geometry, node location, and coordinate system for this element are shown in Figure \ref{fig: Tet10}. According to the work of Carlos A. Felippa [\cite{Felippa} section 10, p.21], for Tet10 it is possible to choose different types of Gauss element, which contains 1, 4, 6, 14, 15 or 24 integration points. We choose a tetrahedron with four nodes as internal Gauss element in this paper. The shape functions of this type of Gauss element are same as the shape functions of Tet4:
 \begin{equation}
 N_1 = L_1
 \end{equation}
@@ -916,7 +910,7 @@ a_3 = +0.809017
 		4\centering& 0& 0& 0& 1& $\beta$& $\beta$& $\beta$& $\alpha$\\
 		5\centering& 0.5& 0.5& 0& 0& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\beta$\\
 		6\centering& 0.5& 0& 0.5& 0& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\beta$\\
-		7\centering& 0.5& 0& 1& 0.5& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\beta$& $\frac{(\alpha+\beta)}{2}$\\
+		7\centering& 0.5& 0& 0& 0.5& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\beta$& $\frac{(\alpha+\beta)}{2}$\\
 		8\centering& 0& 0.5& 0.5& 0& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$& $\beta$\\
 		9\centering& 0& 0.5& 0& 0.5& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\beta$& $\frac{(\alpha+\beta)}{2}$\\
 		10\centering& 0& 0& 0.5& 0.5& $\beta$& $\beta$& $\frac{(\alpha+\beta)}{2}$& $\frac{(\alpha+\beta)}{2}$\\
@@ -940,7 +934,7 @@ a_3 = +0.809017
 \end{figure}
 
 \section{Assembly}
-In the previous chapter, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom (DOFs). According the work of W. A. Wall [\cite{FiniteElement} p.62-64], in FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D model as an example, which is meshed with two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrix of elements is given as:
+In the previous chapter, we have solved the value of strain and stress in one element. The next step is to assemble strain and stress at each node from the local view to the global view. Meanwhile, element stiffness matrix and force vector are also assembled at each degrees of freedom (DOFs). According the work of W. A. Wall [\cite{FiniteElement} p.62-64], in FEM, the whole primary field can be seen as a continuous field, in which two neighboring element share one or more nodes. Now we take a simple 2D model as an example, which is meshed with two Tri3 element as depicted in Figure \ref{fig: assembly}. We assume that the stiffness matrix $k$ and force vector $f$ for each single element have been calculated beforehand. The stiffness matrices of elements are given as:
 \begin{equation} \label{eq: k_1}
 k^{\left(1\right)} = \begin{pmatrix}
 k_{11}^{\left(1\right)} & k_{12}^{\left(1\right)} &  k_{13}^{\left(1\right)} &  k_{14}^{\left(1\right)} & k_{15}^{\left(1\right)}  & k_{16}^{\left(1\right)}   \\[0.3em]
@@ -1035,7 +1029,7 @@ f_5^{\left(2\right)} \\
 f_6^{\left(2\right)}  \\ 
 \end{pmatrix} 
 \end{equation}
-For strain and stress, we need to assemble the contributions at each node. According to the work of Carlos A. Felippa [\cite{Felippa} section 28 p.6], an extra procedure after assembling strain or stress is calculating the average value by dividing the number of elements that share the same node, because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
+For strain and stress, we need to assemble the contributions at each node. According to the work of Carlos A. Felippa [\cite{Felippa} section 28, p.6], an extra procedure after assembling strain or stress is calculating the average value by dividing the number of elements that share the same node, because the value of strain and stress are discontinuous between neighboring elements. The rule for averaging strain or stress can be formed as:
 \begin{equation}
 \epsilon = \displaystyle\sum_{i=1}^{n} \frac{\epsilon_{i,raw}}{n}
 \\
@@ -1180,7 +1174,7 @@ After building the model, numerical data can be exported as a node list and an e
 \end{table}
 
 \section{Unit Testing with Python}
-According to the documentation of Fred L. Drake, Jr. [\cite{Python}], automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are Tri3, Tri6, Quad4, Quad8, Tet4 and Tet10. We test the strain and stress components with all the element types. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The results of components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. According to the work of Rao V. Dukkipati [\cite{NumericalMethod}], absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
+According to the documentation of Fred L. Drake, Jr. [\cite{Python}], automated unit testing is the best way to determine whether the element type works well. Unit test is the batteries-included test module in the Python standard library. The motivation for writing a unit testing is to evaluate the quality of each element type and try to find the reasons for failed tests. The element types to be tested are Tri3, Tri6, Quad4, Quad8, Tet4 ,and Tet10. We test the strain and stress components with all the element types. As is mentioned before, the numerical solution to a mechanical problem is only an approximate solution. There is an error between the analytical solution and FEM solution for sure. Here we do not have an analytical solution to compare with our AMfe solution. The results of components from ANSYS will be compared to the results that are calculated from AMfe Toolbox. Although the solution from ANSYS is not the analytical solution, it could still help us check the quality of element types in AMfe Toolbox. As a comparison, we need to define both the absolute error and the relative error in the test. According to the work of Rao V. Dukkipati [\cite{NumericalMethod}], absolute error is the magnitude of the difference between actual value and approximate value. It can be defined as:
 \begin{equation}
 e_{abs} = \|X_{actual} - X_{fem} \|
 \end{equation}
@@ -1195,13 +1189,6 @@ In the engineering field, Von Mises stress is usually regarded as a failure crit
 \end{equation}
 The 2D and 3D model for unit testing are build in a simple way. We create a rectangle for 2D elements and a cube for 3D elements. We apply only Dirichlet boundary condition on these models. Figure \ref{fig: PatchMuster} and Figure \ref{fig: UnitTest3D} illustrate the model for 2D and 3D element, respectively. 
 The complete test of all the element types is shown in Table \ref{tab: DirectTesting} and Table \ref{tab: SRTesting}. It is obvious that both algorithms perform well in Tri3 and Quad4. The other element types fail the unit test. It is necessary to investigate into what is wrong with the other element types. 
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=6cm,clip]{UnitTest3D.png} 			
-		\caption{A model for test of 3D elements} \label{fig: UnitTest3D}
-	\end{center}
-\end{figure}
 
 \begin{table} 		
 	\caption{Unit testing of the result using Direct-Evaluation-Algorithms}
@@ -1231,9 +1218,23 @@ The complete test of all the element types is shown in Table \ref{tab: DirectTes
 	\end{tabular}
 \end{table}
 
-\section{The Patch Test}
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=9cm,clip]{PatchMuster.pdf} 			
+		\caption{A model for test of 2D elements} \label{fig: PatchMuster}
+	\end{center}
+\end{figure}
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=8.5cm,clip]{UnitTest3D.png} 			
+		\caption{A model for test of 3D elements} \label{fig: UnitTest3D}
+	\end{center}
+\end{figure}
+
+\section{Patch Test}
 After testing the quality of each element type, we find out that the element types Tri6, Quad8, Tet4, and Tet10 are problematic and need to fixed. In order to fix these problems, we need to know if the finite element program has the correct algorithmic procedure. This is generally not easy to verify when the modelling is too complex. The patch test is a useful technique in checking the performance of element type that is being tested. The basic idea of the patch test is to apply special boundary conditions so as to maintain a constant strain and a constant stress field. This is to simplify a complex problem to a simple one, to which we already know the correct numerical solutions. \\
-According to the theory of Carlos A. Felippa [\cite{Felippa} section 15 p.9-11], the procedures of the displacement patch test are as follows: create a simple geometry that consists of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason the displacement field only applies to exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is setting the strain at every exterior node as 1, which is can be calculated by:
+According to the theory of Carlos A. Felippa [\cite{Felippa} section 15, p.9-11], the procedures of the displacement patch test are as follows: create a simple geometry that consists of one or several element; pick a patch and apply the displacement at exterior nodes and the prescribed displacement field will be set as $u_x = x, u_y = 0$. The reason the displacement field only applies to exterior nodes is that displacements are related to the background continuum. The last step is to verify whether the patch has a constant strain field. The mechanism behind the displacement patch test is setting the strain at every exterior node as 1, which is can be calculated by:
 \begin{equation}
 \frac{\mathrm d u}{\mathrm d x} = 1
 \end{equation}
@@ -1246,14 +1247,9 @@ and,
 \epsilon = \sum N_i \cdot \epsilon_{i}
 \end{equation}
 Here we have $\epsilon_i = 0$ and $\sum N_i = 1$, hence the strain field is constant and equal 1. \\
-Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field from ANSYS can be viewed in Figure \ref{fig: PatchTest}. As is expected, $\epsilon_{xx} = 1$. Thus, we have successfully built the model for a patch test. Now it is time to check whether AMfe Toolbox has the same constant strain field or not. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing strain and strtess in AMfe, the contour plot of strain in ParaView is shown as the picture on right-hand side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result of $\epsilon_ {xx} = 1$. This proves that the displacement patch test has been passed. Other element types,  namely Tri6, Quad4, Quad8, Tet4, and Tet10, each have a constant field. However, the results of the patch test using element Tri6, Quad8, Tet4, and Tet10 are still problematic because all of these elements have the value of 1.5 as the constant strain, as is demonstrate by the problematic result from Tet4 in Figure \ref{fig: Tet4Patch}. It is necessary to investigate why all these elements have the same strain with the value of 1.5.  By debugging the AMfe Code we can find that the strain values at Gauss points are all 1.5. This proves that the Stress-Recovery-Algorithms is correct. The problem exists in the calculation of the strain at Gauss points. Moreover, all of these element types except Tri3 and Quad4 have the same problem.   
+Now we take Tri3 as an example in implementing the displacement patch test. We create a simple rectangle that consists of two Tri3 element in ANSYS, and the prescribed displacement field is depicted in Figure \ref{fig: PatchMuster}. Strain field from ANSYS can be viewed in Figure \ref{fig: PatchTest}. As is expected, $\epsilon_{xx} = 1$. Thus, we have successfully built the model for a patch test. Now it is time to check whether AMfe Toolbox has the same constant strain field or not. We export the node, element, and displacement data from ANSYS and import all of them into AMfe Toolbox. After computing strain and strtess in AMfe, the contour plot of strain in ParaView is shown as the picture on right-hand side of Figure \ref{fig: PatchTest}. The plot from AMfe Toolbox illustrates the same result of $\epsilon_ {xx} = 1$. This proves that the displacement patch test has been passed. Other element types,  namely Tri6, Quad4, Quad8, Tet4, and Tet10, each have a constant field. However, the results of the patch test using element Tri6, Quad8, Tet4, and Tet10 are still problematic because all of these elements have the value of 1.5 as the constant strain, as is demonstrated by the problematic result from Tet4 in Figure \ref{fig: Tet4Patch}. It is necessary to investigate why these elements have the same strain with the value of 1.5.  By debugging the AMfe Code we can find that the strain values at Gauss points are all 1.5. This proves that the Stress-Recovery-Algorithms is correct. The problem exists in the calculation of the strain at Gauss points. Moreover, all of these element types except Tri3 and Quad4 have the same problem.   
 
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=10cm,clip]{PatchMuster.pdf} 			
-		\caption{A model for test of 2D elements} \label{fig: PatchMuster}
-	\end{center}
-\end{figure}
+
 
 \begin{figure}
 	\begin{center}
@@ -1266,12 +1262,12 @@ Now we take Tri3 as an example in implementing the displacement patch test. We c
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=8cm,clip]{Tet4Patch.pdf} 			
-		\caption{Patch Test of Tet4} \label{fig: Tet4Patch}
+		\caption{Patch test of Tet4} \label{fig: Tet4Patch}
 	\end{center}
 \end{figure}
 
 \section{Convergence Analysis}
-We can either decrease the element size or increase the polynomial degrees of the shape function to approach an relatively exact approximation. This process is denoted as convergence. A convergence analysis provides a function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. On the one hand, because of the technical restriction, we can only export the node, element, and displacement lists from ANSYS and set all of them as input into AMfe Toolbox for solving strain and stress. As of now, we did not reverse the process and solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. However, it is still a feasible plan for future research. On the other hand, we can analyse this problem using another software, Gmsh, as Pre-Processing tool. The procedures of our convergence analysis for investigating 2D elements are as follows: first, we create a 2D geometry in ANSYS and generate a fine meshing with element types Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case, we do not have the analytical solution, thus the displacement result in this fine meshing will be regarded as a referential solution. In next step, we create an identical modelling in Gmsh and refine the meshing of all the 2D element types by decreasing the size of the elements. Then, we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom (DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element types, Tet4 and Tet10, can also be analysed using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure \ref{fig: Convergence3D}.
+We can either decrease the element size or increase the polynomial degrees of the shape function to approach an relatively exact approximation. This process is denoted as convergence. A convergence analysis provides a function to reduce the relative error of the solution with increasing number of degrees of freedom [\cite{FiniteElement}]. An example of convergence analysis is illustrated in Figure \ref{fig: convergence}. On the one hand, because of the technical restriction for now, we can only export the node, element, and displacement lists from ANSYS and set all of them as input into AMfe Toolbox for solving strain and stress. As of now, we did not reverse the process and solve the displacement by using prescribed Neumann boundary condition and Dirichlet boundary condition as input. However, it is still a feasible plan for future research. On the other hand, we can analyse this problem using another software, Gmsh, as Pre-Processing tool. The procedures of our convergence analysis for investigating 2D elements are as follows: first, we create a 2D geometry in ANSYS and generate a fine meshing with element types Quad4, Quad8, Tri3, and Tri6, respectively. Then we pick one node to view the displacement. In this case, we do not have the analytical solution, thus the displacement result in this fine meshing will be regarded as a referential solution. In next step, we create an identical modelling in Gmsh and refine the meshing of all the 2D element types by decreasing the size of the elements. Then, we can record the displacement results of both AMfe and ANSYS from meshing with different degrees of freedom (DOFs), and plot the corresponding ratios of AMfe results to ANSYS results. The 3D element types, Tet4 and Tet10, can also be analysed using this approach. An example of 2D model meshing with Tri3 is shown in Figure \ref{fig: Convergence2D} and an example of 3D model meshing with Tet4 is shown in Figure \ref{fig: Convergence3D}.
 The displacement for each of the 2D element types has been recorded in Table \ref{tab: TriConvergence} and Table \ref{tab: QuadConvergence}. The displacement for 3D element types are represented in Table \ref{tab: TetConvergence}. The same nodal displacements from a fine meshing in ANSYS are:
 \begin{equation*}
 2D: Ux = -0.0015045; Uy = 0.011738
@@ -1293,7 +1289,7 @@ The convergence plots of 2D element types are depicted in Figure \ref{fig: TriCo
 \begin{figure}[htbp]
 	\begin{center}	
 		\includegraphics[width=10cm,clip]{Convergence2D.png} 			
-		\caption{2D model meshing with Tri3 for displacement convergence analysis; P as observer point} \label{fig: Convergence2D}
+		\caption{2D model meshing with Tri3 for displacement convergence analysis; P as the observer point} \label{fig: Convergence2D}
 	\end{center}
 \end{figure}
 
@@ -1382,7 +1378,7 @@ The convergence plots of 2D element types are depicted in Figure \ref{fig: TriCo
 		\hline  
 	\end{tabular}
 \end{table}
-It is also important to check the convergence of Von Mises stress. Thus we refine the meshing in a 2D or 3D modelling using all the element types in ANSYS, and then export the data of node, element, and displacement from ANSYS and import them into AMfe Toolbox. The next step is to run the code to get the computing results for our convergence study. $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$ are for 2D convergence analysis and $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$, $\sigma_{xy}$, $\sigma_{yz}$, $\sigma_{xz}$ are for 3D convergence analysis.   Then we can use these values to calculate the Von Mises stress: 
+It is also important to check the convergence of Von Mises stress. Thus we refine the meshing in a 2D or 3D modelling using all the element types in ANSYS, and then export the data of node, element, and displacement from ANSYS and import them into AMfe Toolbox. The next step is to run the code to get the computing results for our convergence study. $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$ are for 2D convergence analysis and $\sigma_{xy}$, $\sigma_{yy}$, $\sigma_{zz}$, $\sigma_{xy}$, $\sigma_{yz}$, $\sigma_{xz}$ are for 3D convergence analysis.  According to the work of Von Mises [\cite{vonMisesR}], we can use these above values to calculate the Von Mises stress: 
 \begin{equation}
 \sigma_v = \sqrt{\frac{1}{2}\left[\left(\sigma_{11}-\sigma_{22}\right)^2 + \left(\sigma_{22}-\sigma_{33}\right)^2 + \left(\sigma_{33}-\sigma_{11}\right)^2 + 6\left({\sigma_{12}}^2 + {\sigma_{23}}^2 + {\sigma_{31}}^2 \right) \right]}
 \end{equation}
@@ -1403,7 +1399,7 @@ The 2D model is built as is shown in Figure \ref{fig: twoDmodel} and the 3D mode
 	\begin{center}	
 		\includegraphics[width=7cm,clip]{threeDmodel1.png} 
 	    \includegraphics[width=7cm,clip]{threeDmodel2.png} 			
-		\caption{Left: Top view of the tank; Right: the 1/16 model of the tank, point D is regarded as the observer point for analysis} \label{fig: threeDmodel}
+		\caption{Left: Top view of the 3D tank model; Right: the 1/16 model of the tank, point D is regarded as the observer point for analysis} \label{fig: threeDmodel}
 	\end{center}
 \end{figure}
 
@@ -1411,18 +1407,18 @@ The 2D model is built as is shown in Figure \ref{fig: twoDmodel} and the 3D mode
 	\caption{Convergence analysis of Von Mises stress} \label{tab: 2DConvergence}
 	\begin{tabular}{ c | c | c | c | c | c | c | c | c| c |c |c } 	
 		DOFs & Tri3 & DOFs & Tri6 & DOFs & Quad4 & DOFs & Quad8 &DOFs&Tet4&DOFs&Tet10 \\ \hline
-		870 & 1812.47 & 3132 & 2106.11 & 854 & 1979.22& 2372  & 2109.74 &1101&90.07&588&71.33 \\ 
-		2682 & 1952.20 & 10058 & 2127.91 & 2320 & 2074.70&6314 & 2126.62&1725 & 86.24 & 906 & 70.41\\
-		4172 & 1981.88 & 15892 &2130.58 & 3448 & 2096.34&  9890 & 2129.87& 3039 & 73.73 & 1352 & 69.53\\
-		5788 & 2009.47 &  22286 &2133.51 & 4882& 2104.64 &13648 & 2135.88&4440 & 72.34 &  2258 &  69.39\\
-		9354 & 2030.88 &  36028 &2138.76 & 7856 & 2112.48&18340 & 2134.44&5652 & 70.57 &  3396 & 69.21\\
-		10952 & 2039.58 &  42344 &2139.34&  9128 & 2113.38&22036 & 2136.23 &6366 & 70.21 &  4351 & 69.16 \\
-		15490 & 2055.98 &   49044 &2137.02&  12310 & 2118.76&25724 & 2137.70& 10461 & 69.52 & 5243 & 69.13\\
-		27332 & 2073.44 & 60214 &2136.87& 21060 & 2122.70&35096 & 2134.58 & 12342& 69.87& 11721&  69.13\\
-		33770 &  2082.39& - & -  & 26384&2127.35&-&-&-&-&-&-\\
-		45032 & 2106.63 & - & - & 29056&2128.73&-&-&-&-&-&-\\
-		68943 & 2124.15 & - & - &  32548& 2128.16&-&-&-&-&-&-\\
-		- & - & - & - &  36750& 2128.62&-&-&-&-&-&-\\
+		870 & 1812.4 & 3132 & 2106.1 & 854 & 1979.2& 2372  & 2109.7 &1101&90.1&588&71.3 \\ 
+		2682 & 1952.2 & 10058 & 2127.9 & 2320 & 2074.7&6314 & 2126.6&1725 & 86.2 & 906 & 70.4\\
+		4172 & 1981.8 & 15892 &2130.5 & 3448 & 2096.3&  9890 & 2129.8& 3039 & 73.7 & 1352 & 69.5\\
+		5788 & 2009.4 &  22286 &2133.5 & 4882& 2104.6 &13648 & 2135.8&4440 & 72.3 &  2258 &  69.3\\
+		9354 & 2030.8 &  36028 &2138.7 & 7856 & 2112.4&18340 & 2134.4&5652 & 70.5 &  3396 & 69.2\\
+		10952 & 2039.5 &  42344 &2139.3&  9128 & 2113.3&22036 & 2136.2 &6366 & 70.2 &  4351 & 69.1 \\
+		15490 & 2055.9 &   49044 &2137.0&  12310 & 2118.7&25724 & 2137.7& 10461 & 69.5 & 5243 & 69.1\\
+		27332 & 2073.4 & 60214 &2136.8& 21060 & 2122.7&35096 & 2134.5 & 12342& 69.8& 11721&  69.1\\
+		33770 &  2082.3& - & -  & 26384&2127.3&-&-&-&-&-&-\\
+		45032 & 2106.6 & - & - & 29056&2128.7&-&-&-&-&-&-\\
+		68943 & 2124.1 & - & - &  32548& 2128.1&-&-&-&-&-&-\\
+		- & - & - & - &  36750& 2128.6&-&-&-&-&-&-\\
 		\hline  
 	\end{tabular}
 \end{table}
@@ -1439,25 +1435,25 @@ The 2D model is built as is shown in Figure \ref{fig: twoDmodel} and the 3D mode
 
 
 \section{Complex Model Test}
-The patch test is only applicable to the simple models. It is meaningful to know how these element types behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate the nodal stress in AMfe by using Direct-Evaluation-Algorithms and Stress-Recovery-Algorithms. The main objective of the complex model test is to compare the strain and stress contour plots of each element type in ANSYS and in AMfe Toolbox by using algorithms. Furthermore, the comparison between the two algorithms is also significant for our research. The results from AMfe Toolbox are displayed in ParaView as a Post-Processing tool. It is worth noting that the order of the components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import an identical color map for ANSYS and ParaView. However, a clear chromatic aberration still exists between the contour plots from ANSYS and ParaView. Figure \ref{fig: QuadConPlot} is an example displaying the color difference. This issue may be fixed when we using an advanced version of ANSYS, because ANSYS 12.0, which we used in this paper, can only offer a 7-bit color in color map. 
+The patch test is only applicable to the simple models. It is meaningful to know how these element types behave in a complex model. Now we create a relatively complex model meshing with each element type and calculate the nodal stress in AMfe by using Direct-Evaluation-Algorithms and Stress-Recovery-Algorithms. The main objective of the complex model test is to compare the strain and stress contour plots of each element type in ANSYS and in AMfe Toolbox by using algorithms. Furthermore, the comparison between the two algorithms is also significant for our research. The results from AMfe Toolbox are displayed in ParaView as a Post-Processing tool. It is worth noting that the order of the components for tensors follows this mapping rule: 0-xx; 1-yy; 2-zz;  3-yy; 4-yz; 5-xz; 6-zz; 7-xz; 8-xy. For a clear comparison and good contrast, we import an identical color map for ANSYS and ParaView. However, a clear chromatic aberration still exists between the contour plots from ANSYS and ParaView. Figure \ref{fig: Color} is an example displaying the color difference. This issue may be fixed when we using an advanced version of ANSYS, because ANSYS 12.0, which we used in this paper, can only offer a 7-bit color in color map. 
 
-Figure \ref{fig: Tri3_Exx} to Figure \ref{fig: Tri3_Sxy} illustrate the contour plot of strain and stress in all directions. The contour plots from AMfe are meshed with element type Tri3 and the contour plots from ANSYS are meshed with element PLANE42 (triangular option). According to the documentation of ANSYS [\cite{APDL}], "PLANE42 is used for 2D modeling of solid structures. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions."
-By comparing the plots from AMfe and ANSYS, we can find that there is no difference between the two algorithms in AMfe. The solutions of all components from AMfe are very similar to the corresponding solutions from ANSYS. 
+Figure \ref{fig: Tri3_Exx} to Figure \ref{fig: Tri3_Sxy} illustrate the contour plots of strain and stress in all directions that the contour plots from AMfe are meshed with element type Tri3 and the contour plots from ANSYS are meshed with element PLANE42 (triangular option). According to the documentation of ANSYS [\cite{APDL}], "PLANE42 is used for 2D modeling of solid structures. The element can be used either as a plane element (plane stress or plane strain) or as an axisymmetric element. The element is defined by four nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions."
+By comparing the plots from AMfe and ANSYS, we can find that there is no difference between the results from the two algorithms in AMfe. The solutions of all components from AMfe are very similar to the corresponding solutions from ANSYS. 
 
-Figure \ref{fig: Tri6_Exx} to Figure \ref{fig: Tri6_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tri6 and the contour plots from ANSYS are meshed with element PLANE2. According to the documentation of ANSYS [\cite{APDL}], "PLANE2 is a 6-node triangular element. The element is defined by six nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions." The plots show that the AMfe solutions from Stress-Recovery-Algorithms are relatively closer to the ANSYS solutions than that of Direct-Evaluation-Algorithms, which has higher extreme values of strain and stress than ANSYS solution at corner points and the inner side of circle. 
+Figure \ref{fig: Tri6_Exx} to Figure \ref{fig: Tri6_Sxy} illustrate the contour plots of strain and stress in all directions that the contour plots from AMfe are meshed with element type Tri6 and the contour plots from ANSYS are meshed with element PLANE2. According to the documentation of ANSYS [\cite{APDL}], "PLANE2 is a 6-node triangular element. The element is defined by six nodes having two degrees of freedom at each node: translations in the nodal $x$ and $y$ directions." The plots show that the AMfe solutions from Stress-Recovery-Algorithms are relatively closer to the ANSYS solutions than that of Direct-Evaluation-Algorithms, which has higher extreme values of strain and stress than ANSYS solution at corner points and the inner side of circle. 
 
-Figure \ref{fig: Quad4_Exx} to Figure \ref{fig: Quad4_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Quad4 and the contour plots from ANSYS are meshed with element PLANE42 (quadrangle option). We can observe from the plots that the AMfe solutions from Stress-Recovery-Algorithms is close to ANSYS solutions. The deviation of results from Direct-Evaluation-Algorithms appears at same locations as that of Tri6 and the values of results in the middle range appear closer to the ANSYS than the values at the ends do.
+Figure \ref{fig: Quad4_Exx} to Figure \ref{fig: Quad4_Sxy} illustrate the contour plots of strain and stress in all directions that the contour plots from AMfe are meshed with element type Quad4 and the contour plots from ANSYS are meshed with element PLANE42 (default option). We can observe from the plots that the AMfe solutions from Stress-Recovery-Algorithms is close to ANSYS solutions. The deviation of results from Direct-Evaluation-Algorithms appears at same locations as that of Tri6 and the values of results in the middle range appear closer to the ANSYS solutions than the values at the ends do.
 
-Figure \ref{fig: Quad8_Exx} to Figure \ref{fig: Quad8_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Quad8 and the contour plots from ANSYS are meshed with element PLANE82. According to the documentation of ANSYS [\cite{APDL}], "Plane82 is a higher order version of the 2D, four node element (PLANE82). It provides more accurate results for mixed (quadrilateral-triangular) automatic meshes and can tolerate irregular shapes without as much loss of accuracy. The 8-node element is defined by eight nodes having two degrees of freedom at each node: translations in nodal $x$ and $y$ directions." Both comparison between the AMfe solution from the two algorithms and the ANSYS solution and the comparison between the solutions from the two algorithms are similar to those comparisons of Quad4. 
+Figure \ref{fig: Quad8_Exx} to Figure \ref{fig: Quad8_Sxy} illustrate the contour plots of strain and stress in all directions that the contour plots from AMfe are meshed with element type Quad8 and the contour plots from ANSYS are meshed with element PLANE82. According to the documentation of ANSYS [\cite{APDL}], "Plane82 is a higher order version of the 2D, four node element (PLANE42). It provides more accurate results for mixed (quadrilateral-triangular) automatic meshes and can tolerate irregular shapes without as much loss of accuracy. The 8-node element is defined by eight nodes having two degrees of freedom at each node: translations in nodal $x$ and $y$ directions." Both comparison between the AMfe solution from the two algorithms and the ANSYS solution and the comparison between the solutions from the two algorithms are similar to those comparisons of Quad4. 
 
-Figure \ref{fig: Tet4_Exx} to Figure \ref{fig: Tet4_Sxy} illustrate the contour plots of strain and stress in all directions. The contour plots from AMfe are meshed with element type Tet4 and the contour plots from ANSYS are meshed with element SOLID45. According to the documentation of ANSYS [\cite{APDL}], "SOLID45 is used for the 3D modeling of solid structures. The element is defined by eight nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." The plots demonstrate that there is no difference between the two algorithms from AMfe. The two solutions from AMfe have a relative bad performance in shear strain/stress than normal strain/stress. 
+Figure \ref{fig: Tet4_Exx} to Figure \ref{fig: Tet4_Sxz} illustrate the contour plots of strain and stress in all directions that the contour plots from AMfe are meshed with element type Tet4 and the contour plots from ANSYS are meshed with element SOLID45. According to the documentation of ANSYS [\cite{APDL}], "SOLID45 is used for the 3D modeling of solid structures. The element is defined by eight nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." The plots demonstrate that there is no difference between the two algorithms from AMfe. The two solutions from AMfe have a relative bad performance in shear strain/stress than normal strain/stress. 
 
-Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contour plot of strain and stress in all direction. The contour plots from AMfe are meshed with element type Tet10 and the contour plot from ANSYS is meshed with element SOLID187 (tetrahedron option). According to the documentation of ANSYS [\cite{APDL}], "SOLID187 element is a higher order 3D, 10-node element. SOLID187 has a quadratic displacement behavior and is well suited to modeling irregular meshes. The element is defined by 10 nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." Tet10 has a similar problem as Tet4 and the solutions in shear components appear not good. The plots also show that the solutions from Stress-Recovery-Algorithms performs better than the solutions from Direct-Evaluation-Algorithm. 
+Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxz} illustrate the contour plots of strain and stress in all direction that the contour plots from AMfe are meshed with element type Tet10 and the contour plots from ANSYS are meshed with element SOLID187 (tetrahedron option). According to the documentation of ANSYS [\cite{APDL}], "SOLID187 element is a higher order 3D, 10-node element. SOLID187 has a quadratic displacement behavior and is well suited to modeling irregular meshes. The element is defined by 10 nodes having three degrees of freedom at each node: translations in the nodal $x$, $y$, and $z$ directions." Tet10 has a similar problem as Tet4 and the solutions in shear components appear not good. The plots also show that the solutions from Stress-Recovery-Algorithms performs better than the solutions from Direct-Evaluation-Algorithm. 
 
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=5.5cm,clip]{ParaViewColor.png} 	
-		\includegraphics[width=7cm,clip]{ANSYSColor.png} 	
+		\includegraphics[width=8cm,clip]{ANSYSColor.png} 	
 		\caption{Chromatic aberration between ParaView and ANSYS} \label{fig: Color}
 	\end{center}
 \end{figure}
@@ -1468,7 +1464,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Exx.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Exx_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Exx_P.png} 	
-		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exx}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1478,7 +1474,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Eyy_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Eyy_P.png} 		
-		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Eyy}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1488,7 +1484,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Exy.png} 
 		\includegraphics[width=7cm,clip]{TTri3_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Exy_P.png} 		
-		\caption{Mesh with Tri3, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exy}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1498,7 +1494,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Sxx_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Sxx_P.png} 		
-		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxx}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1508,7 +1504,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Syy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Syy_PD.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Syy_P.png} 		
-		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Syy}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1518,7 +1514,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{TTri3_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{TTri3_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{TTri3_Sxy_P.png} 		
-		\caption{Mesh with Tri3, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxy}
+		\caption{Mesh with Tri3 in AMfe and Mesh with PLANE42 (triangular option) in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri3_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1528,7 +1524,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Exx.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exx_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Exx_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exx}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1538,7 +1534,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Eyy.png} 
 		\includegraphics[width=7cm,clip]{Tri6_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Eyy_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Eyy}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1548,7 +1544,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exy_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Exy_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exy}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1558,7 +1554,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Sxx_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Sxx_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxx}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1568,7 +1564,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Tri6_Syy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Syy_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Syy}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1578,7 +1574,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tri6_Sxy.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tri6_Sxy_P.png} 		
-		\caption{Mesh with Tri6, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxy}
+		\caption{Mesh with Tri6 in AMfe and Mesh with PLANE2 in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tri6_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1589,7 +1585,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Exx.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Exx_PD.png} 				
 		\includegraphics[width=7cm,clip]{Quad4_Exx_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exx}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1599,7 +1595,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad4_Eyy_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Eyy}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1609,7 +1605,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad4_Exy_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exy}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1619,7 +1615,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Sxx.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad4_Sxx_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxx}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1629,7 +1625,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Syy.png} 
 		\includegraphics[width=7cm,clip]{Quad4_Syy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad4_Syy_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Syy}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1639,7 +1635,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad4_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Sxy_PD.png} 	
 		\includegraphics[width=7cm,clip]{Quad4_Sxy_P.png} 		
-		\caption{Mesh with Quad4, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxy}
+		\caption{Mesh with Quad4 in AMfe and Mesh with PLANE42 in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad4_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1649,7 +1645,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Exx.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Exx_PD.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Exx_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exx}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1659,7 +1655,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Eyy.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Eyy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Eyy_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Eyy}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1669,7 +1665,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Exy.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Exy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Exy_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exy}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1679,7 +1675,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Sxx.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Quad8_Sxx_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxx}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1689,7 +1685,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Quad8_Syy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad8_Syy_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Syy}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1699,7 +1695,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Quad8_Sxy.png} 
 		\includegraphics[width=7cm,clip]{Quad8_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Quad8_Sxy_P.png} 		
-		\caption{Mesh with Quad8, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxy}
+		\caption{Mesh with Quad8 in AMfe and Mesh with PLANE82 in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Quad8_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1709,7 +1705,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Exx.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExxPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4ExxP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exx}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1719,7 +1715,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Eyy.png} 		
 		\includegraphics[width=7cm,clip]{Tet4EyyPD.png} 
 		\includegraphics[width=7cm,clip]{Tet4EyyP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyy}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1729,7 +1725,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Ezz.png} 
 		\includegraphics[width=7cm,clip]{Tet4EzzPD.png} 				
 		\includegraphics[width=7cm,clip]{Tet4EzzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Ezz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Ezz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1739,7 +1735,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExyPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4ExyP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exy}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1749,7 +1745,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Eyz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4EyzPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4EyzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Eyz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1759,7 +1755,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Exz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExzPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4ExzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Exz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1769,7 +1765,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxxPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxxP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxx}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1779,7 +1775,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Syy.png} 
 		\includegraphics[width=7cm,clip]{Tet4SyyPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4SyyP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syy}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1789,7 +1785,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Szz.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SzzPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SzzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Szz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Szz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1799,7 +1795,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Sxy.png} 		
 		\includegraphics[width=7cm,clip]{Tet4SxyPD.png} 	
 		\includegraphics[width=7cm,clip]{Tet4SxyP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxy}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1809,7 +1805,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Syz.png} 
 		\includegraphics[width=7cm,clip]{Tet4SyzPD.png} 			
 		\includegraphics[width=7cm,clip]{Tet4SyzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Syz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1819,7 +1815,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=13cm,clip]{Tet4Sxz.png} 
 		\includegraphics[width=7cm,clip]{Tet4SxzPD.png} 		
 		\includegraphics[width=7cm,clip]{Tet4SxzP.png} 		
-		\caption{Mesh with Tet4, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxz}
+		\caption{Mesh with Tet4 in AMfe and Mesh with SOLID45 in ANSYS, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet4_Sxz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1829,7 +1825,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Exx.png}
 		\includegraphics[width=7cm,clip]{Tet10_Exx_PD.png}  		
 		\includegraphics[width=7cm,clip]{Tet10_Exx_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exx}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{xx}$ in ANSYS; lower left: contour plot of $\epsilon_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1839,7 +1835,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Eyy.png} 	
 		\includegraphics[width=7.5cm,clip]{Tet10_Eyy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Eyy_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyy}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{yy}$ in ANSYS; lower left: contour plot of $\epsilon_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1849,7 +1845,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Ezz.png} 
 		\includegraphics[width=7.5cm,clip]{Tet10_Ezz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Ezz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Ezz}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{zz}$ in ANSYS; lower left: contour plot of $\epsilon_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Ezz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1859,7 +1855,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Exy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Exy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Exy_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exy}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{xy}$ in ANSYS; lower left: contour plot of $\epsilon_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1869,7 +1865,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Eyz.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Eyz_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Eyz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyz}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{yz}$ in ANSYS; lower left: contour plot of $\epsilon_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Eyz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1878,8 +1874,8 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 	\begin{center}
 		\includegraphics[width=11cm,clip]{Tet10_Exz.png} 
 		\includegraphics[width=7cm,clip]{Tet10_Exz_PD.png} 			
-		\includegraphics[width=7cm,clip]{Tet10_Exz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exz}
+		\includegraphics[width=6.5cm,clip]{Tet10_Exz_P.png} 		
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\epsilon_{xz}$ in ANSYS; lower left: contour plot of $\epsilon_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\epsilon_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Exz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1889,7 +1885,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Sxx.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxx_PD.png} 			
 		\includegraphics[width=7cm,clip]{Tet10_Sxx_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxx}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{xx}$ in ANSYS; lower left: contour plot of $\sigma_{xx}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xx}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxx}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1899,7 +1895,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Syy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Syy_PD.png} 			
 		\includegraphics[width=7cm,clip]{Tet10_Syy_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syy}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{yy}$ in ANSYS; lower left: contour plot of $\sigma_{yy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1909,7 +1905,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Szz.png} 
 		\includegraphics[width=7cm,clip]{Tet10_Szz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Szz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Szz}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{zz}$ in ANSYS; lower left: contour plot of $\sigma_{zz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{zz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Szz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1919,7 +1915,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Sxy.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxy_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Sxy_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxy}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{xy}$ in ANSYS; lower left: contour plot of $\sigma_{xy}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xy}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxy}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1929,7 +1925,7 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Syz.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Syz_PD.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Syz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syz}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{yz}$ in ANSYS; lower left: contour plot of $\sigma_{yz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{yz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Syz}
 	\end{center}
 \end{figure}
 \clearpage 
@@ -1939,28 +1935,21 @@ Figure \ref{fig: Tet10_Exx} to Figure \ref{fig: Tet10_Sxy} illustrate the contou
 		\includegraphics[width=11cm,clip]{Tet10_Sxz.png} 		
 		\includegraphics[width=7cm,clip]{Tet10_Sxz_PD.png} 	
 		\includegraphics[width=7cm,clip]{Tet10_Sxz_P.png} 		
-		\caption{Mesh with Tet10, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxz}
+		\caption{Mesh with Tet10 in AMfe and Mesh with SOLID187 in ANSYS, upper: contour plot of $\sigma_{xz}$ in ANSYS; lower left: contour plot of $\sigma_{xz}$ calculated without stress recovery in AMfe; lower right: contour plot of $\sigma_{xz}$ calculated with stress recovery in AMfe} \label{fig: Tet10_Sxz}
 	\end{center}
 \end{figure}
 \clearpage 
 
 \chapter{Conclusion}
 \section{Summary}
-There are two algorithms for calculating the approximation of nodal stress: one is called Direct-Evaluation-Algorithms and the other one is called Stress-Recovery-Algorithms. The latter is based on an extrapolation from the Gauss points to the corner nodes. According to the different element types, it is necessary to choose the suitable the coordinate systems. For quadrilateral elements, the Cartesian coordinate system is an appropriate choice. For triangular and tetrahedral elements, their own coordinate system is more appropriate for the calculation. The type of Gauss element for each element types is also available for selection. We make the selection as follows: 2$\times$2 quadrilateral element with four Gauss points for Quad4; 3$\times$3 quadrilateral element with nine Gauss points for Quad8; triangular element with three Gauss points for Tri3; triangular element with six Gauss points for Tri6; and tetrahedral element with four Gauss points for Tet4 and Tet10. The step after extrapolation of stress from Gauss points is to calculate the average value at each node by dividing the number of elements that share the same node. Then, the nodal stress is finally 'recovered'. 
+There are two algorithms for calculating the approximation of nodal stress: one is called Direct-Evaluation-Algorithms and the other one is called Stress-Recovery-Algorithms. The latter is based on an extrapolation from the Gauss points to the corner nodes. According to the different element types, it is necessary to choose the suitable the coordinate systems. For quadrilateral elements, the Cartesian coordinate system is an appropriate choice. For triangular and tetrahedral elements, their own coordinate system is more appropriate for the calculation. The type of Gauss element for each element type is also available for selection. We make the selection as follows: 2$\times$2 quadrilateral element with four Gauss points for Quad4; 3$\times$3 quadrilateral element with nine Gauss points for Quad8; triangular element with three Gauss points for Tri3; triangular element with six Gauss points for Tri6; and tetrahedral element with four Gauss points for Tet4 and Tet10. The step after extrapolation of stress from Gauss points is to calculate the average value at each node by dividing the number of elements that share the same node. Then, the nodal stress is finally 'recovered'. 
 
-In the implementation part of this thesis, we export the Pre-Processing data from ANSYS modeling and import the above data into AMfe Toolbox for calculation. Then the solutions by Stress-Recovery-Algorithms and Direct-Evaluation-Algorithms are compared to the ANSYS solutions. A unit testing for calculating the Von Mises stress shows that only Tri3 and Quad4 have an acceptable accuracy of Von Mises stress values. Thus, we implement the displacement patch test for each element using both algorithms. All the element types using both algorithms have passed the patch test and Tri6, Quad8, Tet4, and Tet10 obtain the constant strain value of 1.5, which is expected to be 1. And the reason behind this issue has been found by debugging the code. The Pre-calculated strain at Gauss points is 1.5 when the modelling are meshed with Tri6, Quad8, Tet4, and Tet10. Hence, the nodal strain after extrapolation is also 1.5. This proves that the Stress-Recovery-Algorithms works well. In addition, the convergence analyses for displacement and Von Mises stress are also tested. The results of the displacement convergence analyses represent that all the element types converge to their exact solutions. The higher order elements (Tri6 and Tet10) have a relatively higher convergence rate than that of the lower order elements (Tri3 and Tet4). This characteristic is not that discernible in quadrilateral element types (Quad4 and Quad8). The results of Von Mises stress convergence analysis represent that all the element types converge to the exact solutions and the elements with higher order (Tri6, Quad8, and Tet10) converge faster than the ones with lower order (Tri3, Quad4, and Tet4). The results also show that the Quad4 has a higher convergence rate than that of Tri3. The last test is to observe the performance of all the element types in a relatively complex model. We can compare not only the strain/stress contour plots between the solutions from Direct-Evaluation-Algorithms and the solutions from Stress-Recovery-Algorithms, but also the strain/stress contour plots between the solution from ANSYS and the solution from AMfe by the both algorithms. The comparisons among these three solution show that there is no difference between the solution by the both algorithms for Tri3 and Tet4, and the solutions from Stress-Recovery-Algotithms perform better than the solutions from Direct-Evaluation-Algorithms for the other element types (Tri6, Quad4, Quad8, and Tet10). The issue accompanying Direct-Evaluation-Algorithms is the deviation at the value around the extreme values. The values in the middle range appear closer to the ANSYS than the values at the ends do. In summary, Stress-Recovery-Algorithms provide higher accuracy in nodal stress for Tri6, Quad4, Quad8, and Tet10 than Direct-Evaluation-Algorithms do.  
+In the implementation part of this thesis, we export the Pre-Processing data from ANSYS modeling and import the above data into AMfe Toolbox for calculation. Then the solutions by Stress-Recovery-Algorithms and Direct-Evaluation-Algorithms are compared to the ANSYS solutions. A unit testing for calculating the Von Mises stress shows that only Tri3 and Quad4 have an acceptable accuracy of Von Mises stress values. Thus, we implement the displacement patch test for each element using both algorithms. All the element types using both algorithms have passed the patch test and Tri6, Quad8, Tet4, and Tet10 obtain the constant strain value of 1.5, which is expected to be 1. And the reason behind this issue has been found by debugging the code. The Pre-calculated strain at Gauss points is 1.5 when the modelling are meshed with Tri6, Quad8, Tet4, and Tet10. Hence, the nodal strain after extrapolation is also 1.5. This proves that the Stress-Recovery-Algorithms works well. In addition, the convergence analyses for displacement and Von Mises stress are also tested. The results of the displacement convergence analyses represent that all the element types converge to their exact solutions. The higher order elements (Tri6 and Tet10) have a relatively higher convergence rate than that of the lower order elements (Tri3 and Tet4). This characteristic is not that discernible in quadrilateral element types (Quad4 and Quad8). The results of Von Mises stress convergence analysis represent that all the element types converge to the exact solutions and the elements with higher order (Tri6, Quad8, and Tet10) converge faster than the ones with lower order (Tri3, Quad4, and Tet4). The results also show that the Quad4 has a higher convergence rate than that of Tri3. The last test is to observe the performance of all the element types in a relatively complex model. We can compare not only the strain/stress contour plots between the solutions from Direct-Evaluation-Algorithms and the solutions from Stress-Recovery-Algorithms, but also the strain/stress contour plots between the solution from ANSYS and the solution from AMfe by the both algorithms. The comparisons among these three solution show that there is no difference between the solutions by the both algorithms for Tri3 and Tet4, and the solutions from Stress-Recovery-Algotithms perform better than the solutions from Direct-Evaluation-Algorithms for the other element types (Tri6, Quad4, Quad8, and Tet10). The issue accompanying Direct-Evaluation-Algorithms is the deviation at the value around the extreme values. The values in the middle range appear closer to the ANSYS than the values at the ends do. In summary, Stress-Recovery-Algorithms provide higher accuracy in nodal stress for Tri6, Quad4, Quad8, and Tet10 than Direct-Evaluation-Algorithms do.  
 
 
 \section{Recommendation}
-According to the work of Carlos A. Felippa [\cite{Felippa} section 28 p.6], there are two methods in calculating the average nodal stress after stress recovery. One is the approach of unweighted averaging for the nodal stress, which we apply in this paper. The other is weighted averaging for the nodal stress, which allocates the weights to the contributions of element sharing the same node. Stress components and element types could affect their weights in selection.
+According to the work of Carlos A. Felippa [\cite{Felippa} section 28, p.6], there are two methods in calculating the average nodal stress after stress recovery. One is the approach of unweighted averaging for the nodal stress, which we apply in this paper. The other is weighted averaging for the nodal stress, which allocates the weights to the contributions of element sharing the same node. Stress components and element types could affect their weights in selection.
 
 According to the patch test in this paper, we found that the strains at Gauss points with element types Tri6, Quad8, Tet4, and Tet10 are problematic. Therefore, an investigation into the calculation of strain at Gauss points with these above mentioned element types is meaningful in improving the accuracy of nodal strain and stress. 
 
  In this thesis, we only discuss the case of extrapolation from one type of Gauss element. A comparison and discussion of the nodal stress among the extrapolation by using different types of Gauss element would be helpful for the further development of Stress-Recovery-Algorithms. 
-
-% Testing with all element type and formulate a table
-% my_material  = KirchhoffMaterial()	
-% 不同单元之间也可以进行比较
-\cite{qwe}
-\cite{Wang}
-\cite{Felippa}\cite{qwe}

@@ -19,6 +19,65 @@
 
 \refsection{0}
   \sortlist{ynt}{ynt}
+    \entry{vonMisesR}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=ab0c429ccf6b76b93dc38e7583a9b562}{Mises}{M\bibinitperiod}{}{}{von}{v\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{ab0c429ccf6b76b93dc38e7583a9b562}
+      \strng{fullhash}{ab0c429ccf6b76b93dc38e7583a9b562}
+      \field{sortinit}{1}
+      \field{sortinithash}{53e85f4cf497d2a4e1d51786552bcbf1}
+      \field{labelyear}{1913}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Göttin. Nachr. Math. Phys}
+      \field{title}{Mechanik der festen Körper im plastisch deformablen Zustand.}
+      \field{volume}{1}
+      \field{year}{1913}
+      \field{pages}{582\bibrangedash 592}
+      \range{pages}{11}
+    \endentry
+    \entry{Lagrange}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=bbe0b53cebc370cce6bbe8ea7f990a90}{Atkinson}{A\bibinitperiod}{Kendell\bibnamedelima A.}{K\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{2}{%
+        {John Wiley}%
+        {Sons}%
+      }
+      \strng{namehash}{bbe0b53cebc370cce6bbe8ea7f990a90}
+      \strng{fullhash}{bbe0b53cebc370cce6bbe8ea7f990a90}
+      \field{sortinit}{1}
+      \field{sortinithash}{53e85f4cf497d2a4e1d51786552bcbf1}
+      \field{labelyear}{1988}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{title}{An Introduction to Numerical Analysis}
+      \field{volume}{2}
+      \field{year}{1988}
+    \endentry
+    \entry{FEintro}{book}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=4f30eb0290c66cac81c4678fd8b95db4}{Tirupathi\bibnamedelimb R.\bibnamedelimi Chandrupatla}{T\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim C\bibinitperiod}{Ashok\bibnamedelimb D.\bibnamedelimi Belegundu}{A\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim B\bibinitperiod}{}{}{}{}}%
+      }
+      \list{publisher}{1}{%
+        {Prentice Hall}%
+      }
+      \strng{namehash}{4f30eb0290c66cac81c4678fd8b95db4}
+      \strng{fullhash}{4f30eb0290c66cac81c4678fd8b95db4}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2002}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{title}{Introduction to the Finite Element Method}
+      \field{year}{2002}
+    \endentry
     \entry{Felippa}{book}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=982eae6b1cb0e06f233cb01100d7c772}{Felippa}{F\bibinitperiod}{Carlos\bibnamedelima A.}{C\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
@@ -99,6 +158,30 @@
       \field{labeltitlesource}{title}
       \field{title}{Von Mises Stress failure criterion}
       \field{year}{2012}
+    \endentry
+    \entry{APDL}{manual}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=2075b8889c8acd7f768b12421269d890}{ANSYS}{A\bibinitperiod}{Inc}{I\bibinitperiod}{}{}{}{}}%
+      }
+      \list{location}{1}{%
+        {Canonsburg, PA 15317}%
+      }
+      \list{organization}{1}{%
+        {ANSYS, Inc}%
+      }
+      \strng{namehash}{2075b8889c8acd7f768b12421269d890}
+      \strng{fullhash}{2075b8889c8acd7f768b12421269d890}
+      \field{sortinit}{2}
+      \field{sortinithash}{8343b463aacf48517c044b4d2c9c45ed}
+      \field{labelyear}{2013}
+      \field{labelmonth}{11}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Release 15.0}
+      \field{month}{11}
+      \field{title}{ANSYS Mechanical APDL Element Reference}
+      \field{year}{2013}
     \endentry
     \entry{FiniteElement}{book}{}
       \name{author}{1}{}{%
@@ -204,7 +287,6 @@
       \field{year}{2016}
     \endentry
   \endsortlist
-  \missing{bibid}
 \endrefsection
 \endinput
 
